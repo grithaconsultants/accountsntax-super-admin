@@ -1,0 +1,44 @@
+@import "./variables";
+
+
+.bp-card {
+  background: #FFFFFF;
+  box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+
+  .bp-card-pic {
+    width: 68px;
+  }
+
+  .bp-card-data {
+    width: calc(100% - 68px);
+
+    h1 {
+      font-size: 22px;
+      font-family: poppins-medium;
+      color: $themeVoilet;
+    }
+
+    ul{
+      list-style: none;
+
+      li{
+        .dataTlt{
+          font-size: 14px;
+          font-family: poppins-regular;
+          color: $themeVoilet;
+        }
+
+        .dataInfo{
+          font-size: 12px;
+          font-family: poppins-regular;
+          color: $themeTxtColor;
+        }
+
+      }
+
+    }
+
+  }
+
+}

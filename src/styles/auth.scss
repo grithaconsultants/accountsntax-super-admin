@@ -1,0 +1,87 @@
+@import "./variables";
+
+
+.auth-car-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  justify-content: center;
+  height: 100%;
+  background: hsla(240, 100%, 97%, 1);
+
+  background: linear-gradient(225deg, hsla(240, 100%, 97%, 1) 0%, hsla(242, 100%, 93%, 1) 19%, hsla(282, 70%, 94%, 1) 35%, hsla(349, 55%, 92%, 1) 50%, hsla(282, 70%, 94%, 1) 67%, hsla(242, 100%, 93%, 1) 83%, hsla(240, 100%, 97%, 1) 100%);
+
+  background: -moz-linear-gradient(225deg, hsla(240, 100%, 97%, 1) 0%, hsla(242, 100%, 93%, 1) 19%, hsla(282, 70%, 94%, 1) 35%, hsla(349, 55%, 92%, 1) 50%, hsla(282, 70%, 94%, 1) 67%, hsla(242, 100%, 93%, 1) 83%, hsla(240, 100%, 97%, 1) 100%);
+
+  background: -webkit-linear-gradient(225deg, hsla(240, 100%, 97%, 1) 0%, hsla(242, 100%, 93%, 1) 19%, hsla(282, 70%, 94%, 1) 35%, hsla(349, 55%, 92%, 1) 50%, hsla(282, 70%, 94%, 1) 67%, hsla(242, 100%, 93%, 1) 83%, hsla(240, 100%, 97%, 1) 100%);
+}
+
+.auth-form {
+  .a-t-h {
+    display: block;
+  }
+
+  .a-title {
+    font-size: 24px;
+    color: $themeVoilet;
+    font-family: poppins-semi-bold;
+  }
+
+  .a-title-sub {
+    font-size: 14px;
+    color: $themeVoilet;
+    font-family: poppins-regular;
+
+    span {
+      color: $themeOrangeDark;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .otp-sent {
+    .check {
+      color: $themeVoilet;
+      font-size: 18px;
+      font-family: poppins-semi-bold;
+    }
+
+    .check-sm {
+      color: $themeVoilet;
+      font-size: 12px;
+      font-family: poppins-regular;
+    }
+
+  }
+
+  .forgot {
+    font-size: 14px;
+    color: $themeOrangeDark;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .dont-acc {
+    color: $themeTxtColor;
+    font-size: 14px;
+  }
+
+  .new-ac {
+    color: $themeOrangeDark;
+    font-size: 14px;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+  }
+
+}

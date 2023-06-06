@@ -1,0 +1,25 @@
+@import "./variables";
+
+.ant-modal-close-x {
+  display: none !important;
+}
+
+.ant-modal-footer{
+  display: none !important;
+}
+
+.modal-wrapper {
+  .m-tlt {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .m-tlt-sec {
+      font-family: poppins-medium;
+      font-size: 23px;
+      color: $themeVoilet;
+    }
+
+  }
+}

@@ -1,0 +1,180 @@
+@import "./variables";
+
+//sidebar nav icon box
+.iconBox {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // background-color: #FFFFFFaa;
+  border-radius: 5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 !important;
+}
+
+//loader
+
+.loader {
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid #3498db;
+  width: 15px;
+  height: 15px;
+  -webkit-animation: spin 1s linear infinite;
+  /* Safari */
+  animation: spin 1s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+p {
+  margin: 0 !important;
+}
+
+.br-5 {
+  border-radius: 5px;
+}
+
+.br-10 {
+  border-radius: 10px;
+}
+
+.oh {
+  overflow: hidden;
+}
+
+.fs-12 {
+  font-size: 12px;
+}
+
+.fs-20 {
+  font-size: 20px;
+}
+
+.fs-16 {
+  font-size: 16px;
+}
+
+.fs-18 {
+  font-size: 18px;
+}
+
+.fs-14 {
+  font-size: 14px;
+}
+
+.fs-40 {
+  font-size: 40px;
+}
+
+.tx-d {
+  color: $themeTxtColor;
+}
+
+.tx-w {
+  color: #FFFFFF !important;
+}
+
+.tx-o {
+  color: $themeOrange !important;
+}
+
+.tx-v {
+  color: $themeVoilet;
+}
+
+.ff-l {
+  font-family: poppins-light;
+}
+
+.ff-r {
+  font-family: poppins-regular !important;
+}
+
+.ff-m {
+  font-family: poppins-medium !important;
+}
+
+.ff-sb {
+  font-family: poppins-semi-bold;
+}
+
+.ff-b {
+  font-family: poppins-bold;
+}
+
+.bg-o {
+  background-color: $themeOrange;
+}
+
+.bg-lo {
+  background-color: $headerBG;
+}
+
+.bx-11 {
+  box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.05);
+}
+
+.h-115 {
+  height: 115px;
+}
+
+.b-o {
+  border: 1px solid $themeOrange;
+}
+
+.bb-o {
+  border-bottom: 1px solid $themeOrange;
+}
+
+.lh-1{
+  line-height: 1 !important;
+}
+
+
+.events {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.events .ant-badge-status {
+  width: 100%;
+  overflow: hidden;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.notes-month {
+  font-size: 28px;
+  text-align: center;
+}
+.notes-month section {
+  font-size: 28px;
+}

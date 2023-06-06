@@ -1,0 +1,41 @@
+@import "./variables";
+
+
+.invoice-section {
+  width: 100%;
+  background-color: $headerBG;
+  box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+
+}
+
+.billtosec{
+  .title{
+    font-size: 16px;
+    font-family: poppins-regular;
+    color: $themeVoilet;
+  }
+}
+
+.particular{
+
+  .part-tlt{
+    font-size: 18px;
+    font-family: poppins-medium;
+    color: $themeVoilet;
+  }
+
+  .in-table-wrapper{
+    border-radius: 5px 5px 0px 0px;
+    overflow: hidden;
+  }
+
+}
+
+.in-tearms{
+  .part-tlt{
+    font-size: 16px;
+    font-family: poppins-regular;
+    color: $themeVoilet;
+  }
+}

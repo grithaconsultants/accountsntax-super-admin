@@ -1,0 +1,31 @@
+@import "./variables";
+
+
+.pr-section {
+  width: 100%;
+
+  .detail-card {
+
+    box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    overflow-x: hidden;
+
+    .pic-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+  
+    .header{
+      .ant-tabs-nav-wrap{
+        display: flex !important;
+        justify-content: center !important;
+      }
+    }
+  
+  }
+
+
+}

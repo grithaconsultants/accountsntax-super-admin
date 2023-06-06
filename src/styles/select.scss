@@ -1,0 +1,190 @@
+@import "./variables";
+
+.from-header {
+
+  .ant-select-selector {
+    border: 0 !important;
+    background-color: #F5DAD3 !important;
+    width: 200px !important;
+    height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    color: #444444 !important;
+  }
+}
+
+.sl-wr {
+  width: 100%;
+
+  .sl-label {
+    color: $themeVoilet;
+    font-family: poppins-medium;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .from-global {
+    width: 100%;
+
+    border: 1px solid $themeVoilet;
+    border-radius: 5px;
+    overflow: hidden;
+
+    .ant-select-selector {
+      border: 0 !important;
+      width: 100% !important;
+      height: 45px !important;
+      display: flex !important;
+      align-items: center !important;
+      color: #444444 !important;
+
+      .ant-select-selection-item {
+        font-family: poppins-regular !important;
+        font-size: 14px !important;
+      }
+
+    }
+  }
+
+  //date picker
+  .ant-picker {
+    width: 100% !important;
+    height: 45px !important;
+    border: 1px solid $themeVoilet !important;
+  }
+
+  //bottom info
+  .input-tag {
+    color: $themeTxtColor;
+    font-size: 12px;
+    text-align: right;
+  }
+
+}
+
+// date range picker start
+.date-range-wrapper {
+  width: 100%;
+
+  .dr-label {
+    color: $themeVoilet;
+    font-family: poppins-medium;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .ant-picker-range {
+    width: 100% !important;
+    height: 45px !important;
+    border: 1px solid $themeVoilet !important;
+  }
+
+}
+
+// date range picker end
+
+
+///custom input start
+
+
+.simple-input {
+  width: 100%;
+
+  .input-label {
+    color: $themeVoilet;
+    font-family: poppins-medium;
+    font-size: 14px;
+    margin-bottom: 5px;
+
+    sup {
+      color: red;
+    }
+  }
+
+  .ant-input {
+    width: 100% !important;
+    height: 45px !important;
+    border: 1px solid $themeVoilet !important;
+  }
+
+}
+
+.input-tag-b {
+  color: #444444;
+  font-size: 12px;
+  text-align: right;
+  span{
+    color: $themeOrange;
+  }
+}
+
+///custom input end
+
+
+/// input type radio start
+
+.ant-radio-checked {
+  .ant-radio-inner {
+    background-color: $themeVoilet !important;
+    color: $themeVoilet !important;
+    border-color: $themeVoilet !important;
+  }
+}
+
+.ant-radio-wrapper {
+  span {
+    font-family: poppins-regular !important;
+    color: $themeTxtColor !important;
+  }
+}
+
+/// input type radio end
+
+
+/// otp input start
+
+.otp-input {
+  border: 1px solid rgba(103, 50, 117, 0.5);
+  border-radius: 4px;
+  height: 72px;
+  width: 65px !important;
+}
+
+/// otp input end
+
+
+
+
+
+
+/// input type password start
+
+.ant-input-affix-wrapper {
+  width: 100% !important;
+  height: 45px !important;
+  border: 1px solid #673275 !important;
+  overflow: hidden;
+  padding: 10px;
+
+
+  .ant-input {
+    width: 100% !important;
+    border: none !important;
+    height: auto !important;
+  }
+
+}
+
+
+/// input type password end
+/// 
+/// 
+/// input type error start
+.in-error {
+  color: red;
+  font-size: 12px;
+  font-family: poppins-light;
+}
+
+/// input type error end
+//

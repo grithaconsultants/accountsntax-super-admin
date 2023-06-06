@@ -1,2 +1,1 @@
-# accountsntax-super-admin
-accountsntax-super-admin
+# accountsntax-client-app

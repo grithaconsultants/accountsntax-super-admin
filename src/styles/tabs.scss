@@ -1,0 +1,12 @@
+@import "./variables";
+
+
+.ant-tabs-tab-btn{
+  color: $themeTextColor !important;
+}
+
+.ant-tabs-nav {
+  &:before {
+    border: none !important;
+  }
+}

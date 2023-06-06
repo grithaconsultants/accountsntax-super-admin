@@ -1,0 +1,86 @@
+@import "./variables";
+
+.hwrapper {
+  background-color: $headerBG;
+  width: 100%;
+  display: flex;
+  height: 70px;
+  justify-content: space-between;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+
+  .hleft {
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 25px;
+
+    .contBox {
+      width: 100%;
+      display: flex;
+      height: 100%;
+
+      .ringBox {
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+
+      .numb {
+        position: absolute;
+        z-index: 9;
+        left: 13px;
+      }
+
+      .selecBox {
+        width: fit-content;
+        height: 100%;
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+    }
+
+  }
+
+  .hright {
+    width: fit-content;
+    height: 100%;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+
+    .drop {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+    }
+
+    .boxes {
+      display: flex;
+      flex-direction: row-reverse;
+      height: 48px;
+
+      .boxSelf {
+        height: 48px;
+        width: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(225.48deg, #653374 7.15%, #970D81 92.16%);
+        border-radius: 10px;
+      }
+
+      .boxcenter{
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+    }
+
+  }
+
+}

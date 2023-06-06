@@ -1,0 +1,34 @@
+@import "./variables";
+
+.main {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+}
+
+.contSection {
+  width: calc(100vw - 250px);
+  height: 100%;
+  background-color: $contentBG;
+}
+
+.layout-contWrapper {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.layout-cardArea {
+  padding-top: 15px;
+}
+
+@media screen and (max-width: 1200px) {
+
+  .contSection {
+    width: 100vw;
+  }
+}

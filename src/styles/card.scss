@@ -1,0 +1,62 @@
+@import "./variables";
+
+.card-custom {
+
+  border-radius: $headerBG;
+  box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  background-color: $headerBG;
+
+  .cardHeader {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $navItemBorder;
+    padding: 10px;
+
+    span {
+      margin-left: 10px;
+      color: $themeVoilet;
+      font-family: poppins-medium;
+      font-size: 18px;
+    }
+
+  }
+
+  .due-card.cardBody{
+    height: 339px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .cardBody {
+    width: 100%;
+    height: auto;
+
+    .action-block {
+      width: 100%;
+
+      .action-block-self {
+        background-color: $contentBG;
+        display: flex;
+        justify-content: center;
+        box-shadow: 0px 4px 4px $bgLightPink;
+        border-radius: 5px;
+
+        .item-title{
+          color: $themeTextColor;
+          font-family: poppins-medium;
+          font-size: 16px;
+        }
+
+      }
+
+    }
+
+  }
+
+  .box {
+    background-color: cadetblue;
+  }
+
+}

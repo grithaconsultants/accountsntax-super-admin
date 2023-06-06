@@ -1,0 +1,37 @@
+  async function documentUpload(fileSelf, documentId) {
+
+    // debugLog(TAG, ' file seld upload response ', fileSelf);
+
+    const formData = new FormData();
+
+    formData.append('document_id', documentId);
+
+    formData.append('file', {
+      uri: fileSelf.uri,
+      type: fileSelf.type,
+      name: fileSelf.name,
+    });
+
+    try {
+      const config = { headers: { Authorization: `Bearer ${session.token}`, "Content-Type": "multipart/form-data" } };
+      let response = await API.post(EndPoints.getDocumentUploadedWith, formData, config);
+      if (response.status && response.status == 201) {
+        debugLog(TAG, ' file upload success reponse ', response.data);
+      } else {
+        debugLog(TAG, 'error i got in else of file upload');
+      }
+    } catch (error) {
+      debugLog(TAG, 'error i got in catch of file upload', error);
+      ErrorHandler(error);
+    }
+
+  }
+
+
+
+
+      "next-purgecss": "^4.0.0",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^7.8.2",
+    "@zeit/next-css": "^1.0.1",
+    "@fullhuman/postcss-purgecss": "^5.0.0",

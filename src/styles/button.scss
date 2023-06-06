@@ -1,0 +1,94 @@
+@import "./variables";
+
+
+.theme-btn {
+  outline: none;
+  border: none;
+  border-radius: 5px;
+
+  transition: all .3s linear;
+  cursor: pointer;
+}
+
+.btn-theme-color {
+  background: linear-gradient(225.48deg, #653374 7.15%, #970D81 92.16%);
+  color: $btnTitle;
+  transition: all .3s linear;
+  font-family: poppins-medium;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+
+  &:hover {
+    transition: all .3s linear;
+    background: linear-gradient(225.48deg, #622275 7.15%, #7d0169 92.16%);
+  }
+}
+
+.btn-theme-tr {
+  font-family: poppins-medium;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  background-color: transparent;
+  color: $themeVoilet;
+  box-shadow: inset 0px 0px 0px 1px $themeVoilet;
+}
+
+.btn-theme-orange {
+  background-color: $themeOrange;
+  color: $btnTitle;
+  font-family: poppins-regular;
+  font-size: 15px;
+
+  &:hover {
+    transition: all .3s linear;
+    background-color: #f16717;
+  }
+
+}
+
+//button simple
+.btn-sm {
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  transition: all .3s linear;
+  cursor: pointer;
+}
+
+
+
+.btn-sm.voilet {
+  background: linear-gradient(225.48deg, #653374 7.15%, #970D81 92.16%);
+  color: $btnTitle;
+  transition: all .3s linear;
+  font-family: poppins-regular;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 10px 15px 10px 15px;
+
+  &:hover {
+    transition: all .3s linear;
+    background: linear-gradient(225.48deg, #622275 7.15%, #7d0169 92.16%);
+  }
+}
+
+.btn-sm.transparent {
+  background-color: transparent;
+  color: $themeVoilet;
+  transition: all .3s linear;
+  font-family: poppins-regular;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 10px 15px 10px 15px;
+  box-shadow: inset 0px 0px 0px 1px $themeVoilet;
+}
+
+.btn-sm.disable {
+  background-color: #c4c4c4a1 !important;
+  background: #c4c4c4a1 !important;
+  cursor: not-allowed !important;
+}

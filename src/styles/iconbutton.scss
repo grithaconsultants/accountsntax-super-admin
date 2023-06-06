@@ -1,0 +1,46 @@
+@import "./variables";
+
+.ib-self {
+  border: none;
+  outline: none;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $themeOrange;
+  border-radius: 5px;
+  transition: all .3s linear;
+
+  &:hover {
+    transition: all .3s linear;
+    background-color: $themeOrangeDark;
+  }
+}
+
+
+.ilb-self {
+  border: none;
+  height: 44px;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(225.48deg, #653374 7.15%, #970D81 92.16%);
+  border-radius: 5px;
+  padding-left: 23px;
+  padding-right: 23px;
+  color: $btnTitle;
+
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  font-family: poppins-regular;
+  transition: all .3s linear;
+
+  &:hover {
+    transition: all .3s linear;
+    background: linear-gradient(225.48deg, #6d1687 7.15%, #890573 92.16%);
+  }
+
+}

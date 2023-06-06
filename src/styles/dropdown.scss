@@ -1,0 +1,22 @@
+@import "./variables";
+
+
+.ant-dropdown-trigger {
+  width: fit-content !important;
+
+  .ant-space-horizontal {
+    gap: 15px !important;
+  }
+
+  .ant-space-item {
+    font-size: 15px !important;
+    color: $themeVoilet;
+    font-family: poppins-semi-bold !important;
+  }
+
+  svg {
+    fill: $themeVoilet;
+    ;
+  }
+
+}

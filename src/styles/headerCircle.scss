@@ -1,0 +1,50 @@
+@import "./variables";
+
+
+.flex-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  cursor: pointer;
+}
+
+.single-chart {
+  width: 50px;
+  justify-content: space-around;
+}
+
+.circular-chart {
+  display: block;
+  margin: 10px auto;
+  max-width: 100%;
+  max-height: 250px;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: $themeOrange;
+  stroke-width: 3.8;
+}
+
+.circle {
+  fill: none;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  animation: progress 1s ease-out forwards;
+}
+
+@keyframes progress {
+  0% {
+    stroke-dasharray: 0 100;
+  }
+}
+
+.circular-chart.orange .circle {
+  stroke: $themeVoilet;
+}
+
+.percentage {
+  fill: $themeVoilet;
+  font-family: poppins-semi-bold;
+  font-size: 9px;
+  text-anchor: middle;
+}
