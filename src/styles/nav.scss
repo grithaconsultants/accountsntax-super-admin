@@ -1,6 +1,5 @@
 @import "./variables";
 
-
 .navSection {
   width: 250px;
   height: initial;
@@ -8,11 +7,6 @@
   background-color: $bgLightPink;
   overflow-x: hidden;
   transition: all .3s linear;
-
-  .navSelf{
-    overflow-y: auto;
-    height: 100vh;
-  }
 
   // nav{
 

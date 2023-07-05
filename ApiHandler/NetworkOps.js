@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from '@/utils/helper';
 
 const TAG = 'NetworkOps: ';
-const API_TIMEOUT = 10000;
+const API_TIMEOUT = 100000;
 
 axios.interceptors.request.use(async (config) => {
 

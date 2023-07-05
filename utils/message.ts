@@ -6,11 +6,12 @@ export const passwordNotMatched: string = "Password must match.";
 export const integerAllow: string = "Only numbers are allowed.";
 export const numberAllow: string = "Only numbers are allowed.";
 export const contactLength: string = "Phone number must contain 10 digits.";
+export const aadharLength: string = "Aadhaar number must contain 12 digits.";
 export const accountLength: string = "Account number must contain 11 digits.";
 export const hsnMinLength: string = "Account number must contain 3 digits.";
 export const hsnMaxLength: string = "Account number must contain 11 digits.";
 export const noFileSelcted: string = "No file selected.";
-export const fileSizeUnder: string = "%key% file size should be under %size%.";
+export const fileSizeUnder: string = "File size should be under %size%.";
 
 
 

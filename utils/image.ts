@@ -1,28 +1,6 @@
 export const logo776x120: string = "/assets/img/logo776x120.png";
 export const arrowh: string = "/assets/img/arrowh.svg";
-
-
-//sidebar menu
 export const dashboard: string = "/assets/img/dashboard.svg";
-export const rmSvg: string = "/assets/img/rm.svg";
-export const clientmanager: string = "/assets/img/clientmanager.svg";
-export const datarepo: string = "/assets/img/datarepo.svg";
-export const subscription: string = "/assets/img/subscription.svg";
-export const services: string = "/assets/img/services.svg";
-export const accessright: string = "/assets/img/accessrights.svg";
-export const communication: string = "/assets/img/communication.svg";
-export const storage: string = "/assets/img/storage.svg";
-export const promotion: string = "/assets/img/promotion.svg";
-export const compliancestatus: string = "/assets/img/compliancestatus.svg";
-export const task: string = "/assets/img/task.svg";
-export const analytics: string = "/assets/img/analytics.svg";
-export const settings: string = "/assets/img/settings.svg";
-export const attendance: string = "/assets/img/attendance.svg";
-export const bulkimport: string = "/assets/img/bulkimport.svg";
-
-
-
-
 export const account: string = "/assets/img/account.svg";
 export const arrow: string = "/assets/img/arrow.svg";
 export const income_tax: string = "/assets/img/income_tax.svg";
@@ -35,8 +13,12 @@ export const alert: string = "/assets/img/alert.svg";
 
 export const tally: string = "/assets/img/tally.svg";
 export const mis: string = "/assets/img/mis.svg";
+export const wallet: string = "/assets/img/wallet.svg";
 export const profile: string = "/assets/img/profile.svg";
 export const users: string = "/assets/img/users.svg";
+export const settings: string = "/assets/img/settings.svg";
+export const subscription: string = "/assets/img/subscription.svg";
+export const services: string = "/assets/img/services.svg";
 export const about: string = "/assets/img/about.svg";
 export const refer: string = "/assets/img/refer.svg";
 
@@ -51,7 +33,11 @@ export const petty: string = "/assets/img/petty.svg";
 export const create_account: string = "/assets/img/create_account.svg";
 export const view_account: string = "/assets/img/view_account.svg";
 export const upload: string = "/assets/img/upload.svg";
+export const uploadIcon: string = "/assets/img/upload-alt.svg";
+export const receivable: string = "/assets/img/receivable.svg";
 export const clarification: string = "/assets/img/clarification.svg";
+export const filterIcon: string = "/assets/img/filter.svg";
+export const checkIcon: string = "/assets/img/check.svg";
 
 export const bars: string = "/assets/img/bars.svg";
 
@@ -90,8 +76,11 @@ export const techIssue: string = "/assets/img/technical-down.webp";
 export const companyJPG: string = "/assets/img/companylogo.png";
 export const userPNG: string = "/assets/img/user.png";
 
+//services
+export const dpiit: string = "/assets/img/dpiit.png";
+export const brn: string = "/assets/img/brn.png";
+export const incometax: string = "/assets/img/income-tax.png";
+export const iec: string = "/assets/img/iec.png";
+export const labor: string = "/assets/img/labor.png";
+export const nsdl: string = "/assets/img/nsdl.png";
 
-export const userIcon: string = "/assets/img/usericon.svg";
-export const clients: string = "/assets/img/clients.svg";
-export const singleusericon: string = "/assets/img/singleusericon.svg";
-export const buildingIcon: string = "/assets/img/building.svg";

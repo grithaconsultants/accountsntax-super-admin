@@ -1,0 +1,42 @@
+@import "./variables";
+
+.service-card {
+  background-color: #FFFFFF;
+  box-shadow: 0px 4px 4px #F5DAD3;
+  border-radius: 5px;
+
+  .s-header {
+
+    .s-h-tlt {
+      color: $themeVoilet;
+      font-size: 16px;
+      font-family: poppins-medium;
+    }
+
+    border-bottom: 1px solid $borderBottom;
+
+  }
+
+  .s-body {
+    ul {
+      list-style: none;
+    }
+
+    li {
+      font-size: 15px;
+      color: $themeTxtColor;
+      border-bottom: 1px solid $borderBottom;
+      font-family: poppins-regular;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .action-title{
+    font-family: poppins-medium;
+    font-size: 16px;
+    color: $themeVoilet;
+  }
+
+}

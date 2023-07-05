@@ -4,7 +4,7 @@ import { Button, Input, Space } from 'antd';
 
 const InputPassword = (props: any) => {
   
-  const { label, placeholder = "", id, name, type, disabled = false, maxLength, asterisk = false, onChangeEvent } = props;
+  const { label, placeholder = "", id, name, type, disabled = false, maxLength, asterisk = false, onChangeEvent, defaultValue } = props;
 
   return (
 
@@ -19,6 +19,7 @@ const InputPassword = (props: any) => {
           disabled={disabled}
           maxLength={maxLength}
           onChange={onChangeEvent}
+          defaultValue={defaultValue ? defaultValue : ""}
         />
       </div>
     </div>

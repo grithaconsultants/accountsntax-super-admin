@@ -34,7 +34,7 @@ const SimpleDropdown = (props: any) => {
   return (
     <Dropdown menu={{ items }}>
       <a onClick={(e) => e.preventDefault()}>
-        <Space> {title} <DownOutlined /> </Space>
+        <Space> {title} <DownOutlined rev="" /> </Space>
       </a>
     </Dropdown>
   );

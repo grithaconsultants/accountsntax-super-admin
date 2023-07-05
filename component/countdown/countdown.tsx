@@ -21,7 +21,7 @@ function Countdown(props: any) {
     <div className="timer-wrapper ms-1">
       <CountdownCircleTimer
         isPlaying
-        duration={5}
+        duration={25}
         colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
         colorsTime={[10, 6, 3, 0]}
         onComplete={onCompleteEvent}

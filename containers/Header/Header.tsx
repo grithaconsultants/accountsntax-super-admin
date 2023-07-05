@@ -22,12 +22,59 @@ const Header = (props: any) => {
 
   const router = useRouter();
   const { setSide, userData } = props;
-  const [compDis, setCompDis] = useState<any>();
-  const [compSel, setCompSel] = useState<any>();
+  const [compDis, setCompDis] = useState<any>(null);
+  const [compSel, setCompSel] = useState<any>(null);
 
+
+  useEffect(() => {
+
+    if (compDis == null && compSel == null) {
+
+      const comp: any = localStorage.getItem('companies');
+      const selectedDump: any = localStorage.getItem('company');
+
+      // console.log(TAG + ' compList ', comp);
+      // console.log(TAG + ' selectedDump ', selectedDump);
+      // console.log(TAG + ' JSON.parse(selectedDump) ', JSON.parse(selectedDump));
+
+      if (isEmpty(comp)) {
+        router.push('/login');
+      } else {
+
+        let item = {
+          value: "addNewCompany",
+          label: "Add New Company",
+        };
+
+        let parsed = JSON.parse(comp);
+        parsed.splice(0, 0, item);
+
+        setCompDis(parsed);
+
+        let selected = [{
+          value: JSON.parse(selectedDump)._id,
+          label: JSON.parse(selectedDump).name
+        }];
+
+        setCompSel(selected);
+
+      }
+    }
+
+  }, [0]);
 
   function toggleHeader() {
     setSide("open");
+  }
+
+  function toDisplayDrop(compData: any) {
+    const empArr: any = [];
+    compData.map((item: any, index: any) => {
+      empArr.push({
+        value: item._id,
+        label: item.name,
+      });
+    });
   }
 
   const captureChange = (newValue: any) => {
@@ -46,8 +93,79 @@ const Header = (props: any) => {
 
   }
 
+
+
+  async function getUOMCall(apiData: any): Promise<void> {
+
+    NetworkOps.makeGetRequest(`${endPoints.getuoms}?company=${apiData?._id}`, true)
+      .then(async (response: any) => {
+        console.log(TAG, ' api response ', response);
+        if (response?.status == 200 && response?.data?.status == true) {
+          callValidatorUom(response, apiData);
+        } else {
+          ToastComponent(response?.data?.msg);
+          console.log(TAG, ' error got in else ');
+        }
+      })
+      .catch((error: any) => {
+        error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
+        console.log(TAG, ' error i got in catch ', error);
+        router.push(`/technical-issue`);
+      });
+
+  }
+
+
+
+  function callValidatorUom(response: any, apiData: any) {
+
+    if (response?.data?.data && response?.data?.data.length > 0) {
+      localStorage.setItem('uom', JSON.stringify(response?.data?.data));
+      getLedgers(apiData);
+    } else {
+      router.push(`/technical-issue`);
+    }
+
+  }
+
+
+
+  async function getLedgers(apiData: any): Promise<void> {
+
+    NetworkOps.makeGetRequest(`${endPoints.getLedgers}?company=${apiData?._id}`, true)
+      .then(async (response: any) => {
+        console.log(TAG, ' api response ', response);
+        if (response?.status == 200 && response?.data?.status == true) {
+
+          validateLedgers(response);
+
+        } else {
+          ToastComponent(response?.data?.msg);
+          console.log(TAG, ' error got in else ');
+        }
+      })
+      .catch((error: any) => {
+        error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
+        console.log(TAG, ' error i got in catch ', error);
+        router.push(`/technical-issue`);
+      });
+
+  }
+
+  function validateLedgers(response: any) {
+
+    if (response?.data && response?.data?.data.length) {
+      localStorage.setItem('ledgers', JSON.stringify(response?.data?.data));
+      router.reload();
+    } else {
+      router.push(`/technical-issue`);
+    }
+
+  }
+
   // console.log(TAG + ' userData ', userData);
   // console.log(TAG + ' compSel ', compSel);
+  console.log(TAG + ' compDis ', compDis);
 
 
   return (
@@ -82,7 +200,7 @@ const Header = (props: any) => {
                   from="from-header"
                   option={compDis}
                   selected={compSel}
-                  // onChangeEvent={captureChange}
+                  onChangeEvent={captureChange}
                 />
               </div>
               : null}

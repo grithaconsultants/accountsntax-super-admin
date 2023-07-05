@@ -11,7 +11,7 @@ import Loader from '@/component/loader/loader';
 import CustomInput from '@/component/input/input';
 import SimpleSelectLabel from '@/component/selectlabel/selectlabel';
 import ButtonSimple from '@/component/buttonsimple/buttonsimple';
-import UploadBar from '@/component/uploadbar/uploadbar';
+import ProgressBar from '@/component/progress/progress';
 
 import Country from '@/containers/Country/Country';
 import State from '@/containers/State/State';
@@ -177,8 +177,8 @@ const CompanyAdd = () => {
 
   const hitFileReset = () => {
     setFileInfo(null);
-    const target: any = document.getElementById("companyLogo");
-    target.value = null;
+    // const target: any = document.getElementById("companyLogo");
+    // target.value = null;
   }
 
 
@@ -310,7 +310,7 @@ const CompanyAdd = () => {
 
                   {loading === true && fileInfo !== null ?
                     <div className="pr-w" >
-                      <UploadBar
+                      <ProgressBar
                         status={uploading !== 100 ? "active" : "success"}
                         percent={uploading}
                         showInfo={true}
@@ -386,10 +386,10 @@ const CompanyAdd = () => {
 
                       <div className="col-lg-6 col-12" >
                         <CustomInput
-                          label="Tan"
+                          label="TAN"
                           id="tan"
                           name="tan"
-                          placeholder="Tan"
+                          placeholder="TAN"
                           type="text"
                           disabled={loading}
                           maxLength={10}
@@ -467,13 +467,12 @@ const CompanyAdd = () => {
                         {errors.city && touched.city ? (<div className="in-error">{`${errors.city}`}</div>) : null}
                       </div>
 
-
                       <div className="col-lg-6 col-12 " >
                         <CustomInput
-                          label="Pancard"
+                          label="PAN"
                           id="pan_card"
                           name="pan_card"
-                          placeholder="Pancard"
+                          placeholder="PAN"
                           type="text"
                           disabled={loading}
                           maxLength={10}
@@ -507,8 +506,6 @@ const CompanyAdd = () => {
                 </Form>
               )}
             </Formik>
-
-
 
           </div>
 

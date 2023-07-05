@@ -25,18 +25,13 @@ const LoginForm = (props: any) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const initialValues: any = {
-    role: "admin",
+    role: "client",
     email: "",
     password: ""
   }
 
   async function callAsync(formValues: any) {
-    console.log(TAG, ' values for login ', formValues);
-
-    // router.push(`/mobile-verify`);
-    // router.push(`/email-verify`);
-    // router.push(`/email-verify`);
-
+    // console.log(TAG, ' values for login ', formValues);
     setLoading(true);
     registerCall(formValues);
   }
@@ -48,7 +43,7 @@ const LoginForm = (props: any) => {
         if (response?.status == 200 && response?.data?.success == true) {
 
           ToastComponent(response?.data?.msg);
-          router.push('/home');
+          // router.push('/home');
 
           const sessionData = {};
           Object.assign(sessionData, { cookie: response?.data?.data?.cookie });
@@ -56,7 +51,7 @@ const LoginForm = (props: any) => {
           Object.assign(sessionData, { token: response?.data?.data?.tokenData?.token });
 
           localStorage.setItem('userData', JSON.stringify(sessionData));
-          // getCompanies();
+          getCompanies();
 
 
         } else if (response?.status == 200 && response?.data?.success == false) {
@@ -77,6 +72,138 @@ const LoginForm = (props: any) => {
         error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
         console.log(TAG, ' error i got in catch ', error);
       });
+  }
+
+
+
+  async function getCompanies(): Promise<void> {
+    NetworkOps.makeGetRequest(endPoints.getCompanies, true)
+      .then(async (response: any) => {
+        // console.log(TAG, ' api response ', response);
+        setLoading(false);
+        if (response?.status == 200 && response?.data?.status == true) {
+
+          callValidator(response);
+
+        } else {
+          ToastComponent(response?.data?.msg);
+          console.log(TAG, ' error got in else ');
+        }
+      })
+      .catch((error: any) => {
+        setLoading(false);
+        error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
+        console.log(TAG, ' error i got in catch ', error);
+        router.push(`/technical-issue`);
+      });
+  }
+
+  function callValidator(response: any) {
+
+    if (response?.data && response?.data?.data !== undefined) {
+
+      if (response?.data?.data.length == 0) {
+        router.push(`/add-company`);
+        return;
+      } else {
+
+        const empArr: any = [];
+        response?.data?.data.map((item: any, index: any) => {
+          empArr.push({
+            value: item._id,
+            label: item.name,
+          });
+        });
+
+        //for dropdown header selection
+        localStorage.setItem('companies', JSON.stringify(empArr));
+
+        //for selected company
+        localStorage.setItem('company', JSON.stringify({ _id: empArr[0]?.value, name: empArr[0]?.label }));
+
+        //for companies full information
+        localStorage.setItem('companiesData', JSON.stringify(response?.data?.data));
+
+
+        getUOMCall({ _id: empArr[0]?.value, name: empArr[0]?.label });
+
+      }
+    } else {
+      router.push(`/technical-issue`);
+    }
+
+  }
+
+  async function getUOMCall(apiData: any): Promise<void> {
+
+    NetworkOps.makeGetRequest(`${endPoints.getuoms}?company=${apiData?._id}`, true)
+      .then(async (response: any) => {
+        console.log(TAG, ' api response ', response);
+        setLoading(false);
+        if (response?.status == 200 && response?.data?.status == true) {
+          callValidatorUom(response, apiData);
+        } else {
+          ToastComponent(response?.data?.msg);
+          console.log(TAG, ' error got in else ');
+        }
+      })
+      .catch((error: any) => {
+        setLoading(false);
+        error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
+        console.log(TAG, ' error i got in catch ', error);
+        router.push(`/technical-issue`);
+      });
+
+  }
+
+
+
+  function callValidatorUom(response: any, apiData: any) {
+
+    if (response?.data?.data && response?.data?.data.length > 0) {
+      localStorage.setItem('uom', JSON.stringify(response?.data?.data));
+      getLedgers(apiData);
+    } else {
+      router.push(`/technical-issue`);
+    }
+
+  }
+
+
+
+  async function getLedgers(apiData: any): Promise<void> {
+
+    NetworkOps.makeGetRequest(`${endPoints.getLedgers}?company=${apiData?._id}`, true)
+      .then(async (response: any) => {
+        console.log(TAG, ' api response ', response);
+        setLoading(false);
+        if (response?.status == 200 && response?.data?.status == true) {
+
+          validateLedgers(response);
+
+        } else {
+          ToastComponent(response?.data?.msg);
+          console.log(TAG, ' error got in else ');
+        }
+      })
+      .catch((error: any) => {
+        setLoading(false);
+        error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
+        console.log(TAG, ' error i got in catch ', error);
+        router.push(`/technical-issue`);
+      });
+
+  }
+
+  function validateLedgers(response: any) {
+
+    if (response?.data && response?.data?.data.length) {
+      localStorage.setItem('ledgers', JSON.stringify(response?.data?.data));
+      router.push(`/home`);
+    } else {
+      router.push(`/technical-issue`);
+    }
+
   }
 
 

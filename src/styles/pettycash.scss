@@ -1,0 +1,43 @@
+@import "./variables";
+
+.single-chart-pcash {
+  width: 150px;
+}
+
+.pc-cont {
+  .block-marker {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+
+  .block-marker.voilet {
+    background-color: $themeVoilet;
+  }
+
+  .block-marker.orange {
+    background-color: $themeOrange;
+  }
+
+  .pc-type {
+    font-size: 14px;
+    color: $themeTxtColor;
+    font-family: poppins-regular;
+
+    span {
+      font-family: poppins-semi-bold;
+      font-size: 20px;
+    }
+
+    span.voilet {
+      color: $themeVoilet;
+    }
+
+    span.orange {
+      color: $themeOrange;
+    }
+
+  }
+
+}

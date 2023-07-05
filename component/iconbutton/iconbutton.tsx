@@ -8,7 +8,7 @@ const IconButton = (props: any) => {
 
   return (
     <button type="button" className="ib-self" onClick={onClickCall} >
-      <Image src={close} alt="close icon" width={24} height={24} />
+      <Image src={imgSrc} alt="close icon" width={24} height={24} />
     </button>
   )
 }

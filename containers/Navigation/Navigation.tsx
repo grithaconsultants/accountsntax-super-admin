@@ -4,26 +4,7 @@ import { useRouter } from 'next/router';
 
 import CustomTooltip from '@/component/tooltip/tooltip';
 
-import {
-  logo776x120, account, arrow, income_tax, arrowh, profile, users, about, refer,
-
-  dashboard,
-  rmSvg,
-  clientmanager,
-  datarepo,
-  subscription,
-  services,
-  accessright,
-  communication,
-  storage,
-  promotion,
-  compliancestatus,
-  task,
-  analytics,
-  settings,
-  attendance,
-  bulkimport,
-} from '@/utils/image';
+import { logo776x120, dashboard, account, arrow, income_tax, gst, tds, arrowh, icegate, alert, tally, mis,wallet, profile, users, settings, subscription, services, about, refer } from '@/utils/image';
 
 const TAG = "Navigation: ";
 const Navigation = (props: any) => {
@@ -63,7 +44,8 @@ const Navigation = (props: any) => {
               <Image src={logo776x120} alt="accountNtax logo" width={776} height={120} />
             </li>
 
-            <li className="active">
+            {/* <li className="active"> */}
+            <li onClick={() => directToTarget("/home")} className='cp active' >
               <div className="navItem active">
                 <div className="navLeft">
                   <div className="navImg">
@@ -79,51 +61,281 @@ const Navigation = (props: any) => {
             </li>
 
             <li>
+
+              <div className="navItem">
+
+                <div className="navLeft">
+                  <div className="navImg">
+                    <div className="iconBox" >
+                      <Image src={account} alt="account icon" width={24} height={24} />
+                    </div>
+                  </div>
+                  <div className="navTlt">
+                    <CustomTooltip title="Accounting" >Accounting </CustomTooltip>
+                  </div>
+                </div>
+
+                <div className="navRight" onClick={expandAndRotate.bind('', "account")}  >
+                  <Image
+                    src={arrow}
+                    alt="arrow icon"
+                    width={24}
+                    height={24}
+                    className={childMenu == "account" ? "active" : "none"}
+                  />
+                </div>
+
+              </div>
+
+              <div className={`navSubMen ${childMenu !== "account" ? "none" : ""} `} >
+                <ul>
+                  <li onClick={() => directToTarget("sales")} >
+                    <Image src={arrowh} alt="arrow icon" width={8} height={10} />
+                    <CustomTooltip title="Invoicing / Sales" placement="right" >Invoicing / Sales</CustomTooltip>
+                  </li>
+                  <li>
+                    <Image src={arrowh} alt="arrow icon" width={8} height={10} />
+                    <CustomTooltip title="Purchase / Expenses" placement="right"  >Purchase / Expenses </CustomTooltip>
+                  </li>
+                  <li>
+                    <Image src={arrowh} alt="arrow icon" width={8} height={10} />
+                    <CustomTooltip title="Cash & Bank" placement="right"  >Cash & Bank </CustomTooltip>
+                  </li>
+                  <li>
+                    <Image src={arrowh} alt="arrow icon" width={8} height={10} />
+                    <CustomTooltip title="Investment" placement="right"  >Investment </CustomTooltip>
+                  </li>
+                </ul>
+              </div>
+
+            </li>
+
+            {/* <li>
               <div className="navItem">
                 <div className="navLeft">
                   <div className="navImg">
                     <div className="iconBox" >
-                      <Image src={rmSvg} alt="relationship icon" width={24} height={24} />
+                      <Image
+                        src={income_tax}
+                        alt="account icon"
+                        width={24}
+                        height={24}
+                      />
                     </div>
                   </div>
                   <div className="navTlt">
-                    <CustomTooltip title="Relationship Manager" >Relationship Manager </CustomTooltip>
+                    <CustomTooltip title="Income Tax" >Income Tax </CustomTooltip>
+                  </div>
+                </div>
+              </div>
+            </li> */}
+
+            {/* <li>
+              <div className="navItem">
+                <div className="navLeft">
+                  <div className="navImg">
+                    <div className="iconBox" >
+                      <Image
+                        src={gst}
+                        alt="gst icon"
+                        width={24}
+                        height={24}
+                      />
+                    </div>
+                  </div>
+                  <div className="navTlt">
+                    <CustomTooltip title="GST" >GST</CustomTooltip>
+                  </div>
+                </div>
+              </div>
+            </li> */}
+
+            {/* <li>
+              <div className="navItem">
+                <div className="navLeft">
+                  <div className="navImg">
+                    <div className="iconBox" >
+                      <Image src={tds} alt="tds icon" width={24} height={24} />
+                    </div>
+                  </div>
+                  <div className="navTlt">
+                    <CustomTooltip title="TDS" >TDS</CustomTooltip>
+                  </div>
+                </div>
+              </div>
+            </li> */}
+
+            {/* <li>
+              <div className="navItem">
+                <div className="navLeft">
+                  <div className="navImg">
+                    <div className="iconBox" >
+                      <Image src={icegate} alt="icegate icon" width={24} height={24} />
+                    </div>
+                  </div>
+                  <div className="navTlt">
+                    <CustomTooltip title="Icegate" >Icegate</CustomTooltip>
+                  </div>
+                </div>
+              </div>
+            </li> */}
+
+            {/* <li>
+              <div className="navItem">
+                <div className="navLeft">
+                  <div className="navImg">
+                    <div className="iconBox" >
+                      <Image src={alert} alt="alert icon" width={24} height={24} />
+                    </div>
+                  </div>
+                  <div className="navTlt">
+                    <CustomTooltip title="Alert" >Alert</CustomTooltip>
+                  </div>
+                </div>
+              </div>
+            </li> */}
+
+            {/* <li>
+              <div className="navItem">
+                <div className="navLeft">
+                  <div className="navImg">
+                    <div className="iconBox" >
+                      <Image src={tally} alt="tally icon" width={24} height={24} />
+                    </div>
+                  </div>
+                  <div className="navTlt">
+                    <CustomTooltip title="Tally" >Tally</CustomTooltip>
+                  </div>
+                </div>
+              </div>
+            </li> */}
+
+            <li onClick={() => directToTarget("mis")} className='cp' >
+              <div className="navItem">
+                <div className="navLeft" >
+                  <div className="navImg">
+                    <div className="iconBox" >
+                      <Image src={mis} alt="mis icon" width={24} height={24} />
+                    </div>
+                  </div>
+                  <div className="navTlt">
+                    <CustomTooltip title="MIS" >MIS</CustomTooltip>
                   </div>
                 </div>
               </div>
             </li>
 
-            <li>
+            <li onClick={() => directToTarget("expenses")} className='cp' >
               <div className="navItem">
-                <div className="navLeft">
+                <div className="navLeft" >
                   <div className="navImg">
                     <div className="iconBox" >
-                      <Image src={clientmanager} alt="clientmanager icon" width={24} height={24} />
+                      <Image src={services} alt="services icon" width={24} height={24} />
                     </div>
                   </div>
                   <div className="navTlt">
-                    <CustomTooltip title="Client Manager" >Client Manager</CustomTooltip>
+                    <CustomTooltip title="Expenses" >Expenses</CustomTooltip>
                   </div>
                 </div>
               </div>
             </li>
 
-            <li>
+            {/* <li>
               <div className="navItem">
                 <div className="navLeft">
                   <div className="navImg">
                     <div className="iconBox" >
-                      <Image src={datarepo} alt="datarepo icon" width={24} height={24} />
+                      <Image src={profile} alt="profile icon" width={24} height={24} />
                     </div>
                   </div>
                   <div className="navTlt">
-                    <CustomTooltip title="Data Repository" >Data Repository</CustomTooltip>
+                    <CustomTooltip title="Profile" >Profile</CustomTooltip>
                   </div>
                 </div>
               </div>
-            </li>
+            </li> */}
+
 
             <li>
+
+              <div className="navItem">
+
+                <div className="navLeft">
+                  <div className="navImg">
+                    <div className="iconBox" >
+                      <Image src={account} alt="account icon" width={24} height={24} />
+                    </div>
+                  </div>
+                  <div className="navTlt">
+                    <CustomTooltip title="Profile" >Profile </CustomTooltip>
+                  </div>
+                </div>
+
+                <div className="navRight" onClick={expandAndRotate.bind('', "profile")}  >
+                  <Image
+                    src={arrow}
+                    alt="arrow icon"
+                    width={24}
+                    height={24}
+                    className={childMenu == "profile" ? "active" : "none"}
+                  />
+                </div>
+
+              </div>
+
+              <div className={`navSubMen ${childMenu !== "profile" ? "none" : ""} `} >
+                <ul>
+                  <li onClick={() => directToTarget("profile-details")} >
+                    <Image src={arrowh} alt="arrow icon" width={8} height={10} />
+                    <CustomTooltip title="Company Profile Details" placement="right" >Company Profile Details</CustomTooltip>
+                  </li>
+                  <li onClick={() => directToTarget("add-company-profile")} >
+                    <Image src={arrowh} alt="arrow icon" width={8} height={10} />
+                    <CustomTooltip title="Add Company" placement="right"  >Add Company </CustomTooltip>
+                  </li>
+                  <li onClick={() => directToTarget("update-company-profile")} >
+                    <Image src={arrowh} alt="arrow icon" width={8} height={10} />
+                    <CustomTooltip
+                      title="Update Company Profile"
+                      placement="right"
+                    >Update Company Profile </CustomTooltip>
+                  </li>
+                </ul>
+              </div>
+
+            </li>
+
+            {/* <li>
+              <div className="navItem">
+                <div className="navLeft">
+                  <div className="navImg">
+                    <div className="iconBox" >
+                      <Image src={users} alt="users icon" width={24} height={24} />
+                    </div>
+                  </div>
+                  <div className="navTlt">
+                    <CustomTooltip title="Users" >Users</CustomTooltip>
+                  </div>
+                </div>
+              </div>
+            </li> */}
+
+            {/* <li>
+              <div className="navItem">
+                <div className="navLeft">
+                  <div className="navImg">
+                    <div className="iconBox" >
+                      <Image src={settings} alt="settings icon" width={24} height={24} />
+                    </div>
+                  </div>
+                  <div className="navTlt">
+                    <CustomTooltip title="Settings" >Settings</CustomTooltip>
+                  </div>
+                </div>
+              </div>
+            </li> */}
+
+            {/* <li>
               <div className="navItem">
                 <div className="navLeft">
                   <div className="navImg">
@@ -151,18 +363,18 @@ const Navigation = (props: any) => {
                   </div>
                 </div>
               </div>
-            </li>
+            </li> */}
 
-            <li>
+            {/* <li>
               <div className="navItem">
                 <div className="navLeft">
                   <div className="navImg">
                     <div className="iconBox" >
-                      <Image src={accessright} alt="accessright icon" width={24} height={24} />
+                      <Image src={about} alt="about us icon" width={24} height={24} />
                     </div>
                   </div>
                   <div className="navTlt">
-                    <CustomTooltip title="Access Rights" >Access Rights</CustomTooltip>
+                    <CustomTooltip title="About" >About</CustomTooltip>
                   </div>
                 </div>
               </div>
@@ -173,135 +385,15 @@ const Navigation = (props: any) => {
                 <div className="navLeft">
                   <div className="navImg">
                     <div className="iconBox" >
-                      <Image src={communication} alt="Communication icon" width={24} height={24} />
+                      <Image src={refer} alt="refer us icon" width={24} height={24} />
                     </div>
                   </div>
                   <div className="navTlt">
-                    <CustomTooltip title="Communication" >Communication</CustomTooltip>
+                    <CustomTooltip title="Refer Us" >Refer Us</CustomTooltip>
                   </div>
                 </div>
               </div>
-            </li>
-
-            <li>
-              <div className="navItem">
-                <div className="navLeft">
-                  <div className="navImg">
-                    <div className="iconBox" >
-                      <Image src={storage} alt="storage icon" width={24} height={24} />
-                    </div>
-                  </div>
-                  <div className="navTlt">
-                    <CustomTooltip title="Storage" >Storage</CustomTooltip>
-                  </div>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="navItem">
-                <div className="navLeft">
-                  <div className="navImg">
-                    <div className="iconBox" >
-                      <Image src={promotion} alt="promotion icon" width={24} height={24} />
-                    </div>
-                  </div>
-                  <div className="navTlt">
-                    <CustomTooltip title="Promotion" >Promotion</CustomTooltip>
-                  </div>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="navItem">
-                <div className="navLeft">
-                  <div className="navImg">
-                    <div className="iconBox" >
-                      <Image src={compliancestatus} alt="compliancestatus icon" width={24} height={24} />
-                    </div>
-                  </div>
-                  <div className="navTlt">
-                    <CustomTooltip title="Compliance Status" >Compliance Status </CustomTooltip>
-                  </div>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="navItem">
-                <div className="navLeft">
-                  <div className="navImg">
-                    <div className="iconBox" >
-                      <Image src={task} alt="task icon" width={24} height={24} priority />
-                    </div>
-                  </div>
-                  <div className="navTlt">
-                    <CustomTooltip title="Task" >Task</CustomTooltip>
-                  </div>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="navItem">
-                <div className="navLeft">
-                  <div className="navImg">
-                    <div className="iconBox" >
-                      <Image src={analytics} alt="analytics icon" width={24} height={24} priority />
-                    </div>
-                  </div>
-                  <div className="navTlt">
-                    <CustomTooltip title="Analytics" >Analytics</CustomTooltip>
-                  </div>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="navItem">
-                <div className="navLeft">
-                  <div className="navImg">
-                    <div className="iconBox" >
-                      <Image src={settings} alt="settings" width={24} height={24} priority />
-                    </div>
-                  </div>
-                  <div className="navTlt">
-                    <CustomTooltip title="Settings" >Settings</CustomTooltip>
-                  </div>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="navItem">
-                <div className="navLeft">
-                  <div className="navImg">
-                    <div className="iconBox" >
-                      <Image src={attendance} alt="attendance" width={24} height={24} priority />
-                    </div>
-                  </div>
-                  <div className="navTlt">
-                    <CustomTooltip title="Attendance" >Attendance</CustomTooltip>
-                  </div>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="navItem">
-                <div className="navLeft">
-                  <div className="navImg">
-                    <div className="iconBox" >
-                      <Image src={bulkimport} alt="bulkimport" width={24} height={24} priority />
-                    </div>
-                  </div>
-                  <div className="navTlt">
-                    <CustomTooltip title="Bulk Import" >Bulk Import</CustomTooltip>
-                  </div>
-                </div>
-              </div>
-            </li>
+            </li> */}
 
           </ul>
         </nav >

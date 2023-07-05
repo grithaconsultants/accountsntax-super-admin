@@ -9,7 +9,7 @@ const ButtonSimple = (props: any) => {
   return (
     <button
       type="submit"
-      onClick={disabled === true ? tempTo : onClickEvent}
+      onClick={disabled === true ? tempTo : (onClickEvent ? onClickEvent : tempTo)}
       className={` btn-sm ${type} ${disabled === true ? " disable " : " enable "} `}
     >{title}</button>
   );

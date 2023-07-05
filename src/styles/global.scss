@@ -1,5 +1,3 @@
-@import "./variables";
-
 //sidebar nav icon box
 .iconBox {
   width: 30px;
@@ -31,6 +29,36 @@ h6 {
   -webkit-animation: spin 1s linear infinite;
   /* Safari */
   animation: spin 1s linear infinite;
+}
+
+.right-marked-list.check-white {
+  li::before {
+    content: "";
+    background-image: url('/assets/img/check-white.svg');
+    background-size: contain;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    background-repeat: no-repeat;
+    top: 0.4rem;
+    margin-right: 0.2rem;
+  }
+}
+
+.right-marked-list.check-voilet {
+  li::before {
+    content: "";
+    background-image: url('/assets/img/check.svg');
+    background-size: contain;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    background-repeat: no-repeat;
+    top: 0.4rem;
+    margin-right: 0.2rem;
+  }
 }
 
 /* Safari */
@@ -78,6 +106,10 @@ p {
   font-size: 20px;
 }
 
+.fs-40 {
+  font-size: 40px;
+}
+
 .fs-16 {
   font-size: 16px;
 }
@@ -90,10 +122,6 @@ p {
   font-size: 14px;
 }
 
-.fs-40 {
-  font-size: 40px;
-}
-
 .tx-d {
   color: $themeTxtColor;
 }
@@ -102,12 +130,36 @@ p {
   color: #FFFFFF !important;
 }
 
-.tx-o {
-  color: $themeOrange !important;
-}
-
 .tx-v {
   color: $themeVoilet;
+}
+
+.tu {
+  text-decoration: underline;
+}
+
+.cp {
+  cursor: pointer;
+}
+
+.tx-o {
+  color: $themeOrange;
+}
+
+.ls-1 {
+  letter-spacing: normal;
+}
+
+.ws-1 {
+  word-spacing: normal;
+}
+
+p {
+  margin: 0;
+}
+
+.br-0 {
+  border-radius: 0;
 }
 
 .ff-l {
@@ -130,12 +182,20 @@ p {
   font-family: poppins-bold;
 }
 
+.ff-mono {
+  font-family: 'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace'
+}
+
 .bg-o {
   background-color: $themeOrange;
 }
 
 .bg-lo {
   background-color: $headerBG;
+}
+
+.bg-g-v {
+  background: linear-gradient(225.48deg, #653374 7.15%, #970D81 92.16%);
 }
 
 .bx-11 {
@@ -146,35 +206,73 @@ p {
   height: 115px;
 }
 
+.mh-100 {
+  min-height: 100%;
+}
+
 .b-o {
   border: 1px solid $themeOrange;
+}
+
+.bl-o {
+  border-left: 1px solid $themeOrange;
+}
+
+.br-o {
+  border-right: 1px solid $themeOrange;
+}
+
+.bt-o {
+  border-top: 1px solid $themeOrange;
 }
 
 .bb-o {
   border-bottom: 1px solid $themeOrange;
 }
 
-.lh-1{
-  line-height: 1 !important;
+.bi-o {
+  border: 1px solid transparent;
+}
+
+.bil-o {
+  border-left: 1px solid transparent;
+}
+
+.bir-o {
+  border-right: 1px solid transparent;
+}
+
+.bit-o {
+  border-top: 1px solid transparent;
+}
+
+.bib-o {
+  border-bottom: 1px solid transparent;
+}
+
+td {
+  box-sizing: border-box !important;
 }
 
 
-.events {
+pre {
   margin: 0;
-  padding: 0;
-  list-style: none;
 }
-.events .ant-badge-status {
-  width: 100%;
-  overflow: hidden;
-  font-size: 12px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+
+.w-250 {
+  width: 250px;
 }
-.notes-month {
-  font-size: 28px;
-  text-align: center;
+
+.w-100px {
+  width: 100px;
 }
-.notes-month section {
-  font-size: 28px;
+
+.ant-select-item-option-selected{
+  background-color: $bgLightPink !important;
+}
+
+.ant-modal-content{
+  background-color: #FFF8F5 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
 }

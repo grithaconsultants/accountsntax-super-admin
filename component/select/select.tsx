@@ -16,7 +16,7 @@ const SimpleSelect = (props: any) => {
       defaultValue={selected}
       onChange={handleChange}
       options={option}
-      className={from}
+      className={from ? from : ""}
     />
   );
 

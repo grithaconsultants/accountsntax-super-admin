@@ -91,8 +91,8 @@ const AddSupplier = (props: any) => {
     let empArr: any = [];
     ledgers.map((item: any, index: any) => {
       empArr.push({
-        value: item._id,
-        label: item.name,
+        value: item.parent,
+        label: item.parent,
       });
     });
     setLedgerOptions(empArr);
@@ -240,10 +240,10 @@ const AddSupplier = (props: any) => {
 
   }
 
-  console.log(TAG, ' cityList ', cityList);
-  console.log(TAG, ' selectedCountry ', selectedCountry);
-  console.log(TAG, ' selectedState ', selectedState);
-  console.log(TAG, ' selectedCity ', selectedCity);
+  // console.log(TAG, ' cityList ', cityList);
+  // console.log(TAG, ' selectedCountry ', selectedCountry);
+  // console.log(TAG, ' selectedState ', selectedState);
+  // console.log(TAG, ' selectedCity ', selectedCity);
 
 
   return (
@@ -410,10 +410,10 @@ const AddSupplier = (props: any) => {
 
                   <div className="col-lg-6 col-12" >
                     <CustomInput
-                      label="Mobile Number"
+                      label="Contact Number"
                       id="mobile"
                       name="mobile"
-                      placeholder="Mobile Number"
+                      placeholder="Contact Number"
                       type="number"
                       disabled={loading}
                       maxLength={10}

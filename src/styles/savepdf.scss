@@ -1,0 +1,48 @@
+@import "./variables";
+
+
+.table-wrapper-pdf {
+	width: 100%;
+	box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.05);
+	border-radius: 5px;
+
+	table {
+		width: max-content;
+		min-width: 100%;
+	}
+
+	thead {
+		height: 40px;
+		background-color: $bgLightPink;
+		min-width: 100%;
+
+		th {
+			color: $themeVoilet;
+			font-size: 14px;
+			font-family: poppins-light;
+		}
+
+	}
+
+	tbody {
+		background-color: $contentBG;
+
+		td {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		.tb-text {
+			color: $themeTxtColor;
+			font-size: 14px;
+			font-family: poppins-light;
+		}
+
+		.action-border-end {
+			border-right: 1px solid $themeTxtColor;
+		}
+
+	}
+
+}

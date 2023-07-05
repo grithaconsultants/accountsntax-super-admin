@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 
 import ForgotPassword from '@/containers/ForgotPassword/ForgotPassword';
-import OtpSent from '@/containers/OtpSent/OtpSent';
 
 import { authCard, logo776x120 } from '@/utils/image';
 
-const ForgotPasswordComp = () => {
+export default function ForgotPwd() {
 
   const [fromState, setState] = useState<string>("inprocess");
 
@@ -26,12 +25,7 @@ const ForgotPasswordComp = () => {
               <Image src={logo776x120} alt="gst icon" width={232} height={36} />
             </div>
 
-
-            {fromState === "inprocess" ?
-              <ForgotPassword setState={setState} />
-              :
-              <OtpSent />
-            }
+            <ForgotPassword />
 
           </div>
         </div>
@@ -41,5 +35,3 @@ const ForgotPasswordComp = () => {
     </section>
   );
 }
-
-export default ForgotPasswordComp;

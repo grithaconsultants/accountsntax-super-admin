@@ -10,7 +10,7 @@ import Loader from '@/component/loader/loader';
 import CustomInput from '@/component/input/input';
 import SimpleSelectLabel from '@/component/selectlabel/selectlabel';
 import ButtonSimple from '@/component/buttonsimple/buttonsimple';
-import UploadBar from '@/component/uploadbar/uploadbar';
+import ProgressBar from '@/component/progress/progress';
 
 import Country from '@/containers/Country/Country';
 import State from '@/containers/State/State';
@@ -272,7 +272,7 @@ const UpdateUserProfile = () => {
 
                             {loading === true && fileInfo !== null ?
                               <div className="pr-w" >
-                                <UploadBar
+                                <ProgressBar
                                   status={uploading !== 100 ? "active" : "success"}
                                   percent={uploading}
                                   showInfo={true}

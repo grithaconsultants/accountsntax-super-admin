@@ -1,0 +1,63 @@
+@import "./variables";
+
+.due-wrapper {
+
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px #F5DAD3;
+  border-radius: 5px;
+  display: flex;
+  height: 55px;
+
+
+  .due-title-area {
+    height: 55px;
+    line-height: 55px;
+    font-size: 16px;
+    font-family: poppins-medium;
+    width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .due-title-area.date-red {
+    color: $dueRed;
+  }
+
+  .due-title-area.date-orange {
+    color: $dueOrange;
+  }
+
+  .due-title-area.date-green {
+    color: $dueGreen;
+  }
+
+  .due-title-area.date-voilet {
+    color: $themeTextColor;
+  }
+
+  .due-cont-area {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: $themeTxtColor;
+    font-family: poppins-regular;
+
+    .due-date {
+      line-height: 55px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .due-status {
+      line-height: 55px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+  }
+
+}

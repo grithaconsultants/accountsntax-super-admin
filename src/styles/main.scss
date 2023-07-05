@@ -7,13 +7,18 @@
 @import "./breadcrumb.scss";
 @import "./table.scss";
 @import "./modal.scss";
+
 @import "./layout.scss";
 @import "./headerCircle.scss";
-@import "./nav.scss";
-@import "./homecard.scss";
-
 @import "./card.scss";
+@import "./due_date.scss";
+@import "./nav.scss";
+@import "./reportCard.scss";
+@import "./pettycash.scss";
+@import "./service.scss";
+@import "./quicklinks.scss";
 @import "./bulkupload.scss";
+@import "./customer.scss";
 @import "./items.scss";
 @import "./supplier.scss";
 @import "./invoice.scss";
@@ -22,10 +27,11 @@
 @import "./gstpage.scss";
 @import "./company.scss";
 @import "./profile.scss";
+@import "./savepdf.scss";
 
 
 
-@import "./global.scss";  
+@import "./global.scss";
 
 html,
 body {

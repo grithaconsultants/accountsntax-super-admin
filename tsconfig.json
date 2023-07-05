@@ -49,7 +49,9 @@
     "**/*.tsx",
     "utils/image.ts",
     "src/pages/index.jsx",
-  ],
+    "component/donute/donute.js",
+    "component/columnchart/columnchart.js"
+, "containers/Mis/SalesMonthlyChart.js"  ],
   "exclude": [
     "node_modules",
     "pages"

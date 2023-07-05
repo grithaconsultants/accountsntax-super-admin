@@ -43,7 +43,7 @@ const BuisnessProfileCard = () => {
             </li>
 
             <li className="mt-2" >
-              <span className="dataTlt" >Mobile Number</span><br />
+              <span className="dataTlt" >Contact Number</span><br />
               <span className="dataInfo" >
                 <CustomTooltip placement="top" title="+91-9876543210" > +91-9876543210 </CustomTooltip>
               </span>

@@ -1,0 +1,7 @@
+const momentTime: any = moment().tz("Asia/Calcutta");
+
+console.log(' ist time ', momentTime.format('YYYY-MM-DD'));
+
+console.log(' ist time ', momentTime.format('YYYY-MM-01'));
+
+const lastDateOfCurrentMonth = momentTime.endOf('month').format('YYYY-MM-DD');

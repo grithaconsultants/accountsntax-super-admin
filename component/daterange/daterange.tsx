@@ -3,9 +3,9 @@ import { DatePicker } from 'antd';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
-import type { RangePickerProps } from 'antd/es/date-picker';
+const DateRange = (props: any) => {
 
-const DateRange = () => {
+  // const { disabled, disabledDate, defaultValue } = props;
 
   dayjs.extend(customParseFormat);
 
@@ -25,11 +25,14 @@ const DateRange = () => {
   //   return current && current < dayjs().endOf('day');
   // };
 
+  // *****for extra configuration of range https://ant.design/components/date-picker
+
   return (
     <div className="date-range-wrapper" >
-      {/* <RangePicker disabledDate={disabledDate} /> */}
       <label className="dr-label" > Select Duration </label>
-      <RangePicker />
+      <RangePicker
+        {...props}
+      />
     </div>
   );
 }

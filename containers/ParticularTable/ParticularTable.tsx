@@ -22,7 +22,7 @@ const ParticularTable = (props: any) => {
             <th>Rate</th>
             <th>Tax</th>
             <th>Discount</th>
-            <th>Amount</th>
+            <th>Amount (₹)</th>
           </tr>
         </thead>
         <tbody>

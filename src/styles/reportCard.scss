@@ -1,0 +1,41 @@
+@import "./variables";
+
+.rep-card {
+
+  box-shadow: 0px 4px 4px #F5DAD3;
+  border-radius: 5px;
+
+  .rep-card-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #EA7A3A;
+
+    .rep-card-title {
+      color: $themeTextColor;
+      font-family: poppins-medium;
+      font-size: 16px;
+      line-height: 16px;
+    }
+
+  }
+
+  .rep-card-body {
+
+
+
+    .rep-item-tlt {
+      font-family: poppins-regular;
+      font-size: 16px;
+      color: $themeTxtColor;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .rep-item.border-bottom-c {
+      border-bottom: 1px solid #EA7A3A;
+    }
+
+  }
+
+}

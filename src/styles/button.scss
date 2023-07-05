@@ -75,6 +75,17 @@
   }
 }
 
+.btn-sm.white {
+  background: white;
+  color: $themeVoilet;
+  transition: all .3s linear;
+  font-family: poppins-regular;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 10px 15px 10px 15px;
+}
+
 .btn-sm.transparent {
   background-color: transparent;
   color: $themeVoilet;
