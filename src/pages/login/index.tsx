@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import LoginFrom from '@/containers/LoginForm/LoginForm';
-import OtpBlock from '@/containers/OtpBlock/OtpBlock';
 
 import { authCard, logo776x120 } from '@/utils/image';
-import { isEmpty } from '@/utils/helper';
 
 const Login = () => {
 
