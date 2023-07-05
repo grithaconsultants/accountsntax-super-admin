@@ -4,10 +4,7 @@ import Image from 'next/image';
 import { Col, Row, Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 
-import SalesOp from '@/containers/SalesOp/SalesOp';
-import PettyCash from '@/containers/PettyCash/PettyCash';
-import ServicesCard from '@/containers/Services/Services';
-import QuickLinks from '@/containers/QuickLinks/QuickLinks';
+
 import HomeLayout from '@/containers/Layout/Layout';
 
 import CustomTooltip from '@/component/tooltip/tooltip';
@@ -24,29 +21,6 @@ const TAG = "Home: ";
 const Home = () => {
 
   const [sidebarStatus, setSide] = useState<string>("none");
-
-  const items: TabsProps['items'] = [
-    {
-      key: '1',
-      label: `Invoicibg / Sales`,
-      children: <SalesOp />,
-    },
-    {
-      key: '2',
-      label: `Purchase`,
-      children: <SalesOp />,
-    },
-    {
-      key: '3',
-      label: `Cash & Bank`,
-      children: <SalesOp />,
-    },
-    {
-      key: '4',
-      label: `Investment`,
-      children: <SalesOp />,
-    },
-  ];
 
   return (
     <>
@@ -66,7 +40,7 @@ const Home = () => {
                     <CardHeader title="Accounting" imgSrc={account} />
                     <div className="cardBody px-3 mt-0 pb-4">
 
-                      <Tabs defaultActiveKey="1" items={items} />
+                      {/* <Tabs defaultActiveKey="1" items={items} /> */}
 
                     </div>
                   </div>
@@ -449,7 +423,7 @@ const Home = () => {
                       <CardHeader title="Quick Links" imgSrc={calendar} />
                       <div className="cardBody px-3 mt-0 pb-4">
 
-                        <QuickLinks />
+                        {/* <QuickLinks /> */}
 
                       </div>
                     </div>
@@ -491,7 +465,7 @@ const Home = () => {
                       <CardHeader title="Petty cash" imgSrc={petty} />
                       <div className="cardBody px-3 pb-4">
 
-                        <PettyCash />
+                        {/* <PettyCash /> */}
 
                       </div>
                     </div>
@@ -501,7 +475,7 @@ const Home = () => {
                     <div className="card-custom ">
                       <CardHeader title="Services" imgSrc={services} />
                       <div className="cardBody px-3 pb-4">
-                        <ServicesCard />
+                        {/* <ServicesCard /> */}
                       </div>
                     </div>
                   </div>
