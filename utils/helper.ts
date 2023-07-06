@@ -1,4 +1,3 @@
-import moment from 'moment-timezone';
 
 import endPoints from '@/ApiHandler/AppConfig';
 import NetworkOps from '@/ApiHandler/NetworkOps';

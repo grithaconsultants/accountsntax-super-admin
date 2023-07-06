@@ -2,6 +2,7 @@
 import * as Yup from "yup";
 import {
   emailDataType,
+  invalidEmail ,
   fieldMinLength,
   fieldlMaxLength,
   fieldRequired,
@@ -111,6 +112,17 @@ export const mobileSchema: any = Yup.object().shape({
     .min(1000000000, contactLength)
     .max(9999999999, contactLength)
     .required(fieldRequired.replace("%key%", "Contact number"))
+});
+
+
+export const emailSchema: any = Yup.object().shape({
+  email: Yup
+    .string()
+    .typeError(emailDataType)
+    .email(invalidEmail)
+    .min(1)
+    .max(9999999999)
+    .required(fieldRequired.replace("%key%", "Email Id"))
 });
 
 export const addressOnly: any = Yup.object().shape({

@@ -13,7 +13,7 @@ import ButtonSimple from '@/component/buttonsimple/buttonsimple';
 import ProgressBar from '@/component/progress/progress';
 
 import Country from '@/containers/Country/Country';
-import State from '@/containers/State/State';
+// import State from '@/containers/State/State';
 import City from '@/containers/City/City';
 import HomeLayout from '@/containers/Layout/Layout';
 
@@ -426,7 +426,7 @@ const UpdateUserProfile = () => {
                                   </div>
 
                                   <div className="col-lg-3 col-12" >
-                                    <State
+                                    {/* <State
                                       loading={loading}
                                       setLoading={setLoading}
                                       selectedCountry={selectedCountry}
@@ -435,7 +435,7 @@ const UpdateUserProfile = () => {
                                       selectedState={selectedState}
                                       setSelectedState={setSelectedState}
                                       setFieldValue={setFieldValue}
-                                    />
+                                    /> */}
                                     {errors.state && touched.state ? (<div className="in-error">{`${errors.state}`}</div>) : null}
                                   </div>
 

@@ -28,21 +28,21 @@ const Home = () => {
 
         <section id="contentSection">
           <div className="layout-contWrapper" >
-            <Breadcrumb />
+            {/* <Breadcrumb /> */}
 
             <div className="layout-cardArea" >
 
               {/* account and due date */}
               <Row>
-                <Col className="gutter-row pe-xl-2 pe-0" xs={24} lg={24} xl={12} >
+                {/* <Col className="gutter-row pe-xl-2 pe-0" xs={24} lg={24} xl={12} >
 
                   <div className="card-custom ">
                     <CardHeader title="Accounting" imgSrc={account} />
-                    <div className="cardBody px-3 mt-0 pb-4">
+                    <div className="cardBody px-3 mt-0 pb-4"> */}
 
                       {/* <Tabs defaultActiveKey="1" items={items} /> */}
 
-                    </div>
+                    {/* </div>
                   </div>
 
                   <div className="mt-3">
@@ -425,7 +425,7 @@ const Home = () => {
 
                         {/* <QuickLinks /> */}
 
-                      </div>
+                      {/* </div>
                     </div>
                   </div>
 
@@ -463,24 +463,24 @@ const Home = () => {
                   <div className="mt-3">
                     <div className="card-custom ">
                       <CardHeader title="Petty cash" imgSrc={petty} />
-                      <div className="cardBody px-3 pb-4">
+                      <div className="cardBody px-3 pb-4">  */}
 
                         {/* <PettyCash /> */}
 
-                      </div>
+                      {/* </div>
                     </div>
                   </div>
 
                   <div className="mt-3">
                     <div className="card-custom ">
                       <CardHeader title="Services" imgSrc={services} />
-                      <div className="cardBody px-3 pb-4">
+                      <div className="cardBody px-3 pb-4"> */}
                         {/* <ServicesCard /> */}
-                      </div>
+                      {/* </div>
                     </div>
                   </div>
 
-                </Col>
+                </Col> */}
 
               </Row>
 

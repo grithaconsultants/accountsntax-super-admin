@@ -15,6 +15,7 @@ const Login = () => {
     const checking = localStorage.getItem('userData');
     if (!isEmpty(checking)) {
       router.push('/home');
+      console.log("pushed to home page ")
     }
   }, [0]);
 

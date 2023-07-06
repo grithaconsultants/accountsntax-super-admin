@@ -14,6 +14,7 @@ import ButtonSimple from '@/component/buttonsimple/buttonsimple';
 import Loader from '@/component/loader/loader';
 
 import { mobileSchema } from '@/utils/schema';
+import { emailSchema } from '@/utils/schema';
 import { wait } from '@/utils/helper';
 
 
@@ -26,7 +27,7 @@ const ForgotPassword = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const initialValues: any = {
-    mobile: ""
+    email: ""
   }
 
   function callAsync(val: any) {
@@ -34,9 +35,9 @@ const ForgotPassword = () => {
     console.log(TAG + ' ', val);
 
     const payload = {
-      type: "mobile",
-      value: `+91${val.mobile}`,
-      role: "client"
+      type: "email",
+      value: `${val.email}`,
+      role: "super"
     }
 
     registerCall(payload);
@@ -76,7 +77,7 @@ const ForgotPassword = () => {
 
         <Formik
           initialValues={initialValues}
-          validationSchema={mobileSchema}
+          validationSchema={emailSchema}
           onSubmit={values => {
             callAsync(values);
           }}
@@ -88,16 +89,16 @@ const ForgotPassword = () => {
 
               <div className=" mb-3" >
                 <CustomInput
-                  label="Contact Number"
-                  id="mobileNumber"
-                  name="mobileNumber"
-                  placeholder="Contact Number"
+                  label="Email"
+                  id="emailId"
+                  name="emailId"
+                  placeholder="Email Id"
                   type="text"
                   disabled={false}
                   maxLength={100}
-                  onChangeEvent={handleChange('mobile')}
+                  onChangeEvent={handleChange('email')}
                 />
-                {errors.mobile && touched.mobile ? (<div className="in-error">{`${errors.mobile}`}</div>) : null}
+                {errors.email && touched.email ? (<div className="in-error">{`${errors.email}`}</div>) : null}
               </div>
 
               <div className="mt-5" >

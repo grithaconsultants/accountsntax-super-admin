@@ -4,7 +4,7 @@ import type { TabsProps } from 'antd';
 import { Tabs } from 'antd';
 import { useRouter } from 'next/router';
 
-import SalesOp from '@/containers/SalesOp/SalesOp';
+// import SalesOp from '@/containers/SalesOp/SalesOp';
 import HomeLayout from '@/containers/Layout/Layout';
 
 import CustomTooltip from '@/component/tooltip/tooltip';
@@ -23,17 +23,17 @@ const UserProfileDetails = () => {
     {
       key: '1',
       label: `Customer`,
-      children: <SalesOp />,
+      // children: <SalesOp />,
     },
     {
       key: '2',
       label: `Sales`,
-      children: <SalesOp />,
+      // children: <SalesOp />,
     },
     {
       key: '3',
       label: `Security`,
-      children: <SalesOp />,
+      // children: <SalesOp />,
     }
   ];
 

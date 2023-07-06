@@ -43,15 +43,16 @@ const LoginForm = (props: any) => {
         if (response?.status == 200 && response?.data?.success == true) {
 
           ToastComponent(response?.data?.msg);
-          // router.push('/home');
+          console.log("pushed to home ")
+          router.push('/home');
 
           const sessionData = {};
           Object.assign(sessionData, { cookie: response?.data?.data?.cookie });
-          Object.assign(sessionData, { loginData: response?.data?.data?.userData });
+          Object.assign(sessionData, { loginData: response?.data?.data?.userInfo });
           Object.assign(sessionData, { token: response?.data?.data?.tokenData?.token });
 
           localStorage.setItem('userData', JSON.stringify(sessionData));
-          getCompanies();
+          // getCompanies();
 
 
         } else if (response?.status == 200 && response?.data?.success == false) {
@@ -76,135 +77,135 @@ const LoginForm = (props: any) => {
 
 
 
-  async function getCompanies(): Promise<void> {
-    NetworkOps.makeGetRequest(endPoints.getCompanies, true)
-      .then(async (response: any) => {
-        // console.log(TAG, ' api response ', response);
-        setLoading(false);
-        if (response?.status == 200 && response?.data?.status == true) {
+  // async function getCompanies(): Promise<void> {
+  //   NetworkOps.makeGetRequest(endPoints.getCompanies, true)
+  //     .then(async (response: any) => {
+  //       // console.log(TAG, ' api response ', response);
+  //       setLoading(false);
+  //       if (response?.status == 200 && response?.data?.status == true) {
 
-          callValidator(response);
+  //         callValidator(response);
 
-        } else {
-          ToastComponent(response?.data?.msg);
-          console.log(TAG, ' error got in else ');
-        }
-      })
-      .catch((error: any) => {
-        setLoading(false);
-        error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
-        console.log(TAG, ' error i got in catch ', error);
-        router.push(`/technical-issue`);
-      });
-  }
+  //       } else {
+  //         ToastComponent(response?.data?.msg);
+  //         console.log(TAG, ' error got in else ');
+  //       }
+  //     })
+  //     .catch((error: any) => {
+  //       setLoading(false);
+  //       error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
+  //       console.log(TAG, ' error i got in catch ', error);
+  //       router.push(`/technical-issue`);
+  //     });
+  // }
 
-  function callValidator(response: any) {
+  // function callValidator(response: any) {
 
-    if (response?.data && response?.data?.data !== undefined) {
+  //   if (response?.data && response?.data?.data !== undefined) {
 
-      if (response?.data?.data.length == 0) {
-        router.push(`/add-company`);
-        return;
-      } else {
+  //     if (response?.data?.data.length == 0) {
+  //       router.push(`/add-company`);
+  //       return;
+  //     } else {
 
-        const empArr: any = [];
-        response?.data?.data.map((item: any, index: any) => {
-          empArr.push({
-            value: item._id,
-            label: item.name,
-          });
-        });
+  //       const empArr: any = [];
+  //       response?.data?.data.map((item: any, index: any) => {
+  //         empArr.push({
+  //           value: item._id,
+  //           label: item.name,
+  //         });
+  //       });
 
-        //for dropdown header selection
-        localStorage.setItem('companies', JSON.stringify(empArr));
+  //       //for dropdown header selection
+  //       localStorage.setItem('companies', JSON.stringify(empArr));
 
-        //for selected company
-        localStorage.setItem('company', JSON.stringify({ _id: empArr[0]?.value, name: empArr[0]?.label }));
+  //       //for selected company
+  //       localStorage.setItem('company', JSON.stringify({ _id: empArr[0]?.value, name: empArr[0]?.label }));
 
-        //for companies full information
-        localStorage.setItem('companiesData', JSON.stringify(response?.data?.data));
-
-
-        getUOMCall({ _id: empArr[0]?.value, name: empArr[0]?.label });
-
-      }
-    } else {
-      router.push(`/technical-issue`);
-    }
-
-  }
-
-  async function getUOMCall(apiData: any): Promise<void> {
-
-    NetworkOps.makeGetRequest(`${endPoints.getuoms}?company=${apiData?._id}`, true)
-      .then(async (response: any) => {
-        console.log(TAG, ' api response ', response);
-        setLoading(false);
-        if (response?.status == 200 && response?.data?.status == true) {
-          callValidatorUom(response, apiData);
-        } else {
-          ToastComponent(response?.data?.msg);
-          console.log(TAG, ' error got in else ');
-        }
-      })
-      .catch((error: any) => {
-        setLoading(false);
-        error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
-        console.log(TAG, ' error i got in catch ', error);
-        router.push(`/technical-issue`);
-      });
-
-  }
+  //       //for companies full information
+  //       localStorage.setItem('companiesData', JSON.stringify(response?.data?.data));
 
 
+  //       getUOMCall({ _id: empArr[0]?.value, name: empArr[0]?.label });
 
-  function callValidatorUom(response: any, apiData: any) {
+  //     }
+  //   } else {
+  //     router.push(`/technical-issue`);
+  //   }
 
-    if (response?.data?.data && response?.data?.data.length > 0) {
-      localStorage.setItem('uom', JSON.stringify(response?.data?.data));
-      getLedgers(apiData);
-    } else {
-      router.push(`/technical-issue`);
-    }
+  // }
 
-  }
+  // async function getUOMCall(apiData: any): Promise<void> {
+
+  //   NetworkOps.makeGetRequest(`${endPoints.getuoms}?company=${apiData?._id}`, true)
+  //     .then(async (response: any) => {
+  //       console.log(TAG, ' api response ', response);
+  //       setLoading(false);
+  //       if (response?.status == 200 && response?.data?.status == true) {
+  //         callValidatorUom(response, apiData);
+  //       } else {
+  //         ToastComponent(response?.data?.msg);
+  //         console.log(TAG, ' error got in else ');
+  //       }
+  //     })
+  //     .catch((error: any) => {
+  //       setLoading(false);
+  //       error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
+  //       console.log(TAG, ' error i got in catch ', error);
+  //       router.push(`/technical-issue`);
+  //     });
+
+  // }
 
 
 
-  async function getLedgers(apiData: any): Promise<void> {
+  // function callValidatorUom(response: any, apiData: any) {
 
-    NetworkOps.makeGetRequest(`${endPoints.getLedgers}?company=${apiData?._id}`, true)
-      .then(async (response: any) => {
-        console.log(TAG, ' api response ', response);
-        setLoading(false);
-        if (response?.status == 200 && response?.data?.status == true) {
+  //   if (response?.data?.data && response?.data?.data.length > 0) {
+  //     localStorage.setItem('uom', JSON.stringify(response?.data?.data));
+  //     getLedgers(apiData);
+  //   } else {
+  //     router.push(`/technical-issue`);
+  //   }
 
-          validateLedgers(response);
+  // }
 
-        } else {
-          ToastComponent(response?.data?.msg);
-          console.log(TAG, ' error got in else ');
-        }
-      })
-      .catch((error: any) => {
-        setLoading(false);
-        error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
-        console.log(TAG, ' error i got in catch ', error);
-        router.push(`/technical-issue`);
-      });
 
-  }
 
-  function validateLedgers(response: any) {
+  // async function getLedgers(apiData: any): Promise<void> {
 
-    if (response?.data && response?.data?.data.length) {
-      localStorage.setItem('ledgers', JSON.stringify(response?.data?.data));
-      router.push(`/home`);
-    } else {
-      router.push(`/technical-issue`);
-    }
+  //   NetworkOps.makeGetRequest(`${endPoints.getLedgers}?company=${apiData?._id}`, true)
+  //     .then(async (response: any) => {
+  //       console.log(TAG, ' api response ', response);
+  //       setLoading(false);
+  //       if (response?.status == 200 && response?.data?.status == true) {
 
-  }
+  //         validateLedgers(response);
+
+  //       } else {
+  //         ToastComponent(response?.data?.msg);
+  //         console.log(TAG, ' error got in else ');
+  //       }
+  //     })
+  //     .catch((error: any) => {
+  //       setLoading(false);
+  //       error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
+  //       console.log(TAG, ' error i got in catch ', error);
+  //       router.push(`/technical-issue`);
+  //     });
+
+  // }
+
+  // function validateLedgers(response: any) {
+
+  //   if (response?.data && response?.data?.data.length) {
+  //     localStorage.setItem('ledgers', JSON.stringify(response?.data?.data));
+  //     router.push(`/home`);
+  //   } else {
+  //     router.push(`/technical-issue`);
+  //   }
+
+  // }
 
 
 
@@ -281,9 +282,9 @@ const LoginForm = (props: any) => {
 
         </Formik>
 
-        <div className="mt-4 text-center" >
+        {/* <div className="mt-4 text-center" >
           <span className="dont-acc" > {"Don’t have an account?"} </span>  <span className="new-ac" > <Link href="/signup" > Create new account </Link></span>
-        </div>
+        </div> */}
 
       </div>
     </>

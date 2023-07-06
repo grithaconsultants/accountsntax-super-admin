@@ -7,9 +7,10 @@ const endPoints: any = {
 	signedUrl: `${BASE_URL}/aws-presigned`,
 
 	signup: `${BASE_URL}/auth/signup`,
-	login: `${BASE_URL}/auth/login`,
+	login: `${BASE_URL}/auth/super/login`,
 	verifyOtp: `${BASE_URL}/auth/otp-verify`,
-	resendOTPApi: `${BASE_URL}/auth/send-auth-otp`,
+
+	resendOTPApi: `${BASE_URL}/ auth/send-auth-otp`,
 
 
 	forgotPassword: `${BASE_URL}/auth/forgot-password`,

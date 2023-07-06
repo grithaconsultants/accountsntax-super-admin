@@ -45,7 +45,7 @@ const Navigation = (props: any) => {
             </li>
 
             {/* <li className="active"> */}
-            <li onClick={() => directToTarget("/home")} className='cp active' >
+            {/* <li onClick={() => directToTarget("/home")} className='cp active' >
               <div className="navItem active">
                 <div className="navLeft">
                   <div className="navImg">
@@ -58,9 +58,9 @@ const Navigation = (props: any) => {
                   </div>
                 </div>
               </div>
-            </li>
+            </li> */}
 
-            <li>
+            {/* <li>
 
               <div className="navItem">
 
@@ -71,7 +71,7 @@ const Navigation = (props: any) => {
                     </div>
                   </div>
                   <div className="navTlt">
-                    <CustomTooltip title="Accounting" >Accounting </CustomTooltip>
+                    <CustomTooltip title="Accounting" >Clients </CustomTooltip>
                   </div>
                 </div>
 
@@ -108,7 +108,7 @@ const Navigation = (props: any) => {
                 </ul>
               </div>
 
-            </li>
+            </li> */}
 
             {/* <li>
               <div className="navItem">
@@ -210,7 +210,7 @@ const Navigation = (props: any) => {
               </div>
             </li> */}
 
-            <li onClick={() => directToTarget("mis")} className='cp' >
+            <li onClick={() => directToTarget("clients")} className='cp' >
               <div className="navItem">
                 <div className="navLeft" >
                   <div className="navImg">
@@ -219,13 +219,13 @@ const Navigation = (props: any) => {
                     </div>
                   </div>
                   <div className="navTlt">
-                    <CustomTooltip title="MIS" >MIS</CustomTooltip>
+                    <CustomTooltip title="MIS" >Client</CustomTooltip>
                   </div>
                 </div>
               </div>
             </li>
 
-            <li onClick={() => directToTarget("expenses")} className='cp' >
+            <li onClick={() => directToTarget("companies")} className='cp' >
               <div className="navItem">
                 <div className="navLeft" >
                   <div className="navImg">
@@ -234,7 +234,7 @@ const Navigation = (props: any) => {
                     </div>
                   </div>
                   <div className="navTlt">
-                    <CustomTooltip title="Expenses" >Expenses</CustomTooltip>
+                    <CustomTooltip title="Expenses" >Companies</CustomTooltip>
                   </div>
                 </div>
               </div>
@@ -256,7 +256,7 @@ const Navigation = (props: any) => {
             </li> */}
 
 
-            <li>
+            {/* <li>
 
               <div className="navItem">
 
@@ -303,7 +303,7 @@ const Navigation = (props: any) => {
                 </ul>
               </div>
 
-            </li>
+            </li> */}
 
             {/* <li>
               <div className="navItem">

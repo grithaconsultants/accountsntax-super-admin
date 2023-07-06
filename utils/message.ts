@@ -1,4 +1,5 @@
 export const emailDataType: string = "Please enter a valid Email Address.";
+export const invalidEmail: string = "Email Id is invalid"
 export const fieldRequired: string = "%key% is Required.";
 export const fieldMinLength: string = "%key% must be longer or equal to %length% characters.";
 export const fieldlMaxLength: string = "%key% must be smaller or equal %length% characters.";
