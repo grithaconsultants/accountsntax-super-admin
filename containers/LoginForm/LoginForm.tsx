@@ -34,6 +34,7 @@ const LoginForm = (props: any) => {
     // console.log(TAG, ' values for login ', formValues);
     setLoading(true);
     registerCall(formValues);
+
   }
 
   async function registerCall(addJson: any): Promise<void> {
@@ -52,7 +53,7 @@ const LoginForm = (props: any) => {
           Object.assign(sessionData, { token: response?.data?.data?.tokenData?.token });
 
           localStorage.setItem('userData', JSON.stringify(sessionData));
-          // getCompanies();
+          // getClients();
 
 
         } else if (response?.status == 200 && response?.data?.success == false) {
@@ -65,7 +66,7 @@ const LoginForm = (props: any) => {
         } else {
           setLoading(false);
           ToastComponent(response?.data?.msg);
-          console.log(TAG, ' error got in else ');
+          console.log(TAG, ' error got in else ' + 'login');
         }
       })
       .catch((error: any) => {
@@ -77,75 +78,21 @@ const LoginForm = (props: any) => {
 
 
 
-  // async function getCompanies(): Promise<void> {
-  //   NetworkOps.makeGetRequest(endPoints.getCompanies, true)
-  //     .then(async (response: any) => {
-  //       // console.log(TAG, ' api response ', response);
-  //       setLoading(false);
-  //       if (response?.status == 200 && response?.data?.status == true) {
+  // async function getClients(): Promise<void> {
+  //   console.log("api call start")
 
-  //         callValidator(response);
-
-  //       } else {
-  //         ToastComponent(response?.data?.msg);
-  //         console.log(TAG, ' error got in else ');
-  //       }
-  //     })
-  //     .catch((error: any) => {
-  //       setLoading(false);
-  //       error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
-  //       console.log(TAG, ' error i got in catch ', error);
-  //       router.push(`/technical-issue`);
-  //     });
-  // }
-
-  // function callValidator(response: any) {
-
-  //   if (response?.data && response?.data?.data !== undefined) {
-
-  //     if (response?.data?.data.length == 0) {
-  //       router.push(`/add-company`);
-  //       return;
-  //     } else {
-
-  //       const empArr: any = [];
-  //       response?.data?.data.map((item: any, index: any) => {
-  //         empArr.push({
-  //           value: item._id,
-  //           label: item.name,
-  //         });
-  //       });
-
-  //       //for dropdown header selection
-  //       localStorage.setItem('companies', JSON.stringify(empArr));
-
-  //       //for selected company
-  //       localStorage.setItem('company', JSON.stringify({ _id: empArr[0]?.value, name: empArr[0]?.label }));
-
-  //       //for companies full information
-  //       localStorage.setItem('companiesData', JSON.stringify(response?.data?.data));
-
-
-  //       getUOMCall({ _id: empArr[0]?.value, name: empArr[0]?.label });
-
-  //     }
-  //   } else {
-  //     router.push(`/technical-issue`);
-  //   }
-
-  // }
-
-  // async function getUOMCall(apiData: any): Promise<void> {
-
-  //   NetworkOps.makeGetRequest(`${endPoints.getuoms}?company=${apiData?._id}`, true)
+  //   NetworkOps.makeGetRequest(endPoints.getClients, true)
   //     .then(async (response: any) => {
   //       console.log(TAG, ' api response ', response);
   //       setLoading(false);
-  //       if (response?.status == 200 && response?.data?.status == true) {
-  //         callValidatorUom(response, apiData);
+  //       console.log("get clients rsponse",response)
+  //       if (response?.status == 200 && response?.data?.success == true) {
+
+  //         validateClients(response);
+
   //       } else {
   //         ToastComponent(response?.data?.msg);
-  //         console.log(TAG, ' error got in else ');
+  //         console.log(TAG, ' error got in else ' + 'clients');
   //       }
   //     })
   //     .catch((error: any) => {
@@ -157,49 +104,10 @@ const LoginForm = (props: any) => {
 
   // }
 
+  // function validateClients(response: any) {
 
-
-  // function callValidatorUom(response: any, apiData: any) {
-
-  //   if (response?.data?.data && response?.data?.data.length > 0) {
-  //     localStorage.setItem('uom', JSON.stringify(response?.data?.data));
-  //     getLedgers(apiData);
-  //   } else {
-  //     router.push(`/technical-issue`);
-  //   }
-
-  // }
-
-
-
-  // async function getLedgers(apiData: any): Promise<void> {
-
-  //   NetworkOps.makeGetRequest(`${endPoints.getLedgers}?company=${apiData?._id}`, true)
-  //     .then(async (response: any) => {
-  //       console.log(TAG, ' api response ', response);
-  //       setLoading(false);
-  //       if (response?.status == 200 && response?.data?.status == true) {
-
-  //         validateLedgers(response);
-
-  //       } else {
-  //         ToastComponent(response?.data?.msg);
-  //         console.log(TAG, ' error got in else ');
-  //       }
-  //     })
-  //     .catch((error: any) => {
-  //       setLoading(false);
-  //       error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
-  //       console.log(TAG, ' error i got in catch ', error);
-  //       router.push(`/technical-issue`);
-  //     });
-
-  // }
-
-  // function validateLedgers(response: any) {
-
-  //   if (response?.data && response?.data?.data.length) {
-  //     localStorage.setItem('ledgers', JSON.stringify(response?.data?.data));
+  //   if (response?.data && response?.data?.data?.clients.length) {
+  //     localStorage.setItem('Clients', JSON.stringify(response?.data?.data?.clients));
   //     router.push(`/home`);
   //   } else {
   //     router.push(`/technical-issue`);

@@ -1,0 +1,169 @@
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+import IconTitleButton from '@/component/icontitlebutton/icontitlebutton';
+import CustomInput from '@/component/input/input';
+import Loader from '@/component/loader/loader';
+import ToastComponent from '@/component/Toast/Toast';
+import EmptyComp from '@/component/emptycomp/emptycomp';
+import PaginationComponent from '@/component/pagination/pagination';
+
+
+import ClientListTable from '@/containers/ClientList/ClientListTable';
+
+import endPoints from '@/ApiHandler/AppConfig';
+import NetworkOps from '@/ApiHandler/NetworkOps';
+
+import { filterIcon } from '@/utils/image';
+import { isEmpty } from '@/utils/helper';
+
+const TAG = "ClientList: ";
+const ClientList = (props: any) => {
+  const router = useRouter();
+
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const [dataList, setDataList] = useState<any>([]);
+  const [filteredData, setFilteredData] = useState<any>([]);
+  const [meta, setMeta] = useState<any>(null);
+
+  const [defaultPageSize, setDefaultPageSize] = useState<number>(10);
+  const [defaultCurrent, setDefaultCurrent] = useState<number>(1);
+  const [searchString, setSearchString] = useState<string>("");
+ 
+
+
+  useEffect(() => {
+        ApicallForData(defaultCurrent, defaultPageSize, "")
+
+  }, []);
+
+  const callPaginationAction = (page: number, limit: number) => {
+    ApicallForData(page, limit, searchString);
+    setDefaultCurrent(page);
+    setDefaultPageSize(limit);
+  }
+
+
+  function onFilterClick() {
+
+    // setLoading(true);
+    const docElement: any = document.getElementById("searchClientsList");
+    const searchItem: any = docElement.value.trim();
+
+    if (searchItem === "") {
+      ApicallForData(1, 10,  "");
+      setSearchString("");
+    } else {
+      ApicallForData(1, 10,  searchItem);
+      setSearchString(searchItem);
+    }
+
+    setDefaultCurrent(1);
+    setDefaultPageSize(10);
+  
+}
+
+
+  async function ApicallForData(page: any, limit: any , search:any): Promise<void> {
+    setLoading(true);
+    let apiUrl;
+    if (isEmpty(search)) {
+      apiUrl = `${endPoints.getClients}?page=${page}&limit=${limit}`;
+    } else {
+      apiUrl = `${endPoints.getClients}?search=${search}&page=${page}&limit=${limit}`;
+    }
+
+    NetworkOps.makeGetRequest(apiUrl, true)
+      .then(async (response: any) => {
+        setLoading(false);
+        console.log("get clients rsponse new",response)
+        if (response?.status == 200 &&  response?.data?.success == true) {
+          console.log("get clients Data list ",response?.data?.data?.clients)
+          setDataList(response?.data?.data ? response?.data?.data?.clients: []);
+          // setFilteredData(response?.data?.data ? response?.data?.data?.clients: []);
+          
+          setMeta(response?.data?.data?.meta ? response?.data?.data?.meta : null);
+        } else {
+          ToastComponent(response?.data?.msg);
+          console.log(TAG, ' error got in else ' + 'clients');
+        }
+      })
+      .catch((error: any) => {
+        setLoading(false);
+        console.log(TAG, ' error i got in catch ', error);
+        error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
+        router.push(`/technical-issue`);
+      });
+  }
+
+
+  return (
+    <div className="w-100 bg-lo p-3 oh br-5 bx-11" >
+      <div className="d-flex justify-content-between pb-5 align-items-end" >
+        <div className="" >
+          {/* <div className="fs-20 tx-v ff-m " > Sales Data </div>
+          <div className="fs-12 tx-b ff-r " > </div> */}
+        </div>
+
+        <div className='d-flex' >
+
+      
+          <div className="w-250 me-2 " >
+            <CustomInput
+              label="Search"
+              id="searchClientsList"
+              name="searchClients"
+              placeholder="Search"
+              type="text"
+              disabled={loading}
+              maxLength={100}
+            />
+          </div>
+
+          <div className="ms-3 d-flex align-items-end " >
+            <IconTitleButton imgSrc={filterIcon} title="Filter" onClickCall={onFilterClick} />
+          </div>
+
+        </div>
+
+      </div>
+
+        
+
+      <div className="" >
+
+        {loading === true ?
+          <Loader /> :
+          <>
+            {dataList.length > 0 ?
+              <>
+                <ClientListTable
+                  rowsDataList={dataList}
+                  defaultCurrent={defaultCurrent}
+                />
+
+                <div className="pagination-component mt-3">
+                  <PaginationComponent
+                    total={meta.total}
+                    defaultPageSize={defaultPageSize}
+                    defaultCurrent={defaultCurrent}
+                    onChangeCall={callPaginationAction}
+                    onShowSizeChange={callPaginationAction}
+                  />
+                </div>
+              </>
+              :
+              <h1>
+                <EmptyComp />
+              </h1>
+            }
+          </>
+        }
+
+      </div>
+    </div>
+  );
+}
+
+export default ClientList;

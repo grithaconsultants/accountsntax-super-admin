@@ -17,12 +17,12 @@ const SimpleDropdown = (props: any) => {
   }
 
   const items: MenuProps['items'] = [
-    {
-      key: '1',
-      label: (
-        <span >Profile </span>
-      )
-    },
+    // {
+    //   key: '1',
+    //   label: (
+    //     <span >Profile </span>
+    //   )
+    // },
     {
       key: '2',
       label: (

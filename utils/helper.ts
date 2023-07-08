@@ -2,6 +2,7 @@
 import endPoints from '@/ApiHandler/AppConfig';
 import NetworkOps from '@/ApiHandler/NetworkOps';
 import ToastComponent from '@/component/Toast/Toast';
+import moment from 'moment-timezone'
 
 export const debounce = (func: any, wait: any) => {
   let timeout: any;
@@ -178,7 +179,7 @@ export const SrPageNumber = (defaultCurrent: any, index: any) => {
     if (defaultCurrent == 1) {
       return index + 1;
     } else {
-      return (defaultCurrent * 10) + (index + 1);
+      return ((defaultCurrent-1) * 10) + (index + 1);
     }
   }
 }
@@ -234,8 +235,10 @@ export const removeFilePath = (value: string) => {
 }
 
 export const removeplus91 = (value: string) => {
-  return value.substring(3);
-}
+    return (value === '' || value.trim().length === 10) ? value : value.substring(3);
+  }
+
+
 
 export const decimalTwo = (value: any) => {
   if (isEmpty(value)) {

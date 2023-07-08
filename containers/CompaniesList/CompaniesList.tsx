@@ -9,7 +9,6 @@ import EmptyComp from "@/component/emptycomp/emptycomp";
 import PaginationComponent from "@/component/pagination/pagination";
 
 import CompaniesListTable from "@/containers/CompaniesList/CompaniesListTable";
-import HomeLayout from '@/containers/Layout/Layout';
 
 import endPoints from "@/ApiHandler/AppConfig";
 import NetworkOps from "@/ApiHandler/NetworkOps";
@@ -17,10 +16,8 @@ import NetworkOps from "@/ApiHandler/NetworkOps";
 import { isEmpty } from "@/utils/helper";
 import { filterIcon } from "@/utils/image";
 
-const TAG = "Companies: ";
-
-const Companies = () => {
-
+const TAG = "CompaniesList: ";
+const CompaniesList = () => {
   const router = useRouter();
 
   const [loading, setLoading] = useState<boolean>(true);
@@ -95,95 +92,66 @@ const Companies = () => {
       });
   }
 
-
   return (
-    <HomeLayout>
+    <div className="w-100 bg-lo p-3 oh br-5 bx-11">
+      <div className="d-flex justify-content-between pb-5 align-items-end">
+        <div className=""></div>
 
-      <section id="contentSection">
-        <div className="layout-contWrapper" >
-
-          <div className="breadcrumb-wrapper" >
-            <div className="br-left" >
-              <span className="br-light-tlt" >Companies List</span>
-            </div>
-            <div className="br-right" >
-            </div>
-
+        <div className="d-flex">
+          <div className="w-250 me-2 ">
+            <CustomInput
+              label="Search"
+              id="searchCompaniesList"
+              name="searchCompanies"
+              placeholder="Search"
+              type="text"
+              disabled={loading}
+              maxLength={100}
+            />
           </div>
 
-          <div className="layout-cardArea" >
-
-            <div className="cardBody px-0 mt-0 pb-4">
-              {/* <CompaniesList /> */}
-
-              <div className="w-100 bg-lo p-3 oh br-5 bx-11">
-                <div className="d-flex justify-content-between pb-5 align-items-end">
-                  <div className=""></div>
-
-                  <div className="d-flex">
-                    <div className="w-250 me-2 ">
-                      <CustomInput
-                        label="Search"
-                        id="searchCompaniesList"
-                        name="searchCompanies"
-                        placeholder="Search"
-                        type="text"
-                        disabled={loading}
-                        maxLength={100}
-                      />
-                    </div>
-
-                    <div className="ms-3 d-flex align-items-end ">
-                      <IconTitleButton
-                        imgSrc={filterIcon}
-                        title="Filter"
-                        onClickCall={onFilterClick}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="">
-                  {loading === true ? (
-                    <Loader />
-                  ) : (
-                    <>
-                      {dataList.length > 0 ? (
-                        <>
-                          <CompaniesListTable
-                            rowsDataList={dataList}
-                            defaultCurrent={defaultCurrent}
-                          />
-
-                          <div className="pagination-component mt-3">
-                            <PaginationComponent
-                              total={meta.total}
-                              defaultPageSize={defaultPageSize}
-                              defaultCurrent={defaultCurrent}
-                              onChangeCall={callPaginationAction}
-                              onShowSizeChange={callPaginationAction}
-                            />
-                          </div>
-                        </>
-                      ) : (
-                        <h1>
-                          <EmptyComp />
-                        </h1>
-                      )}
-                    </>
-                  )}
-                </div>
-              </div>
-
-            </div>
-
+          <div className="ms-3 d-flex align-items-end ">
+            <IconTitleButton
+              imgSrc={filterIcon}
+              title="Filter"
+              onClickCall={onFilterClick}
+            />
           </div>
-          
         </div>
-      </section>
+      </div>
 
-    </HomeLayout>
+      <div className="">
+        {loading === true ? (
+          <Loader />
+        ) : (
+          <>
+            {dataList.length > 0 ? (
+              <>
+                <CompaniesListTable
+                  rowsDataList={dataList}
+                  defaultCurrent={defaultCurrent}
+                />
+
+                <div className="pagination-component mt-3">
+                  <PaginationComponent
+                    total={meta.total}
+                    defaultPageSize={defaultPageSize}
+                    defaultCurrent={defaultCurrent}
+                    onChangeCall={callPaginationAction}
+                    onShowSizeChange={callPaginationAction}
+                  />
+                </div>
+              </>
+            ) : (
+              <h1>
+                <EmptyComp />
+              </h1>
+            )}
+          </>
+        )}
+      </div>
+    </div>
   );
-}
+};
 
-export default Companies;
+export default CompaniesList;

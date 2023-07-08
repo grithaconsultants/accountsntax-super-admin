@@ -6,79 +6,80 @@ const endPoints: any = {
 
 	signedUrl: `${BASE_URL}/aws-presigned`,
 
-	signup: `${BASE_URL}/auth/signup`,
+	// signup: `${BASE_URL}/auth/signup`,
 	login: `${BASE_URL}/auth/super/login`,
 	verifyOtp: `${BASE_URL}/auth/otp-verify`,
-
 	resendOTPApi: `${BASE_URL}/ auth/send-auth-otp`,
-
 
 	forgotPassword: `${BASE_URL}/auth/forgot-password`,
 	resetPassword: `${BASE_URL}/auth/reset-password`,
 
+	getAdmins :`${BASE_URL}/super-admin/admin-list`,
+	getClients :`${BASE_URL}/super-admin/clients-list`,
+	getCompanies :`${BASE_URL}/super-admin/companies-list`,
 
 
-	addCompany: `${BASE_URL}/clients/add-company`,
-	getCompanies: `${BASE_URL}/clients/companies`,
-	getCompanyById: `${BASE_URL}/clients/get-company-details`,
-	updateCompany: `${BASE_URL}/clients/update-company`,
+	// addCompany: `${BASE_URL}/clients/add-company`,
+	// getCompanies: `${BASE_URL}/clients/companies`,
+	// getCompanyById: `${BASE_URL}/clients/get-company-details`,
+	// updateCompany: `${BASE_URL}/clients/update-company`,
 
 
 
-	addPartner: `${BASE_URL}/clients/add-partner`,
-	updatePartner: `${BASE_URL}/clients/update-partner`,
-	deletePartner: `${BASE_URL}/clients/delete-partner`,
+	// addPartner: `${BASE_URL}/clients/add-partner`,
+	// updatePartner: `${BASE_URL}/clients/update-partner`,
+	// deletePartner: `${BASE_URL}/clients/delete-partner`,
 
-	addPasswordVault: `${BASE_URL}/clients/add-password-vault`,
-	updatePasswordVault: `${BASE_URL}/clients/update-password-vault`,
-	deletePasswordVault: `${BASE_URL}/clients/delete-password-vault`,
+	// addPasswordVault: `${BASE_URL}/clients/add-password-vault`,
+	// updatePasswordVault: `${BASE_URL}/clients/update-password-vault`,
+	// deletePasswordVault: `${BASE_URL}/clients/delete-password-vault`,
 
 
-	getLedgers: `${BASE_URL}/clients/ledger-groups`,
-	getuoms: `${BASE_URL}/clients/uoms`,
+	// getLedgers: `${BASE_URL}/clients/ledger-groups`,
+	// getuoms: `${BASE_URL}/clients/uoms`,
 
-	getCustomers: `${BASE_URL}/clients/customers`,
-	addCustomerApi: `${BASE_URL}/clients/add-customer`,
+	// getCustomers: `${BASE_URL}/clients/customers`,
+	// addCustomerApi: `${BASE_URL}/clients/add-customer`,
 
-	getSupplier: `${BASE_URL}/clients/suppliers`,
-	addSupplier: `${BASE_URL}/clients/add-supplier`,
+	// getSupplier: `${BASE_URL}/clients/suppliers`,
+	// addSupplier: `${BASE_URL}/clients/add-supplier`,
 
-	getItems: `${BASE_URL}/clients/items`,
-	addItems: `${BASE_URL}/clients/add-item`,
+	// getItems: `${BASE_URL}/clients/items`,
+	// addItems: `${BASE_URL}/clients/add-item`,
 
-	getAllCountry: `${BASE_URL}/get-country`,
-	getStates: `${BASE_URL}/get-state`,
-	getCities: `${BASE_URL}/get-city`,
-	getBanks: `${BASE_URL}/banks`,
+	// getAllCountry: `${BASE_URL}/get-country`,
+	// getStates: `${BASE_URL}/get-state`,
+	// getCities: `${BASE_URL}/get-city`,
+	// getBanks: `${BASE_URL}/banks`,
 
-	getItemWiseSales: `${BASE_URL}/clients/sales-itemwise`,
+	// getItemWiseSales: `${BASE_URL}/clients/sales-itemwise`,
 
 
 	//mis
-	salesMonthly: `${BASE_URL}/mis/sales-monthly`,
-	salesByInvoice: `${BASE_URL}/mis/sales-by-invoice`,
-	salesRegister: `${BASE_URL}/mis/sales-register`,
-	salesCustomerwise: `${BASE_URL}/mis/sales-customerwise`,
-	salesItemwise: `${BASE_URL}/mis/sales-itemwise`,
+	// salesMonthly: `${BASE_URL}/mis/sales-monthly`,
+	// salesByInvoice: `${BASE_URL}/mis/sales-by-invoice`,
+	// salesRegister: `${BASE_URL}/mis/sales-register`,
+	// salesCustomerwise: `${BASE_URL}/mis/sales-customerwise`,
+	// salesItemwise: `${BASE_URL}/mis/sales-itemwise`,
 
 
 	//receivable
-	salesReceipt: `${BASE_URL}/mis/sales-receipt`,
-	accountLedger: `${BASE_URL}/mis/account-ledger`,
-	receivableByTally: `${BASE_URL}/mis/receivable-by-tally`,
-	receivableFifo: `${BASE_URL}/mis/receivable-fifo`,
+	// salesReceipt: `${BASE_URL}/mis/sales-receipt`,
+	// accountLedger: `${BASE_URL}/mis/account-ledger`,
+	// receivableByTally: `${BASE_URL}/mis/receivable-by-tally`,
+	// receivableFifo: `${BASE_URL}/mis/receivable-fifo`,
 
 	//expenses
-	vendorWise: `${BASE_URL}/mis/expenses-vendorwise`,
-	categoryWise: `${BASE_URL}/mis/expenses-categorywise`,
-	expenseRegister: `${BASE_URL}/mis/expenses-register`,
-	expensePerformance: `${BASE_URL}/mis/expenses-performance`,
+	// vendorWise: `${BASE_URL}/mis/expenses-vendorwise`,
+	// categoryWise: `${BASE_URL}/mis/expenses-categorywise`,
+	// expenseRegister: `${BASE_URL}/mis/expenses-register`,
+	// expensePerformance: `${BASE_URL}/mis/expenses-performance`,
 
 	//payables
-	payablesExpenses: `${BASE_URL}/mis/expenses-register`,
-	payablesPayments: `${BASE_URL}/mis/expenses-payment`,
+	// payablesExpenses: `${BASE_URL}/mis/expenses-register`,
+	// payablesPayments: `${BASE_URL}/mis/expenses-payment`,
 
-	voucherDetails: `${BASE_URL}/mis/voucher-details`,
+	// voucherDetails: `${BASE_URL}/mis/voucher-details`,
 
 
 }
