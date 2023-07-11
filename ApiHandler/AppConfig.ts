@@ -17,6 +17,8 @@ const endPoints: any = {
 	getAdmins :`${BASE_URL}/super-admin/admin-list`,
 	getClients :`${BASE_URL}/super-admin/clients-list`,
 	getCompanies :`${BASE_URL}/super-admin/companies-list`,
+	getCompanyById: `${BASE_URL}/super-admin/company-detail`,
+	getClientById: `${BASE_URL}/super-admin/client-detail`,
 
 
 	// addCompany: `${BASE_URL}/clients/add-company`,

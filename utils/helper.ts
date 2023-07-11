@@ -78,6 +78,24 @@ export const getSelectedCompany = () => {
   }
 }
 
+// export const getCompanyFromLs = () => {
+//   const checking: any = localStorage.getItem('company');
+//   if (isEmpty(checking)) {
+//     window.location.replace('/companies');
+//   } else {
+//     return JSON.parse(checking);
+//   }
+// }
+
+export const getSelectedClient = () => {
+  const checking: any = localStorage.getItem('client');
+  if (isEmpty(checking)) {
+    window.location.replace('/login');
+  } else {
+    return JSON.parse(checking);
+  }
+}
+
 export const getSelectedCompanyData = (companyId: string) => {
   const checking: any = localStorage.getItem('companiesData');
   if (isEmpty(checking)) {

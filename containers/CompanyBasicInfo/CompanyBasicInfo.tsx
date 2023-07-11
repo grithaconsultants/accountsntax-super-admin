@@ -187,14 +187,14 @@ const CompanyBasicInfo = (props: any) => {
       <div className='mt-3'>
         <div className='' ><span className='tx-v fs-20 ff-m bb-o' >Buisness Details</span></div>
         <div className='mt-2 bx-5 bx-11 bg-lo p-2 br-5 position-relative' >
-          <div className='d-flex justify-content-end position-absolute end-0 top-0 '>
+          {/* <div className='d-flex justify-content-end position-absolute end-0 top-0 '>
             <IconBox
               type="text"
               icon={<FaRegEdit color="#673275" />}
               loading={false}
               onClickEvent={() => setPanEditData(data?.panDetail)}
             />
-          </div>
+          </div> */}
           <InformationCard renderData={pancardData} />
         </div>
       </div>
@@ -202,12 +202,12 @@ const CompanyBasicInfo = (props: any) => {
       <div className='mt-3'>
         <div className='d-flex mt-4 align-items-center' >
           <span className='tx-v fs-20 ff-m bb-o' >Address</span>
-          <IconBox
+          {/* <IconBox
             type="text"
             icon={<FaPlusCircle color="#673275" />}
             loading={false}
             onClickEvent={() => setModal(true)}
-          />
+          /> */}
         </div>
         {/* {data?.address?.length &&
           <> */}
@@ -247,12 +247,12 @@ const CompanyBasicInfo = (props: any) => {
               return (
                 <div className='mt-2 bx-5 bx-11 bg-lo p-2 br-5 position-relative' key={index} >
                   <div className='d-flex justify-content-end position-absolute end-0 top-0 '>
-                    <IconBox
+                    {/* <IconBox
                       type="text"
                       icon={<FaRegEdit color="#673275" />}
                       loading={false}
                       onClickEvent={() => setEditData(item)}
-                    />
+                    /> */}
 
                     <Popconfirm
                       title="Delete"
@@ -284,12 +284,12 @@ const CompanyBasicInfo = (props: any) => {
       <div className='mt-3'>
         <div className='d-flex mt-4 align-items-center' >
           <span className='tx-v fs-20 ff-m bb-o' >Bank Details</span>
-          <IconBox
+          {/* <IconBox
             type="text"
             icon={<FaPlusCircle color="#673275" />}
             loading={false}
             onClickEvent={() => setBankAddData(true)}
-          />
+          /> */}
         </div>
         {data?.bankDetail?.map((item: any, index: any) => {
           const prop = [
@@ -318,12 +318,12 @@ const CompanyBasicInfo = (props: any) => {
           return (
             <div className='mt-2 bx-5 bx-11 bg-lo p-2 br-5 position-relative' key={index} >
               <div className='d-flex justify-content-end position-absolute end-0 top-0 '>
-                <IconBox
+                {/* <IconBox
                   type="text"
                   icon={<FaRegEdit color="#673275" />}
                   loading={false}
                   onClickEvent={() => setBankEditData(item)}
-                />
+                /> */}
 
                 <Popconfirm
                   title="Delete"

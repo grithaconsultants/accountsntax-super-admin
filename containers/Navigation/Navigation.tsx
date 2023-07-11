@@ -121,6 +121,55 @@ const Navigation = (props: any) => {
               </div>
             </li>
 
+            {/* <li>
+
+              <div className="navItem">
+
+                <div className="navLeft">
+                  <div className="navImg">
+                    <div className="iconBox" >
+                      <Image src={account} alt="account icon" width={24} height={24} />
+                    </div>
+                  </div>
+                  <div className="navTlt">
+                    <CustomTooltip title="Profile" >Profile </CustomTooltip>
+                  </div>
+                </div>
+
+                <div className="navRight" onClick={expandAndRotate.bind('', "profile")}  >
+                  <Image
+                    src={arrow}
+                    alt="arrow icon"
+                    width={24}
+                    height={24}
+                    className={childMenu == "profile" ? "active" : "none"}
+                  />
+                </div>
+
+              </div>
+
+              <div className={`navSubMen ${childMenu !== "profile" ? "none" : ""} `} >
+                <ul>
+                  <li onClick={() => directToTarget("profile-details")} >
+                    <Image src={arrowh} alt="arrow icon" width={8} height={10} />
+                    <CustomTooltip title="Company Profile Details" placement="right" >Company Profile Details</CustomTooltip>
+                  </li>
+                  {/* <li onClick={() => directToTarget("add-company-profile")} >
+                    <Image src={arrowh} alt="arrow icon" width={8} height={10} />
+                    <CustomTooltip title="Add Company" placement="right"  >Add Company </CustomTooltip>
+                  </li> 
+                  <li onClick={() => directToTarget("update-company-profile")} >
+                    <Image src={arrowh} alt="arrow icon" width={8} height={10} />
+                    <CustomTooltip
+                      title="Update Company Profile"
+                      placement="right"
+                    >Update Company Profile </CustomTooltip>
+                  </li> 
+                </ul>
+              </div>
+
+            </li> */}
+
             
           </ul>
         </nav>

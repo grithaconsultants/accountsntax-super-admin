@@ -74,6 +74,7 @@ export const fileimg: string = "/assets/img/file.svg";
 
 export const techIssue: string = "/assets/img/technical-down.webp";
 export const companyJPG: string = "/assets/img/companylogo.png";
+export const clientJPG: string = "/assets/img/companylogo.png";
 export const userPNG: string = "/assets/img/user.png";
 
 //services
