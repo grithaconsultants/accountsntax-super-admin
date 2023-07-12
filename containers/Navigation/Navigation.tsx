@@ -47,8 +47,11 @@ const Navigation = (props: any) => {
   }
 
   const directToTarget = (target: string) => {
-    console.log(TAG + " Creds ", target);
-    router.push(target);
+    // const currentPath = router.pathname
+    // if(currentPath.includes('company-profiles')){
+    //   router.back()
+    // }    
+    router.push(`../${target}`);
   };
 
   return (

@@ -36,16 +36,18 @@ export const getToken = () => {
   const checking: any = localStorage.getItem('userData');
   if (isEmpty(checking)) {
     window.location.replace('/login');
-  } else {
+  }
+  else{
     return JSON.parse(checking);
   }
 }
 
 export const getUserProfileDetails = () => {
-  const checking: any = localStorage.getItem('userData');
+  const checking: any = localStorage.getItem('userData'); 
   if (isEmpty(checking)) {
     window.location.replace('/login');
-  } else {
+  }
+  else {
     return JSON.parse(checking).loginData;
   }
 }

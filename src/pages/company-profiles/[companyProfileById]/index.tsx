@@ -25,9 +25,13 @@ import { getSelectedCompany } from "@/utils/helper";
 
 const TAG = "ProfileDetails: ";
 const ProfileDetails = () => {
-  const router = useRouter();
-  // const {companyId} = router.query ;
-  // console.log("get id from company table ", companyId)
+  const router= useRouter() ;
+
+  const companyId = router.query.companyProfileById  ;
+
+
+  console.log("get id from company table ", companyId)
+
 
   
   const [company, setCompany] = useState<any>(null);
@@ -70,7 +74,7 @@ const ProfileDetails = () => {
   useEffect(() => {
     if (reFetchAction == true) {
       // callDataKeeper();
-      callDataKeeper();
+      callDataKeeper2(companyId);
       setReFetchAction(false);
     }
   }, [reFetchAction]);
@@ -121,12 +125,15 @@ const ProfileDetails = () => {
   //   );
   // }
 
-  async function callDataKeeper() {
+  async function callDataKeeper2(companyId : any) {
     console.log("Data keeper2 function is callinng");
-    const getSelectedC: any = await getSelectedCompany();
-    console.log("get company data from localstorage", getSelectedC);
-    getCompanyDetails(getSelectedC._id);
-    console.log("API calling for get full company detail by ID", getSelectedC._id);
+    // const getSelectedC: any = await getSelectedCompany();
+    // console.log("get company data from localstorage", companyID);
+    getCompanyDetails(companyId);
+    console.log(
+      "API calling for get full company detail by ID",
+      companyId
+    );
   }
 
   async function getCompanyDetails(companyId: any): Promise<void> {

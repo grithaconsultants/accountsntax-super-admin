@@ -20,6 +20,8 @@ const endPoints: any = {
 	getCompanyById: `${BASE_URL}/super-admin/company-detail`,
 	getClientById: `${BASE_URL}/super-admin/client-detail`,
 
+	sendWhatsapp : `https://graph.facebook.com/v17.0/106566122505895/messages`
+
 
 	// addCompany: `${BASE_URL}/clients/add-company`,
 	// getCompanies: `${BASE_URL}/clients/companies`,

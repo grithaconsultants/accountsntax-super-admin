@@ -9,6 +9,8 @@ export const tds: string = "/assets/img/tds.svg";
 export const icegate: string = "/assets/img/icegate.svg";
 export const alert: string = "/assets/img/alert.svg";
 
+export const whatsapp : string = '/asset/img/whatsapp.svg'
+
 
 
 export const tally: string = "/assets/img/tally.svg";

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getToken } from '@/utils/helper';
+
 
 const TAG = 'NetworkOps: ';
 const API_TIMEOUT = 100000;
@@ -16,13 +16,13 @@ axios.interceptors.request.use(async (config) => {
 		}
 	};
 
-	try {
+  try {
 
 		const { isTokenRequired = false } = config || {};
 		// console.log(TAG, 'isTokenRequired', isTokenRequired);
 
 		if (isTokenRequired) {
-			const { token } = getToken();
+			const  token  = "EAASbiyIR44wBAAOQhzDNMxkMsd67HIzBoXJC1UP1QwDTG2HCKEbFfaCfAZB5cfZAr0vWUhqpE4rVYwfSyUse97fmRtIEAHZB14sZCNlGZBsGmLkeEL9szZApr9F7CCQ6ZAXfYiZCNGkZB98vVZC6efgM5O5TsNwpFzDaVZAq62ZAnKGZCv4tEj3PqBg5rqRNZCUBTYz63S1S461Eu7DwZDZD";
 			newConfig = {
 				...newConfig,
 				headers: {
@@ -35,12 +35,12 @@ axios.interceptors.request.use(async (config) => {
 		}
 
 	} catch (error) {
-		console.log(TAG, 'Error in interceptor request', error);
+		console.log(TAG, 'Error in interceptor request 2', error);
 	}
 
 	return newConfig;
 }, (error) => {
-	console.log(TAG, 'Error in interceptor request', error);
+	console.log(TAG, 'Error in interceptor request 2', error);
 	return Promise.reject(error);
 });
 
@@ -71,22 +71,9 @@ axios.interceptors.response.use(
 	},
 );
 
-const makeGetRequest = (URL, isTokenRequired = true) => axios.get(URL, { isTokenRequired });
 const makePostRequest = (URL, data = {}, isTokenRequired = true) => axios.post(URL, { ...data }, { isTokenRequired });
-const makePutRequest = (URL, data = {}, isTokenRequired = true) => axios.put(URL, { ...data }, { isTokenRequired });
-const makePatchRequest = (URL, data = {}, isTokenRequired = true) => axios.patch(URL, { ...data }, { isTokenRequired });
-const makeDeleteRequest = (URL, isTokenRequired = true) => axios.delete(URL, { isTokenRequired });
 
-// const makePosRequestSendWhatsapp = (config) => axios.request(config);
 
 export default {
-	makeGetRequest,
-	makePostRequest,
-	makePutRequest,
-	makePatchRequest,
-	makeDeleteRequest,
-	// makePosRequestSendWhatsapp
+	makePostRequest
 };
-
-
-

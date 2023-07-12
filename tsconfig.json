@@ -51,7 +51,7 @@
     "src/pages/index.jsx",
     "component/donute/donute.js",
     "component/columnchart/columnchart.js"
-, "containers/Mis/SalesMonthlyChart.js"  ],
+, "containers/Mis/SalesMonthlyChart.js", "containers/WhatsappWebClient/WhatsappWebClient.tsx"  ],
   "exclude": [
     "node_modules",
     "pages"
