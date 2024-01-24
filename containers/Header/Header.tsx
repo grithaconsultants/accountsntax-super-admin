@@ -1,23 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import CustomTooltip from '@/component/tooltip/tooltip';
-import SimpleSelect from '@/component/select/select';
 import SimpleDropdown from '@/component/dropdown/dropdown';
-import ToastComponent from '@/component/Toast/Toast';
 
 import LS from '@/styles/Header.module.scss';
 
 import { msg, search, insta, bars } from '@/utils/image';
-import { isEmpty } from '@/utils/helper';
-
-
-
-import endPoints from '@/ApiHandler/AppConfig';
-import NetworkOps from '@/ApiHandler/NetworkOps';
 
 const TAG = "Header: ";
+
 const Header = (props: any) => {
 
   const router = useRouter();
@@ -54,7 +47,7 @@ const Header = (props: any) => {
 
             <div className={LS.ringBox} >
 
-              <div className="flex-wrapper" onClick={() => router.push('update-company-profile')} >
+              <div className="flex-wrapper" onClick={() => router.push('/clietns')} >
                 <div className="single-chart">
                   <svg viewBox="0 0 36 36" className="circular-chart orange">
                     <path className="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />

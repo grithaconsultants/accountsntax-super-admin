@@ -22,7 +22,7 @@ axios.interceptors.request.use(async (config) => {
 		// console.log(TAG, 'isTokenRequired', isTokenRequired);
 
 		if (isTokenRequired) {
-			const { token } = getToken();
+			const token = getToken();
 			newConfig = {
 				...newConfig,
 				headers: {

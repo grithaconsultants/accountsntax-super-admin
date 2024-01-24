@@ -24,7 +24,7 @@ const Clients = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const { clientsList, metaData } : any = useSelector((state: any) => state.clientsData);
+  const { clientsList, metaData }: any = useSelector((state: any) => state.clientsData);
 
   const [loading, setLoading] = useState<boolean>(true);
   const [dataList, setDataList] = useState<any>([]);
@@ -33,13 +33,15 @@ const Clients = () => {
   const [defaultPageSize, setDefaultPageSize] = useState<number>(10);
   const [defaultCurrent, setDefaultCurrent] = useState<number>(1);
   const [searchString, setSearchString] = useState<string>("");
+  const [sortKey, setSortKey] = useState<string>("firstName");
+  const [sortType, setSortType] = useState<string>("asc");
 
   useEffect(() => {
-    ApicallForData(defaultCurrent, defaultPageSize, "");
+    ApicallForData(defaultCurrent, defaultPageSize, sortKey, sortType, searchString);
   }, [0]);
 
-  useEffect(()=> {
-    if(!isEmpty(clientsList) && clientsList.length > 0){
+  useEffect(() => {
+    if (!isEmpty(clientsList) && clientsList.length > 0) {
       setDataList(clientsList);
       setMeta(metaData);
     }
@@ -47,7 +49,7 @@ const Clients = () => {
 
 
   const callPaginationAction = (page: number, limit: number) => {
-    ApicallForData(page, limit, searchString);
+    ApicallForData(page, limit, sortKey, sortType, searchString);
     setDefaultCurrent(page);
     setDefaultPageSize(limit);
   };
@@ -58,10 +60,10 @@ const Clients = () => {
     const searchItem: any = docElement.value.trim();
 
     if (searchItem === "") {
-      ApicallForData(1, 10, "");
+      ApicallForData(1, 10, sortKey, sortType);
       setSearchString("");
     } else {
-      ApicallForData(1, 10, searchItem);
+      ApicallForData(1, 10, sortKey, sortType, searchItem);
       setSearchString(searchItem);
     }
 
@@ -69,14 +71,21 @@ const Clients = () => {
     setDefaultPageSize(10);
   }
 
-  
-  async function ApicallForData(page: any, limit: any, search: any): Promise<void> {
+
+  async function ApicallForData(
+    page: any,
+    limit: any,
+    sortKeyP: string = sortKey,
+    sortTypeP: string = sortType,
+    search: string = "",
+  ): Promise<void> {
+
     setLoading(true);
     let apiUrl;
     if (isEmpty(search)) {
-      apiUrl = `${endPoints.getClients}?page=${page}&limit=${limit}`;
+      apiUrl = `${endPoints.getClients}?page=${page}&limit=${limit}&sortKey=${sortKeyP}&sortType=${sortTypeP}`;
     } else {
-      apiUrl = `${endPoints.getClients}?search=${search}&page=${page}&limit=${limit}`;
+      apiUrl = `${endPoints.getClients}?search=${search}&page=${page}&limit=${limit}&sortKey=${sortKeyP}&sortType=${sortTypeP}`;
     }
 
     fetchAllClients(dispatch, apiUrl);
@@ -140,6 +149,11 @@ const Clients = () => {
                           <ClientListTable
                             rowsDataList={dataList}
                             defaultCurrent={defaultCurrent}
+                            defaultPageSize={defaultPageSize}
+                            sortKey={sortKey}
+                            setSortKey={setSortKey}
+                            sortType={sortType}
+                            setSortType={setSortType}
                           />
 
                           <div className="pagination-component mt-3">

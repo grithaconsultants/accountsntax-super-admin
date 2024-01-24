@@ -2,6 +2,7 @@
 import endPoints from '@/ApiHandler/AppConfig';
 import NetworkOps from '@/ApiHandler/NetworkOps';
 import ToastComponent from '@/component/Toast/Toast';
+import axios from 'axios';
 import moment from 'moment-timezone'
 
 export const debounce = (func: any, wait: any) => {
@@ -33,7 +34,7 @@ export const isEmpty = (value: any) => {
 }
 
 export const getToken = () => {
-  const checking: any = localStorage.getItem('userData');
+  const checking: any = localStorage.getItem('userToken');
   if (isEmpty(checking)) {
     window.location.replace('/login');
   }
@@ -42,43 +43,43 @@ export const getToken = () => {
   }
 }
 
-export const getUserProfileDetails = () => {
-  const checking: any = localStorage.getItem('userData'); 
-  if (isEmpty(checking)) {
-    window.location.replace('/login');
-  }
-  else {
-    return JSON.parse(checking).loginData;
-  }
-}
+// export const getUserProfileDetails = () => {
+//   const checking: any = localStorage.getItem('userData'); 
+//   if (isEmpty(checking)) {
+//     window.location.replace('/login');
+//   }
+//   else {
+//     return JSON.parse(checking).loginData;
+//   }
+// }
 
-export const getCompaniesData = () => {
-  const checking: any = localStorage.getItem('companiesData');
-  if (isEmpty(checking)) {
-    window.location.replace('/login');
-  } else {
-    return JSON.parse(checking);
-  }
-}
+// export const getCompaniesData = () => {
+//   const checking: any = localStorage.getItem('companiesData');
+//   if (isEmpty(checking)) {
+//     window.location.replace('/login');
+//   } else {
+//     return JSON.parse(checking);
+//   }
+// }
 
 
-export const getSelectedCompanyId = () => {
-  const checking: any = localStorage.getItem('company');
-  if (isEmpty(checking)) {
-    window.location.replace('/login');
-  } else {
-    return JSON.parse(checking)._id;
-  }
-}
+// export const getSelectedCompanyId = () => {
+//   const checking: any = localStorage.getItem('company');
+//   if (isEmpty(checking)) {
+//     window.location.replace('/login');
+//   } else {
+//     return JSON.parse(checking)._id;
+//   }
+// }
 
-export const getSelectedCompany = () => {
-  const checking: any = localStorage.getItem('company');
-  if (isEmpty(checking)) {
-    window.location.replace('/login');
-  } else {
-    return JSON.parse(checking);
-  }
-}
+// export const getSelectedCompany = () => {
+//   const checking: any = localStorage.getItem('company');
+//   if (isEmpty(checking)) {
+//     window.location.replace('/login');
+//   } else {
+//     return JSON.parse(checking);
+//   }
+// }
 
 // export const getCompanyFromLs = () => {
 //   const checking: any = localStorage.getItem('company');
@@ -89,51 +90,51 @@ export const getSelectedCompany = () => {
 //   }
 // }
 
-export const getSelectedClient = () => {
-  const checking: any = localStorage.getItem('client');
-  if (isEmpty(checking)) {
-    window.location.replace('/login');
-  } else {
-    return JSON.parse(checking);
-  }
-}
+// export const getSelectedClient = () => {
+//   const checking: any = localStorage.getItem('client');
+//   if (isEmpty(checking)) {
+//     window.location.replace('/login');
+//   } else {
+//     return JSON.parse(checking);
+//   }
+// }
 
-export const getSelectedCompanyData = (companyId: string) => {
-  const checking: any = localStorage.getItem('companiesData');
-  if (isEmpty(checking)) {
-    window.location.replace('/login');
-  } else {
-    const compArr = JSON.parse(checking);
+// export const getSelectedCompanyData = (companyId: string) => {
+//   const checking: any = localStorage.getItem('companiesData');
+//   if (isEmpty(checking)) {
+//     window.location.replace('/login');
+//   } else {
+//     const compArr = JSON.parse(checking);
 
-    const found = compArr.find((singleData: any) => singleData._id === companyId);
+//     const found = compArr.find((singleData: any) => singleData._id === companyId);
 
-    if (isEmpty(found)) {
-      window.location.replace('/login');
-    }
+//     if (isEmpty(found)) {
+//       window.location.replace('/login');
+//     }
 
-    return found;
+//     return found;
 
-  }
-}
+//   }
+// }
 
-export const getLedgers = () => {
-  const checking: any = localStorage.getItem('ledgers');
-  if (isEmpty(checking)) {
-    window.location.replace('/login');
-  } else {
-    return JSON.parse(checking);
-  }
-}
+// export const getLedgers = () => {
+//   const checking: any = localStorage.getItem('ledgers');
+//   if (isEmpty(checking)) {
+//     window.location.replace('/login');
+//   } else {
+//     return JSON.parse(checking);
+//   }
+// }
 
 
-export const getUOM = () => {
-  const checking: any = localStorage.getItem('uom');
-  if (isEmpty(checking)) {
-    window.location.replace('/login');
-  } else {
-    return JSON.parse(checking);
-  }
-}
+// export const getUOM = () => {
+//   const checking: any = localStorage.getItem('uom');
+//   if (isEmpty(checking)) {
+//     window.location.replace('/login');
+//   } else {
+//     return JSON.parse(checking);
+//   }
+// }
 
 
 export const wait = (timeout: any) => {
@@ -192,18 +193,17 @@ export const removeDateRest = (value: string) => {
   }
 }
 
-export const SrPageNumber = (defaultCurrent: any, index: any) => {
-  if (isEmpty(defaultCurrent) && isEmpty(index)) {
+export const SrPageNumber = (currentPageNo: number, pageSize: number, index: number) => {
+  if (isEmpty(currentPageNo) && isEmpty(index)) {
     return "_";
   } else {
-    if (defaultCurrent == 1) {
+    if (currentPageNo == 1) {
       return index + 1;
     } else {
-      return ((defaultCurrent-1) * 10) + (index + 1);
+      return ((currentPageNo * pageSize) - pageSize) + (index + 1);
     }
   }
 }
-
 
 export const dateDiffInDays = (value: string) => {
   if (isEmpty(value)) {
@@ -428,3 +428,37 @@ export const catchErrorHandling = (error : any) => {
   }
 
 }
+
+
+export const handleWhatsAppIconClick = (clientNumber: string) => {
+  const message = 'Hello, this is an automated message.';
+  const whatsappUrl = `https://api.whatsapp.com/send?phone=${clientNumber}&text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+  ToastComponent("message sent successfully");
+};
+
+export const handleSendEmail = (toemail :string) => {
+  const to = toemail;
+  const subject = 'Test Email';
+  const text = 'This is a test email sent from Next.js!';
+
+  // SendMail(to, subject, text);
+};
+
+export const handleSenEMail = async () => {
+  const recipient = 'raj.chandra.kumawat@gmail.com';
+  const subject = 'Send Email From Microsoft Azure Ad account';
+  const body = 'Hello, this is first test email send you to from microsoft azure account ';
+
+  try {
+    await axios.post('/api/send-email', {
+      recipient: recipient,
+      subject: subject,
+      body: body,
+    });
+
+    console.log('Email sent successfully');
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
+};

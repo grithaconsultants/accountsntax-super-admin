@@ -43,10 +43,17 @@ const LoginForm = (props: any) => {
 
     setLoading(false);
 
-    const sessionData = {};
-    Object.assign(sessionData, { cookie: response?.data?.data?.cookie });
-    Object.assign(sessionData, { loginData: response?.data?.data?.userInfo });
-    Object.assign(sessionData, { token: response?.data?.data?.tokenData?.token });
+    const sessionData = {
+      cookie: response?.data?.data?.cookie ?? null,
+      loginData: response?.data?.data?.userInfo ?? null,
+      token: response?.data?.data?.tokenData?.token ?? null
+    };
+
+    localStorage.setItem('userToken', String(response?.data?.data?.tokenData?.token));
+
+    // Object.assign(sessionData, { cookie: response?.data?.data?.cookie });
+    // Object.assign(sessionData, { loginData: response?.data?.data?.userInfo });
+    // Object.assign(sessionData, { token: response?.data?.data?.tokenData?.token });
 
     router.push('/clients');
 
