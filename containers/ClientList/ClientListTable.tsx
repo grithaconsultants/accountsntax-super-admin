@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { WhatsAppOutlined } from '@ant-design/icons';
@@ -7,13 +8,18 @@ import {AiOutlineMail , AiOutlineWhatsApp} from "react-icons/ai";
 import CustomTooltip from "@/component/tooltip/tooltip";
 import ToastComponent from "@/component/Toast/Toast";
 
-// import { sendWhatsAppMessage } from "@/containers/WhatsappWebClient/WhatsappWebClient"
+
+
 
 import { removeplus91, SrPageNumber } from "@/utils/helper";
 import { whatsapp } from "@/utils/image";
+// import SendEmail from "@/utils/sendEmail"
+
 
 import endPoints from "@/ApiHandler/AppConfig";
 import NetworkOps3 from "@/ApiHandler/NetworkOps3";
+
+
 
 const TAG = "ClientListTable: ";
 const ClientListTable = (props: any) => {
@@ -31,6 +37,32 @@ const ClientListTable = (props: any) => {
   //   window.open(whatsappUrl, '_blank');
   //   ToastComponent("message sent successfully");
   // };
+
+
+  // const handleSendEmail = (toemail :string) => {
+  //   const to = toemail;
+  //   const subject = 'Test Email';
+  //   const text = 'This is a test email sent from Next.js!';
+
+  //   // SendMail(to, subject, text);
+  // };
+  const handleClick = async () => {
+    const recipient = 'raj.chandra.kumawat@gmail.com';
+    const subject = 'Send Email From Microsoft Azure Ad account';
+    const body = 'Hello, this is first test email send you to from microsoft azure account ';
+
+    try {
+      await axios.post('/api/send-email', {
+        recipient: recipient,
+        subject: subject,
+        body: body,
+      });
+
+      console.log('Email sent successfully');
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  };
 
 
  
@@ -113,7 +145,7 @@ const ClientListTable = (props: any) => {
 
               <td className="tb-text tb-mw-150 px-1 text-center">
                 <CustomTooltip placement="topLeft" title={"Whatsapp"}>
-                  <a onClick={() => NetworkOps3.sendMessage('+91 7357909096')}>
+                  <a onClick={() => NetworkOps3.sendMessage(item?.mobile)}>
                      <WhatsAppOutlined style={{ fontSize: '24px', color: '#25D366' }} />
                      {/* <Image
                         src={whatsapp}
@@ -128,7 +160,9 @@ const ClientListTable = (props: any) => {
 
               <td className="tb-text tb-mw-150 px-1">
                 <CustomTooltip placement="topLeft" title={"Email"}>
+                <a onClick={() => handleClick()}>
                   <AiOutlineMail/>
+                </a>
                 </CustomTooltip>
               </td>
             </tr>

@@ -419,3 +419,12 @@ export const uploadFile = async (files: any, url: any) => {
 
 }
 
+
+export const catchErrorHandling = (error : any) => {
+  if (isEmpty(error?.data?.msg) == true) {
+    return { response: { data: { msg: "Unknown Error !" } }, status: false };
+  }else{
+    return { response: error, status: false };
+  }
+
+}

@@ -8,19 +8,9 @@ import { authCard, logo776x120 } from '@/utils/image';
 
 const Login = () => {
 
-  const router = useRouter();
-
-  // console.log('localstorage ', localStorage.getItem('userData'));
-  // const checking = localStorage.getItem('userData');
-  // if( !isEmpty(checking) ){
-  //   router.push('/home');
-  // }
-
   return (
     <section id="loginWrapper" >
-
       <div className="row" >
-
         <div className="col-lg-6 col-12 p-0" >
           <div className="col-12 p-0 auth-car-card " >
             <Image src={authCard} alt="gst icon" width={412} height={382} priority />
@@ -36,9 +26,7 @@ const Login = () => {
 
           </div>
         </div>
-
       </div>
-
     </section>
   );
 }

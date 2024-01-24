@@ -1,24 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Layout } from "antd";
+import { useSelector } from 'react-redux';
 
 import Header from '@/containers/Header/Header';
 import Navigation from '@/containers/Navigation/Navigation';
-import { getToken, isEmpty } from '@/utils/helper';
 
 const { Content } = Layout;
 const TAG = "HomeLayout: ";
 const HomeLayout = (props: any) => {
 
-  const [sidebarStatus, setSide] = useState<string>("none");
-  const [userData, setUserData] = useState<any>("");
   const { children } = props;
 
-  // useEffect(() => {
-  //   const userDataT = getToken();
-  //   if (!isEmpty(userDataT)) {
-  //     setUserData(userDataT);
-  //   }
-  // }, [0]);
+  const { adminData } = useSelector((state: any) => state.adminData);
+
+  const [sidebarStatus, setSide] = useState<string>("none");
+  const [refetchAction, setrefetchAction] = useState<any>(true);
 
   return (
     <>
@@ -26,7 +22,11 @@ const HomeLayout = (props: any) => {
         <Navigation sidebarStatus={sidebarStatus} setSide={setSide} />
 
         <div className="contSection" >
-          <Header setSide={setSide} userData={userData} />
+          <Header
+            setSide={setSide}
+            adminData={adminData}
+            setrefetchAction={setrefetchAction}
+          />
           <Content>{children}</Content>
         </div>
       </main>

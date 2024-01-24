@@ -1,8 +1,10 @@
 import axios from 'axios';
+import process from 'process';
 
 const sendMessage = async (moNumber) => {
+  console.log(process , process.env)
   const url = 'https://graph.facebook.com/v17.0/106566122505895/messages';
-  const accessToken = 'EAASbiyIR44wBAAOQhzDNMxkMsd67HIzBoXJC1UP1QwDTG2HCKEbFfaCfAZB5cfZAr0vWUhqpE4rVYwfSyUse97fmRtIEAHZB14sZCNlGZBsGmLkeEL9szZApr9F7CCQ6ZAXfYiZCNGkZB98vVZC6efgM5O5TsNwpFzDaVZAq62ZAnKGZCv4tEj3PqBg5rqRNZCUBTYz63S1S461Eu7DwZDZD';
+  const accessToken = 'EAASbiyIR44wBAKvkZCDRaXi0peLoHqk6gXVO7N6l4xWqlZBhds31rTF43DkZBbyQWjnUqJ0JhZBDYFH2Na0RBIszb33FdrUYR65cP0LNZAv605LOMMlg6almMSPJObgnXWAqz72jqtTkiPjp7fZBbmoskYVfwXgGaNh4OSXMAatZAcHBtSX8NDZA';
 
   const message = {
     messaging_product: "whatsapp",

@@ -1,10 +1,10 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from 'react-redux';
 
 import IconTitleButton from "@/component/icontitlebutton/icontitlebutton";
 import CustomInput from "@/component/input/input";
 import Loader from "@/component/loader/loader";
-import ToastComponent from "@/component/Toast/Toast";
 import EmptyComp from "@/component/emptycomp/emptycomp";
 import PaginationComponent from "@/component/pagination/pagination";
 
@@ -12,15 +12,19 @@ import ClientListTable from "@/containers/ClientList/ClientListTable";
 import HomeLayout from "@/containers/Layout/Layout";
 
 import endPoints from "@/ApiHandler/AppConfig";
-import NetworkOps from "@/ApiHandler/NetworkOps";
 
 import { filterIcon } from "@/utils/image";
 import { isEmpty } from "@/utils/helper";
+import { fetchAllClients } from "@/redux/actions/clientAction";
 
-const TAG = "Clients: ";
+const TAG = "Clients Page: ";
 
 const Clients = () => {
+
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const { clientsList, metaData } : any = useSelector((state: any) => state.clientsData);
 
   const [loading, setLoading] = useState<boolean>(true);
   const [dataList, setDataList] = useState<any>([]);
@@ -32,13 +36,22 @@ const Clients = () => {
 
   useEffect(() => {
     ApicallForData(defaultCurrent, defaultPageSize, "");
-  }, []);
+  }, [0]);
+
+  useEffect(()=> {
+    if(!isEmpty(clientsList) && clientsList.length > 0){
+      setDataList(clientsList);
+      setMeta(metaData);
+    }
+  }, [clientsList, metaData]);
+
 
   const callPaginationAction = (page: number, limit: number) => {
     ApicallForData(page, limit, searchString);
     setDefaultCurrent(page);
     setDefaultPageSize(limit);
   };
+
 
   function onFilterClick() {
     const docElement: any = document.getElementById("searchClientsList");
@@ -56,8 +69,8 @@ const Clients = () => {
     setDefaultPageSize(10);
   }
 
-
-  async function ApicallForData(page: any, limit: any , search:any): Promise<void> {
+  
+  async function ApicallForData(page: any, limit: any, search: any): Promise<void> {
     setLoading(true);
     let apiUrl;
     if (isEmpty(search)) {
@@ -66,24 +79,15 @@ const Clients = () => {
       apiUrl = `${endPoints.getClients}?search=${search}&page=${page}&limit=${limit}`;
     }
 
-    NetworkOps.makeGetRequest(apiUrl, true)
-      .then(async (response: any) => {
-        setLoading(false);
-       
-        if (response?.status == 200 &&  response?.data?.success == true) {        
-          setDataList(response?.data?.data ? response?.data?.data?.clients: []);          
-          setMeta(response?.data?.data?.meta ? response?.data?.data?.meta : null);
-        } else {
-          ToastComponent(response?.data?.msg);
-        }
-      })
-      .catch((error: any) => {
-        setLoading(false);
-        console.log(TAG, ' error i got in catch ', error);
-        error?.data?.msg ? ToastComponent(error?.data?.msg) : null;
-        router.push(`/technical-issue`);
-      });
+    fetchAllClients(dispatch, apiUrl);
+    setLoading(false);
   }
+
+
+
+  console.log(TAG, "This is ClietnsLisst data from reducer", clientsList);
+  console.log(TAG, "This is Meta data from reducer", metaData);
+
 
 
   return (
@@ -99,8 +103,6 @@ const Clients = () => {
 
           <div className="layout-cardArea">
             <div className="cardBody px-0 mt-0 pb-4">
-              {/* <ClientList /> */}
-
               <div className="w-100 bg-lo p-3 oh br-5 bx-11">
                 <div className="d-flex justify-content-between pb-5 align-items-end">
                   <div className="">  </div>
