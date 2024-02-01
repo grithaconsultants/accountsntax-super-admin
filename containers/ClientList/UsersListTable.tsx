@@ -1,28 +1,20 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { useRouter } from "next/router";
-import { WhatsAppOutlined } from '@ant-design/icons';
-import { AiOutlineMail, AiOutlineWhatsApp } from "react-icons/ai";
 
 import CustomTooltip from "@/component/tooltip/tooltip";
 import SortUi from '@/component/sortui/sortui';
 import IconBox from "@/component/iconbox/iconbox";
 
-import endPoints from "@/ApiHandler/AppConfig";
-import NetworkOps3 from "@/ApiHandler/NetworkOps3";
-
 import { useDispatch, useSelector } from 'react-redux';
 import { CLIENT_DETAILS_UPDATE } from "@/redux/constant";
 
-import { whatsapp } from "@/utils/image";
 import { ICFBsBoxArrowInUpRight } from '@/utils/icons';
-import { handleSenEMail, isEmpty, removeDateRest, removeplus91, SrPageNumber } from "@/utils/helper";
-import { ClientsService } from "@/utils/apiCallServices/client.api.services";
-import ToastComponent from "@/component/Toast/Toast";
+import { handleSenEMail, removeDateRest, removeplus91, SrPageNumber } from "@/utils/helper";
 
-const TAG = "ClientListTable: ";
+const TAG = "Users List Table: ";
 
-const ClientListTable = (props: any) => {
+const UsersListTable = (props: any) => {
 
   const { rowsDataList, defaultCurrent, defaultPageSize, sortKey, setSortKey, sortType, setSortType } = props;
 
@@ -44,30 +36,15 @@ const ClientListTable = (props: any) => {
     return newAddress;
   }
 
-
-  async function redirectToClientDetails(clientId: any) {
-    setLoading(true);
-    const { response, status }: any = await ClientsService.getClientDetailsById(clientId);
-    setLoading(false);
-
-    if (!status) {
-      ToastComponent(response.data.msg);
-      return;
+  const redirectToClientDetails = (clientId: any) => {
+    const payLoad = {
+      clientID: clientId,
+      clientsList: clientsList,
+      clientDetails: clientDetails,
+      metaData: metaData
     }
-
-    const resData = response?.data?.data ? response?.data?.data : null;
-    if (!isEmpty(resData)) {
-      const payLoad = {
-        clientID: clientId,
-        clientsList: clientsList,
-        clientDetails: resData,
-        metaData: metaData
-      }
-      dispatch({ type: CLIENT_DETAILS_UPDATE, payload: payLoad });
-      router.push('/clients/details');
-    } else {
-      ToastComponent("Client Details Not Found");
-    }
+    dispatch({ type: CLIENT_DETAILS_UPDATE, payload: payLoad });
+    router.push('/clients/details');
   }
 
   return (
@@ -169,26 +146,10 @@ const ClientListTable = (props: any) => {
                   <CustomTooltip placement="topLeft" title={`Redirect to ${item?.firstName ? item?.firstName : ""} ${item?.lastName ? item?.lastName : ""}'s Detail`}>
                     <IconBox
                       icon={<ICFBsBoxArrowInUpRight />}
-                      onClickEvent={() => redirectToClientDetails(item?._id)}
+                      onClickEvent={() => {}}
                     />
                   </CustomTooltip>
                 </td>
-
-                {/* <td className="tb-text tb-mw-150 px-1 text-center">
-                  <CustomTooltip placement="topLeft" title={"Whatsapp"}>
-                    <a onClick={() => NetworkOps3.sendMessage(item?.mobile)}>
-                      <WhatsAppOutlined style={{ fontSize: '24px', color: '#25D366' }} />
-                    </a>
-                  </CustomTooltip>
-                </td> */}
-
-                {/* <td className="tb-text tb-mw-150 px-1">
-                  <CustomTooltip placement="topLeft" title={"Email"}>
-                    <a onClick={() => handleSenEMail()}>
-                      <AiOutlineMail />
-                    </a>
-                  </CustomTooltip>
-                </td> */}
               </tr>
             ))}
           </tbody>
@@ -198,4 +159,4 @@ const ClientListTable = (props: any) => {
   );
 };
 
-export default ClientListTable;
+export default UsersListTable;

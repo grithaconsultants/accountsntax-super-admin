@@ -9,8 +9,7 @@ export const tds: string = "/assets/img/tds.svg";
 export const icegate: string = "/assets/img/icegate.svg";
 export const alert: string = "/assets/img/alert.svg";
 
-export const whatsapp : string = '/asset/img/whatsapp.svg'
-
+export const whatsapp : string = '/asset/img/whatsapp.svg';
 
 
 export const tally: string = "/assets/img/tally.svg";
@@ -62,7 +61,6 @@ export const cancel: string = "/assets/img/cancel.svg";
 //invoice pictures
 export const buisnessProfilePic: string = "/assets/img/buisness_profile_pic.png";
 export const authCard: string = "/assets/img/auth-card.png";
-
 //invoice pictures
 export const otpSentSvg: string = "/assets/img/otpsent.svg";
 
@@ -76,7 +74,6 @@ export const fileimg: string = "/assets/img/file.svg";
 
 export const techIssue: string = "/assets/img/technical-down.webp";
 export const companyJPG: string = "/assets/img/companylogo.png";
-export const clientJPG: string = "/assets/img/companylogo.png";
 export const userPNG: string = "/assets/img/user.png";
 
 //services
@@ -86,4 +83,10 @@ export const incometax: string = "/assets/img/income-tax.png";
 export const iec: string = "/assets/img/iec.png";
 export const labor: string = "/assets/img/labor.png";
 export const nsdl: string = "/assets/img/nsdl.png";
+
+
+export const removeItem: string = "/assets/img/remove.svg";
+export const cloudeImg: string = "/assets/img/cloude.svg";
+
+
 

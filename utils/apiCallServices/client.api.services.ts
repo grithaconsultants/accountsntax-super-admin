@@ -18,11 +18,11 @@ const getAllClients = async (apiUrl: any, istoken: any) => {
   });
 }
 
-const getCompaniesWithPagination = async (page: number, limit: number, istoken: any) => {
+const getClientDetailsById = async (clientId: any, istoken: any = true) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await NetworkOps.makeGetRequest(`${endPoints.getCompanies}?page=${page}&limit=${limit}`, istoken);
-      if (response?.status == 200 && response?.data?.status == true) {
+      const response = await NetworkOps.makeGetRequest(`${endPoints.getClientById}/${clientId}`, istoken);
+      if (response?.status == 200 && response?.data?.success == true) {
         return resolve({ response: response, status: true });
       } else {
         return resolve({ response: response, status: false });
@@ -52,5 +52,5 @@ const deleteCompany = async (companyID: string, istoken: any) => {
 export const ClientsService = {
   getAllClients,
   deleteCompany,
-  getCompaniesWithPagination
+  getClientDetailsById
 }

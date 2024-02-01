@@ -1,12 +1,10 @@
 
 import { AiOutlineMessage, AiOutlineSetting, AiOutlineTeam, AiOutlineCalendar, AiOutlineFolderOpen, AiOutlineWhatsApp, AiOutlineMore } from "react-icons/ai";
-import { BsChatText, BsPeople, BsGearWideConnected } from "react-icons/bs";
+import { BsChatText, BsPeople, BsGearWideConnected, BsBoxArrowInUpRight } from "react-icons/bs";
 import { FaPlusCircle, FaRegEdit, FaTrash, FaRegUser, FaSort, FaSortDown, FaSortUp } from "react-icons/fa";
 import { MoreOutlined, InfoCircleOutlined, CloudSyncOutlined, CloudDownloadOutlined, DownOutlined } from '@ant-design/icons';
 import { FiEdit2 } from "react-icons/fi";
 import { IoDuplicateSharp } from "react-icons/io5";
-
-
 
 export const ICAiOutlineSetting = () => { return <AiOutlineSetting color="#673275" /> };
 export const ICAiOutlineCalendar = () => { return <AiOutlineCalendar color="#673275" /> };
@@ -31,3 +29,4 @@ export const ICBsGearWideConnected = () => { return <BsGearWideConnected color="
 export const ICFaSort = () => { return <FaSort color="#673275" /> };
 export const ICFaSortDown = () => { return <FaSortDown color="#673275" /> };
 export const ICFaSortUp = () => { return <FaSortUp color="#673275" /> };
+export const ICFBsBoxArrowInUpRight = () => { return <BsBoxArrowInUpRight color="#673275" /> };

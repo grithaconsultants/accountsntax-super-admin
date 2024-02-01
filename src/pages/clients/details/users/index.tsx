@@ -8,25 +8,22 @@ import Loader from "@/component/loader/loader";
 import EmptyComp from "@/component/emptycomp/emptycomp";
 import PaginationComponent from "@/component/pagination/pagination";
 
-import ClientListTable from "@/containers/ClientList/ClientListTable";
+import UsersListTable from "@/containers/ClientList/UsersListTable";
 import HomeLayout from "@/containers/Layout/Layout";
-
-import endPoints from "@/ApiHandler/AppConfig";
 
 import { filterIcon } from "@/utils/image";
 import { isEmpty } from "@/utils/helper";
-import { fetchAllClients } from "@/redux/actions/clientAction";
 
-const TAG = "Clients Page: ";
+const TAG = "Users Page : ";
 
-const Clients = () => {
+const Users = () => {
 
   const router = useRouter();
   const dispatch = useDispatch();
 
   const { clientID, clientDetails, clientsList, metaData, }: any = useSelector((state: any) => state.clientsData);
 
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [dataList, setDataList] = useState<any>([]);
   const [filteredData, setFilteredData] = useState<any>([]);
   const [meta, setMeta] = useState<any>(null);
@@ -37,70 +34,35 @@ const Clients = () => {
   const [sortType, setSortType] = useState<string>("asc");
 
   useEffect(() => {
-    ApicallForData(defaultCurrent, defaultPageSize, sortKey, sortType, searchString);
-  }, [0]);
-
-  useEffect(() => {
-    if (!isEmpty(clientsList) && clientsList.length > 0) {
-      setDataList(clientsList);
-      setMeta(metaData);
+    if (!isEmpty(clientDetails) && clientsList?.users && clientsList?.users.length > 0) {
+      setDataList(clientsList?.users);
+      setMeta({
+        "total": clientsList?.users.length,
+        "limit": 10,
+        "page": 1,
+        "pages": 100
+      });
     }
-  }, [clientsList, metaData]);
+  }, [clientDetails]);
 
 
   const callPaginationAction = (page: number, limit: number) => {
-    ApicallForData(page, limit, sortKey, sortType, searchString);
     setDefaultCurrent(page);
     setDefaultPageSize(limit);
   };
 
 
-  function onFilterClick() {
-    const docElement: any = document.getElementById("searchClientsList");
-    const searchItem: any = docElement.value.trim();
 
-    if (searchItem === "") {
-      ApicallForData(1, 10, sortKey, sortType);
-      setSearchString("");
-    } else {
-      ApicallForData(1, 10, sortKey, sortType, searchItem);
-      setSearchString(searchItem);
-    }
+  console.log(TAG, " client Users ", clientDetails.users);
+  console.log(TAG, " client Users ", meta);
 
-    setDefaultCurrent(1);
-    setDefaultPageSize(10);
-  }
-
-
-  async function ApicallForData(
-    page: any,
-    limit: any,
-    sortKeyP: string = sortKey,
-    sortTypeP: string = sortType,
-    search: string = "",
-  ): Promise<void> {
-
-    setLoading(true);
-    let apiUrl;
-    if (isEmpty(search)) {
-      apiUrl = `${endPoints.getClients}?page=${page}&limit=${limit}&sortKey=${sortKeyP}&sortType=${sortTypeP}`;
-    } else {
-      apiUrl = `${endPoints.getClients}?search=${search}&page=${page}&limit=${limit}&sortKey=${sortKeyP}&sortType=${sortTypeP}`;
-    }
-
-    fetchAllClients(dispatch, apiUrl);
-    setLoading(false);
-  }
-
-  console.log(TAG, " clientsList from reducer ", clientsList);
-  console.log(TAG, " metaData from reducer ", metaData);
   return (
     <HomeLayout>
       <section id="contentSection">
         <div className="layout-contWrapper">
           <div className="breadcrumb-wrapper">
             <div className="br-left">
-              <span className="br-light-tlt">Client List</span>
+              <span className="br-light-tlt">Users </span>
             </div>
             <div className="br-right"></div>
           </div>
@@ -128,7 +90,7 @@ const Clients = () => {
                       <IconTitleButton
                         imgSrc={filterIcon}
                         title="Filter"
-                        onClickCall={onFilterClick}
+                        onClickCall={() => { }}
                       />
                     </div>
                   </div>
@@ -141,7 +103,7 @@ const Clients = () => {
                     <>
                       {dataList.length > 0 ? (
                         <>
-                          <ClientListTable
+                          <UsersListTable
                             rowsDataList={dataList}
                             defaultCurrent={defaultCurrent}
                             defaultPageSize={defaultPageSize}
@@ -178,4 +140,4 @@ const Clients = () => {
   );
 };
 
-export default Clients;
+export default Users;
