@@ -34,10 +34,12 @@ const Users = () => {
   const [sortType, setSortType] = useState<string>("asc");
 
   useEffect(() => {
-    if (!isEmpty(clientDetails) && clientsList?.users && clientsList?.users.length > 0) {
-      setDataList(clientsList?.users);
+    
+    if (!isEmpty(clientDetails) && clientDetails?.users && clientDetails?.users.length > 0) {
+      console.log(TAG, "IN uSE EFFECT" , );
+      setDataList(clientDetails?.users);
       setMeta({
-        "total": clientsList?.users.length,
+        "total": clientDetails?.users.length,
         "limit": 10,
         "page": 1,
         "pages": 100
@@ -53,7 +55,7 @@ const Users = () => {
 
 
 
-  console.log(TAG, " client Users ", clientDetails.users);
+  console.log(TAG, " client Users ", clientDetails);
   console.log(TAG, " client Users ", meta);
 
   return (

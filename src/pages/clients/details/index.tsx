@@ -9,14 +9,17 @@ import SwitchComponent from "@/component/switch/switch";
 
 import HomeLayout from "@/containers/Layout/Layout";
 import UserCard from "@/containers/Cards/UserCard";
-import TallyCloud from "@/containers/Cards/TallyCloud";
+import TallyCloudCard from "@/containers/Cards/TallyCloudCard";
 import CompaniesCard from "@/containers/Cards/CompaniesCard";
+import Informationcard from "@/component/informationcard/InformationsCard";
 
 import { CLIENT_DETAILS_UPDATE } from "@/redux/constant";
 
-import { isEmpty } from "@/utils/helper";
+import { formateMobileNo, isEmpty, removeDateRest, ret_ifEmpty } from "@/utils/helper";
 import { ClientsService } from "@/utils/apiCallServices/client.api.services";
 import { back } from "@/utils/image";
+import TOCModal from "@/containers/Modal/TOCModal";
+
 
 const TAG = "Client Details Page: ";
 
@@ -29,44 +32,115 @@ const ClientDetails = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
   const [tocModal, setTocModal] = useState<boolean>(false);
-  const [tallyOnCloud, settallyOnCloud] = useState<boolean>(false);
+  const [tallyOnCloud, setTallyOnCloud] = useState<boolean>(false);
+  const [totalUsers, setTotalUsers] = useState<number>(0);
+  const [noOfusers, setNoOfUsers] = useState<number>(0);
+  const [totalTOCuser, setTotalTOCusers] = useState<number>(0);
+  const [totalDays, setTotalDays] = useState<number>(0);
+  const [noOfAssignedCompanies, setNoOfAssignedCompanies] = useState<number>(0);
+  const [totalCompanies, setTotalCompanies] = useState<number>(0);
+  const [dataToDis, setDataToDis] = useState<any>([]);
 
   useEffect(() => {
     if (clientDetails !== null) {
-      settallyOnCloud(clientDetails?.accessTallyCloud ?? false);
+      setTallyOnCloud(clientDetails?.accessTallyCloud ?? false);
+      setNoOfUsers(clientDetails?.users ? clientDetails?.users.length : 0);
+      setNoOfAssignedCompanies(clientDetails?.companies ? clientDetails?.companies.length : 0);
+      if (clientDetails?.permissions && clientDetails?.permissions?.length > 0) {
+        const filterPermissionUser = clientDetails?.permissions.filter((permission: any) => permission.feature == "total_user");
+        const filterPermissionTOC = clientDetails?.permissions.filter((permission: any) => permission.feature == "toc_user");
+        const filterPermissionTotalComp = clientDetails?.permissions.filter((permission: any) => permission.feature == "total_company");
+        if (!isEmpty(filterPermissionUser)) {
+          setTotalUsers(filterPermissionUser[0]?.value);
+        }
+
+        if (!isEmpty(filterPermissionTOC)) {
+          setTotalTOCusers(filterPermissionTOC[0]?.value);
+        }
+
+        if (!isEmpty(filterPermissionTotalComp)) {
+          setTotalCompanies(filterPermissionTotalComp[0]?.value);
+        }
+
+      }
+
+
+
+      const dataToDis = [
+        {
+          title: 'First Name',
+          value: ret_ifEmpty(clientDetails?.firstName)
+        },
+        {
+          title: 'Last Name',
+          value: ret_ifEmpty(clientDetails?.lastName)
+        },
+        {
+          title: 'Gender',
+          value: ret_ifEmpty(clientDetails?.gender)
+        },
+        {
+          title: 'Mobile Number',
+          value: formateMobileNo(ret_ifEmpty(clientDetails?.mobile))
+        },
+        {
+          title: `Mobile Verified`,
+          value: clientDetails?.isMobileVerified == true ? "Yes" : "No"
+        },
+        {
+          title: `Email`,
+          value: ret_ifEmpty(clientDetails?.email)
+        },
+        {
+          title: `Email Verified`,
+          value: clientDetails?.isEmailVerified == true ? "Yes" : "No"
+        },
+        {
+          title: `Guacamole Username`,
+          value: ret_ifEmpty(clientDetails?.guacamoleUser)
+        },
+        {
+          title: 'ID',
+          value: ret_ifEmpty(clientDetails?._id)
+        },
+        {
+          title: `Has TallyLicense`,
+          value: clientDetails?.hasTallyLicense == true ? "Yes" : "No"
+        },
+        {
+          title: `InstanceType`,
+          value: ret_ifEmpty(clientDetails?.instanceType)
+        },
+        {
+          title: `Server ID`,
+          value: ret_ifEmpty(clientDetails?.server)
+        },
+        {
+          title: 'VNC Port',
+          value: ret_ifEmpty(clientDetails?.vnc_port)
+        },
+
+        {
+          title: 'VNC Session Number',
+          value: ret_ifEmpty(clientDetails?.vnc_session_number)
+        },
+        {
+          title: `Status`,
+          value: clientDetails?.status == true ? "Active" : "InActive"
+        },
+        {
+          title: 'Created At',
+          value: ret_ifEmpty(removeDateRest(clientDetails?.createdAt))
+        },
+        {
+          title: 'Last Updated At',
+          value: ret_ifEmpty(removeDateRest(clientDetails?.updatedAt))
+        },
+      ]
+
+      setDataToDis(dataToDis);
     }
   }, [clientDetails]);
-
-  // useEffect(() => {
-  //   if (clientID !== "") {
-  //     ApicallForClientDetails(clientID);
-  //   }
-  // }, [clientID]);
-
-
-  // async function ApicallForClientDetails(clientId: any): Promise<void> {
-  //   setLoading(true);
-
-  //   const { response, status }: any = await ClientsService.getClientDetailsById(clientId);
-
-  //   setLoading(false);
-
-  //   if (!status) {
-  //     ToastComponent(response.data.msg);
-  //     return;
-  //   }
-  //   const resData = response?.data?.data ?? null;
-  //   if (!isEmpty(resData)) {
-  //     const payLoad = {
-  //       clientID: clientId,
-  //       clientsList: clientsList,
-  //       clientDetails: resData,
-  //       metaData: metaData
-  //     }
-
-  //     dispatch({ type: CLIENT_DETAILS_UPDATE, payload: payLoad });
-  //   }
-  // }
 
 
   function fallback() {
@@ -92,20 +166,30 @@ const ClientDetails = () => {
             <div className='row gx-4 gy-3' >
               <div className='col-xl-3 col-lg-3 col-md-6 col-12 ' >
                 <UserCard
-                  usersdata={clientDetails?.users ?? []}
+                  totalUsers={totalUsers}
+                  noOfUsers={noOfusers}
                 />
               </div>
 
               <div className='col-xl-3 col-lg-3 col-md-6 col-12 ' >
-                <TallyCloud
+                <TallyCloudCard
                   tallyOnCloud={tallyOnCloud}
-                  seTocModal={setTocModal}
+                  seTOCModal={setTocModal}
+                  totalTOCuser={totalTOCuser}
+                  totalDays={totalDays}
                 />
               </div>
 
               <div className='col-xl-3 col-lg-3 col-md-6 col-12 ' >
                 <CompaniesCard
-                  companiesData={clientDetails?.companies ?? []}
+                  noOfCompanies={noOfAssignedCompanies}
+                  totalCompanies={totalCompanies}
+                />
+              </div>
+              <div className='col-xl-3 col-lg-3 col-md-6 col-12 ' >
+                <CompaniesCard
+                  noOfCompanies={noOfAssignedCompanies}
+                  totalCompanies={totalCompanies}
                 />
               </div>
 
@@ -114,7 +198,10 @@ const ClientDetails = () => {
 
           <div className="layout-cardArea">
             <div className="bu-section" >
-              <div className="bu-body px-3 pt-4" >
+              <div className="bu-body p-5" >
+                <div className="col-12 p-0" >
+                  <Informationcard renderData={dataToDis} />
+                </div>
 
               </div>
             </div>
@@ -122,33 +209,21 @@ const ClientDetails = () => {
         </div>
 
         <>
-          <Modal
-            centered
-            open={tocModal == true}
-            width={700}
-          >
-            <div className="modal-wrapper" >
-              <div className="m-tlt" >
-                <div className="m-tlt-sec tx-v" >Tally on Cloud</div>
-                <div className="m-btn-sec" > <IconButton imgSrc={back} onClickCall={() => { fallback(); }} /> </div>
-              </div>
-
-              <div className="row mt-3 mb-5">
-                <div className="col-lg-12 col-12">
-                  <div className='d-flex justify-content-center h-100' >
-                    <span className='d-flex justify-content-center h-100 align-items-center fs-18 ff-m text-center tx-v'>
-                      Update the Status of Tally On Cloud
-                      <SwitchComponent
-                        defaultChecked={clientDetails?.accessTallyCloud}
-                        label=""
-                        onChangeEvent={(val: any) => settallyOnCloud(val)}
-                      />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Modal>
+          {
+            tocModal !== false ?
+              <TOCModal
+                defaultChecked={tallyOnCloud}
+                openModal={tocModal}
+                setOpenModal={setTocModal}
+                tallyOnCloud={tallyOnCloud}
+                setTallyOnCloud={setTallyOnCloud}
+                totalTOCuser={totalTOCuser}
+                setTotalTOCusers={setTotalTOCusers}
+                totalDays={totalDays}
+                setTotalDays={setTotalDays}
+              />
+              : ""
+          }
         </>
       </section>
     </HomeLayout>

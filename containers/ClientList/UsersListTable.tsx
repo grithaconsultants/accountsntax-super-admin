@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import axios from 'axios';
 import { useRouter } from "next/router";
 
 import CustomTooltip from "@/component/tooltip/tooltip";
 import SortUi from '@/component/sortui/sortui';
 import IconBox from "@/component/iconbox/iconbox";
+import TagCustom from "@/component/tags/tags";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { CLIENT_DETAILS_UPDATE } from "@/redux/constant";
 
-import { ICFBsBoxArrowInUpRight } from '@/utils/icons';
-import { handleSenEMail, removeDateRest, removeplus91, SrPageNumber } from "@/utils/helper";
+import { ICFiEdit2 } from '@/utils/icons';
+import { SrPageNumber } from "@/utils/helper";
 
 const TAG = "Users List Table: ";
 
@@ -47,45 +47,27 @@ const UsersListTable = (props: any) => {
     router.push('/clients/details');
   }
 
+  const handleEditUser = (userDetails: any) => {
+    console.log(TAG, " Edit User Action is Calling... ");
+  }
+
   return (
     <>
       <div className="table-wrapper" >
         <table >
           <thead>
             <tr>
-              <th className="ps-4" rowSpan={2}>
-                Sr. No.
-              </th>
-              <th>
-                <SortUi callTo={filterTable} keyToCall="firstName" typeSort={sortType} activeSortKey={sortKey} />
-                First Name
-              </th>
-              <th>Last Name</th>
-              <th>
-                <SortUi callTo={filterTable} keyToCall="email" typeSort={sortType} activeSortKey={sortKey} />
-                Email
-              </th>
-              <th>
-                <SortUi callTo={filterTable} keyToCall="mobile" typeSort={sortType} activeSortKey={sortKey} />
-                Mobile
-              </th>
-
-              <th>Address</th>
-              <th>
-                <SortUi callTo={filterTable} keyToCall="city" typeSort={sortType} activeSortKey={sortKey} />
-                City
-              </th>
-              <th>
-                <SortUi callTo={filterTable} keyToCall="state" typeSort={sortType} activeSortKey={sortKey} />
-                State
-              </th>
-              <th className="text-center">
-                <SortUi callTo={filterTable} keyToCall="createdAt" typeSort={sortType} activeSortKey={sortKey} />
-                Created At
-              </th>
-
+              <th className="ps-4">Sr. No.</th>
+              <th className="text-center">ID</th>
+              <th className="text-center">_ID</th>
+              <th className="text-center">User</th>
+              <th>GuacaMole UserName</th>
+              <th>Instance Type</th>
+              <th>Tally On Cloud</th>
+              <th>VNC port</th>
+              <th>VNC Session Number</th>
+              <th>Status</th>
               <th>Action</th>
-
             </tr>
           </thead>
           <tbody>
@@ -96,59 +78,63 @@ const UsersListTable = (props: any) => {
                 </td>
 
                 <td className="tb-text tb-mw-150 px-1">
-                  <CustomTooltip placement="topLeft" title={item?.firstName ? item?.firstName : "-"}>
-                    {item?.firstName ? item?.firstName : "-"}
+                  <CustomTooltip placement="topLeft" title={item?.id ? item?.id : "-"}>
+                    {item?.id ? item?.id : "-"}
                   </CustomTooltip>
                 </td>
 
                 <td className="tb-text tb-mw-150 px-1">
-                  <CustomTooltip placement="topLeft" title={item?.lastName ? item?.lastName : "-"}>
-                    {item?.lastName ? item?.lastName : "-"}
+                  <CustomTooltip placement="topLeft" title={item?._id ? item?._id : "-"}>
+                    {item?._id ? item?._id : "-"}
                   </CustomTooltip>
                 </td>
 
                 <td className="tb-text tb-mw-150 px-1">
-                  <CustomTooltip placement="topLeft" title={item?.email ? item?.email : "-"}>
-                    {item?.email ? item?.email : "-"}
-                  </CustomTooltip>
-                </td>
-
-                <td className="tb-text tb-mw-150 px-1">
-                  <CustomTooltip placement="topLeft" title={item?.mobile ? removeplus91(item?.mobile) : "-"}>
-                    {item?.mobile ? removeplus91(item?.mobile) : "-"}
-                  </CustomTooltip>
-                </td>
-
-
-                <td className="tb-text tb-mw-50 px-1">
-                  <CustomTooltip placement="topLeft" title={formateAddress(item?.address)}>
-                    {formateAddress(item?.address)}
+                  <CustomTooltip placement="topLeft" title={item?.user ? item?.user : "-"}>
+                    {item?.user ? item?.user : "-"}
                   </CustomTooltip>
                 </td>
                 <td className="tb-text tb-mw-150 px-1 text-center">
-                  <CustomTooltip placement="topLeft" title={item?.address?.city ? item?.address?.city : "-"}>
-                    {item?.address?.city ? item?.address?.city : "-"}
-                  </CustomTooltip>
-                </td>
-                <td className="tb-text tb-mw-150 px-1 text-center">
-                  <CustomTooltip placement="topLeft" title={item?.address?.state ? item?.address?.state : '-'}>
-                    {item?.address?.state ? item?.address?.state : '-'}
+                  <CustomTooltip placement="topLeft" title={item?.guacamoleUsername ? item?.guacamoleUsername : "-"}>
+                    {item?.guacamoleUsername ? item?.guacamoleUsername : "-"}
                   </CustomTooltip>
                 </td>
 
                 <td className="tb-text tb-mw-150 px-1 text-center">
-                  <CustomTooltip placement="topLeft" title={item?.createdAt ? removeDateRest(item?.createdAt) : "-"}>
-                    {item?.createdAt ? removeDateRest(item?.createdAt) : "-"}
+                  <CustomTooltip placement="topLeft" title={item?.instanceType ?? "-"}>
+                    {item?.instanceType ?? item?.instanceType}
                   </CustomTooltip>
+                </td>
+
+                <td className="tb-text tb-mw-150 px-1 text-center">
+                  <CustomTooltip placement="topLeft" title={item?.tallyCloud ? 'true ' : "false"}>
+                    {item?.tallyCloud ? "Yes" : "No"}
+                  </CustomTooltip>
+                </td>
+
+                <td className="tb-text tb-mw-150 px-1 text-center">
+                  <CustomTooltip placement="topLeft" title={item?.vnc_port ? item?.vnc_port : "-"}>
+                    {item?.vnc_port ? item?.vnc_port : "-"}
+                  </CustomTooltip>
+                </td>
+
+                <td className="tb-text tb-mw-150 px-1 text-center">
+                  <CustomTooltip placement="topLeft" title={item?.vnc_session_number ? item?.vnc_session_number : "-"}>
+                    {item?.vnc_session_number ? item?.vnc_session_number : "-"}
+                  </CustomTooltip>
+                </td>
+
+                <td className="tb-text tb-mw-150 px-1 text-center">
+                  {item?.userDetails?.status === true ? <TagCustom color="green" title="Active" /> : <TagCustom color="volcano" title="Inactive" />}
                 </td>
 
                 <td className="tb-text text-center tb-mw-150">
-                  <CustomTooltip placement="topLeft" title={`Redirect to ${item?.firstName ? item?.firstName : ""} ${item?.lastName ? item?.lastName : ""}'s Detail`}>
-                    <IconBox
-                      icon={<ICFBsBoxArrowInUpRight />}
-                      onClickEvent={() => {}}
-                    />
-                  </CustomTooltip>
+                  <IconBox
+                    type="text"
+                    icon={<ICFiEdit2 />}
+                    loading={false}
+                    onClickEvent={() => handleEditUser(item?.userDetails)}
+                  />
                 </td>
               </tr>
             ))}

@@ -26,7 +26,7 @@ const LoginForm = (props: any) => {
 
   const initialValues: any = {
     role: "client",
-    email: "",
+    email: "", 
     password: ""
   }
 
