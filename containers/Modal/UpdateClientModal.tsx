@@ -5,14 +5,13 @@ import SwitchComponent from "@/component/switch/switch";
 import IconButton from "@/component/iconbutton/iconbutton";
 
 import { back } from "@/utils/image";
-import CustomInputNumber from '@/component/inputnumber/inputnumber';
 import ButtonSimple from '@/component/buttonsimple/buttonsimple';
 
-const TAG = 'TOC Modal :';
+const TAG = 'Update Client Details Modal :';
 
-const TOCModal = (props: any) => {
+const UpdateClientModal = (props: any) => {
 
-  const { openModal, setOpenModal, tallyOnCloud, setTallyOnCloud, totalTOCuser, setTotalTOCusers, totalDays, setTotalDays } = props;
+  const { openModal, setOpenModal, clientData, setClientData } = props;
 
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -25,6 +24,10 @@ const TOCModal = (props: any) => {
     fallback();
   };
 
+  function updateStatusActiopn(val: any) {
+    setClientData((pre: any) => ({ ...pre, status: val }));
+  }
+
 
 
   return (
@@ -35,7 +38,7 @@ const TOCModal = (props: any) => {
     >
       <div className="modal-wrapper" >
         <div className="m-tlt" >
-          <div className="m-tlt-sec tx-v" >Edit Tally on cloud</div>
+          <div className="m-tlt-sec tx-v" >Edit Status</div>
           <div className="m-btn-sec" > <IconButton imgSrc={back} onClickCall={() => { fallback(); }} /> </div>
         </div>
 
@@ -44,39 +47,13 @@ const TOCModal = (props: any) => {
             <div className='d-flex flex-column h-100' >
               <div className='d-flex justify-content-center align-items-center fs-18 ff-m tx-v'>
                 <div className='d-flex justify-content-end w-60'>
-                  <span>Update the Status of Tally On Cloud</span>
+                  <span>Update Status</span>
                 </div>
                 <div className='d-flex justify-content-start w-40'>
                   <SwitchComponent
-                    defaultChecked={tallyOnCloud}
+                    defaultChecked={clientData?.status ?? false}
                     label=""
-                    onChangeEvent={(val: any) => { setTallyOnCloud(val); }}
-                  />
-                </div>
-              </div>
-
-              <div className='d-flex justify-content-center align-items-center fs-18 ff-m tx-v mt-2'>
-                <div className='d-flex justify-content-end w-60'>
-                  <span>Update the Number of Users</span>
-                </div>
-                <div className='d-flex justify-content-start w-40'>
-                  <CustomInputNumber
-                    defaultValue={totalTOCuser}
-                    label=""
-                    onChangeEvent={(val: any) => { setTotalTOCusers(val); }}
-                  />
-                </div>
-              </div>
-
-              <div className='d-flex justify-content-center align-items-center fs-18 ff-m tx-v mt-2'>
-                <div className='d-flex justify-content-end w-60'>
-                  <span>Update the Number of Days</span>
-                </div>
-                <div className='d-flex justify-content-start w-40'>
-                  <CustomInputNumber
-                    defaultValue={totalDays}
-                    label=""
-                    onChangeEvent={(val: any) => { setTotalDays(val) }}
+                    onChangeEvent={(val: any) => { updateStatusActiopn(val); }}
                   />
                 </div>
               </div>
@@ -99,4 +76,4 @@ const TOCModal = (props: any) => {
   )
 }
 
-export default TOCModal;
+export default UpdateClientModal;

@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal } from "antd";
+import dayjs from 'dayjs';
 
 import ToastComponent from "@/component/Toast/Toast";
-import IconButton from "@/component/iconbutton/iconbutton";
-import SwitchComponent from "@/component/switch/switch";
+import ButtonSimple from "@/component/buttonsimple/buttonsimple";
+import Informationcard from "@/component/informationcard/InformationsCard";
 
 import HomeLayout from "@/containers/Layout/Layout";
 import UserCard from "@/containers/Cards/UserCard";
 import TallyCloudCard from "@/containers/Cards/TallyCloudCard";
 import CompaniesCard from "@/containers/Cards/CompaniesCard";
-import Informationcard from "@/component/informationcard/InformationsCard";
+import SubscriptionCard from "@/containers/Cards/SubscriptionCard";
+import TOCModal from "@/containers/Modal/TOCModal";
+import SubscriptionModal from "@/containers/Modal/SubscriptionModal";
+import UpdateClientModal from "@/containers/Modal/UpdateClientModal";
 
 import { CLIENT_DETAILS_UPDATE } from "@/redux/constant";
-
-import { formateMobileNo, isEmpty, removeDateRest, ret_ifEmpty } from "@/utils/helper";
 import { ClientsService } from "@/utils/apiCallServices/client.api.services";
-import { back } from "@/utils/image";
-import TOCModal from "@/containers/Modal/TOCModal";
-
+import { formateMobileNo, isEmpty, removeDateRest, ret_ifEmpty } from "@/utils/helper";
+import Loader from "@/component/loader/loader";
 
 const TAG = "Client Details Page: ";
 
@@ -32,6 +32,8 @@ const ClientDetails = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
   const [tocModal, setTocModal] = useState<boolean>(false);
+  const [upDateClientModal, setUpDateClientModal] = useState<boolean>(false);
+  const [subscriptionMpdal, setSubscriptionModal] = useState<boolean>(false);
   const [tallyOnCloud, setTallyOnCloud] = useState<boolean>(false);
   const [totalUsers, setTotalUsers] = useState<number>(0);
   const [noOfusers, setNoOfUsers] = useState<number>(0);
@@ -40,9 +42,16 @@ const ClientDetails = () => {
   const [noOfAssignedCompanies, setNoOfAssignedCompanies] = useState<number>(0);
   const [totalCompanies, setTotalCompanies] = useState<number>(0);
   const [dataToDis, setDataToDis] = useState<any>([]);
+  const [clientData, setClientData] = useState<any>(null);
+  const [subscriptionData, setSubscriptionData] = useState<any>({
+    startDate: dayjs(dayjs(), 'DD-MM-YYYY').format('DD-MM-YYYY'),
+    remainingDays: 10
+  });
+
 
   useEffect(() => {
     if (clientDetails !== null) {
+      setClientData(clientDetails);
       setTallyOnCloud(clientDetails?.accessTallyCloud ?? false);
       setNoOfUsers(clientDetails?.users ? clientDetails?.users.length : 0);
       setNoOfAssignedCompanies(clientDetails?.companies ? clientDetails?.companies.length : 0);
@@ -64,89 +73,107 @@ const ClientDetails = () => {
 
       }
 
+      if (clientDetails?.subscription) {
+        const newSubscriptionData = {
+          startDate: clientDetails?.subscription?.startDate ? clientDetails?.subscription?.startDate : dayjs(dayjs(), 'DD-MM-YYYY').format('DD-MM-YYYY'),
+          endDate: clientDetails?.subscription?.endDate ? clientDetails?.subscription?.endDate : dayjs().add(7, 'day').format('DD-MM-YYYY'),
+          remainingDays: clientDetails?.subscription?.remainingDays ? clientDetails?.subscription?.remainingDays : 10
+        }
+        setSubscriptionData(newSubscriptionData);
+      }
 
+    }
+
+  }, [clientDetails]);
+
+
+  useEffect(() => {
+    if (clientData !== null) {
 
       const dataToDis = [
         {
           title: 'First Name',
-          value: ret_ifEmpty(clientDetails?.firstName)
+          value: ret_ifEmpty(clientData?.firstName)
         },
         {
           title: 'Last Name',
-          value: ret_ifEmpty(clientDetails?.lastName)
+          value: ret_ifEmpty(clientData?.lastName)
         },
         {
           title: 'Gender',
-          value: ret_ifEmpty(clientDetails?.gender)
+          value: ret_ifEmpty(clientData?.gender)
         },
         {
           title: 'Mobile Number',
-          value: formateMobileNo(ret_ifEmpty(clientDetails?.mobile))
+          value: formateMobileNo(ret_ifEmpty(clientData?.mobile))
         },
         {
           title: `Mobile Verified`,
-          value: clientDetails?.isMobileVerified == true ? "Yes" : "No"
+          value: clientData?.isMobileVerified == true ? "Yes" : "No"
         },
         {
           title: `Email`,
-          value: ret_ifEmpty(clientDetails?.email)
+          value: ret_ifEmpty(clientData?.email)
         },
         {
           title: `Email Verified`,
-          value: clientDetails?.isEmailVerified == true ? "Yes" : "No"
+          value: clientData?.isEmailVerified == true ? "Yes" : "No"
         },
         {
           title: `Guacamole Username`,
-          value: ret_ifEmpty(clientDetails?.guacamoleUser)
+          value: ret_ifEmpty(clientData?.guacamoleUser)
         },
         {
           title: 'ID',
-          value: ret_ifEmpty(clientDetails?._id)
+          value: ret_ifEmpty(clientData?._id)
         },
         {
           title: `Has TallyLicense`,
-          value: clientDetails?.hasTallyLicense == true ? "Yes" : "No"
+          value: clientData?.hasTallyLicense == true ? "Yes" : "No"
         },
         {
           title: `InstanceType`,
-          value: ret_ifEmpty(clientDetails?.instanceType)
+          value: ret_ifEmpty(clientData?.instanceType)
         },
         {
           title: `Server ID`,
-          value: ret_ifEmpty(clientDetails?.server)
+          value: ret_ifEmpty(clientData?.server)
         },
         {
           title: 'VNC Port',
-          value: ret_ifEmpty(clientDetails?.vnc_port)
+          value: ret_ifEmpty(clientData?.vnc_port)
         },
 
         {
           title: 'VNC Session Number',
-          value: ret_ifEmpty(clientDetails?.vnc_session_number)
+          value: ret_ifEmpty(clientData?.vnc_session_number)
         },
         {
           title: `Status`,
-          value: clientDetails?.status == true ? "Active" : "InActive"
+          value: clientData?.status == true ? "Active" : "InActive"
         },
         {
           title: 'Created At',
-          value: ret_ifEmpty(removeDateRest(clientDetails?.createdAt))
+          value: ret_ifEmpty(removeDateRest(clientData?.createdAt))
         },
         {
           title: 'Last Updated At',
-          value: ret_ifEmpty(removeDateRest(clientDetails?.updatedAt))
+          value: ret_ifEmpty(removeDateRest(clientData?.updatedAt))
         },
       ]
 
       setDataToDis(dataToDis);
     }
-  }, [clientDetails]);
+  }, [clientData]);
 
 
   function fallback() {
     setTocModal(false);
   }
 
+  function upateStatus() {
+    setUpDateClientModal(true);
+  }
 
   console.log(TAG, " clientID ", clientID);
   console.log(TAG, " clientDetails ", clientDetails);
@@ -157,7 +184,7 @@ const ClientDetails = () => {
         <div className="layout-contWrapper">
           <div className="breadcrumb-wrapper">
             <div className="br-left">
-              <span className="br-light-tlt">Client Details</span>
+              <span className="br-light-tlt">{`${clientDetails?.firstName} ${clientDetails?.lastName}`}</span>
             </div>
             <div className="br-right"></div>
           </div>
@@ -183,13 +210,12 @@ const ClientDetails = () => {
               <div className='col-xl-3 col-lg-3 col-md-6 col-12 ' >
                 <CompaniesCard
                   noOfCompanies={noOfAssignedCompanies}
-                  totalCompanies={totalCompanies}
                 />
               </div>
               <div className='col-xl-3 col-lg-3 col-md-6 col-12 ' >
-                <CompaniesCard
-                  noOfCompanies={noOfAssignedCompanies}
-                  totalCompanies={totalCompanies}
+                <SubscriptionCard
+                  setSubscriptionModal={setSubscriptionModal}
+                  totalRemainingDays={subscriptionData?.remainingDays}
                 />
               </div>
 
@@ -200,7 +226,22 @@ const ClientDetails = () => {
             <div className="bu-section" >
               <div className="bu-body p-5" >
                 <div className="col-12 p-0" >
-                  <Informationcard renderData={dataToDis} />
+                  { dataToDis.length > 0 ? 
+                    <Informationcard renderData={dataToDis} />
+                    :
+                    <Loader/>
+                  }
+                </div>
+
+                <div className="col-12 p-0 d-flex justify-content-end mt-4" >
+                  <div className="" >
+                    <ButtonSimple
+                      title="Update Status"
+                      type="voilet"
+                      disabled={false}
+                      onClickEvent={() => { upateStatus(); }}
+                    />
+                  </div>
                 </div>
 
               </div>
@@ -221,6 +262,27 @@ const ClientDetails = () => {
                 setTotalTOCusers={setTotalTOCusers}
                 totalDays={totalDays}
                 setTotalDays={setTotalDays}
+              />
+              : ""
+          }
+
+          {
+            upDateClientModal !== false ?
+              <UpdateClientModal
+                openModal={upDateClientModal}
+                setOpenModal={setUpDateClientModal}
+                clientData={clientData}
+                setClientData={setClientData}
+              />
+              : ""
+          }
+
+          {
+            subscriptionMpdal !== false ?
+              <SubscriptionModal
+                openModal={subscriptionMpdal}
+                setOpenModal={setSubscriptionModal}
+                subscriptionData={subscriptionData}
               />
               : ""
           }

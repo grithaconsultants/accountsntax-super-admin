@@ -1,5 +1,4 @@
 import React from "react";
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { tally } from '@/utils/image';
@@ -18,11 +17,10 @@ const TallyCloudCard = (props: any) => {
       <div className='d-flex justify-content-between' >
         <div className='icon-wrapper d-flex justify-content-center fs-26 TX-V' >
           <ICAiOutlineCloudServer />
-          {/* <Image src={tally} alt="receivable" width={25} height={25} /> */}
         </div>
         <div className='title fs-20 tx-o ff-m' >{tallyOnCloud ? <TagCustom color="green" title="Active" /> : <TagCustom color="volcano" title="Inactive" />}</div>
       </div>
-      <div className='fs-18 tx-v ff-m mt-5' >
+      <div className='fs-18 tx-v ff-m mt-5 text-decoration-underline' >
         <Link href="" onClick={openTocModal}> TallyCLoud </Link>
       </div>
     </div>

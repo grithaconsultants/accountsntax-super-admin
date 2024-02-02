@@ -1,10 +1,11 @@
 
-import { AiOutlineMessage, AiOutlineSetting, AiOutlineTeam, AiOutlineCalendar, AiOutlineFolderOpen, AiOutlineWhatsApp, AiOutlineMore, AiOutlineCloudServer } from "react-icons/ai";
+import { AiOutlineMessage, AiOutlineSetting, AiOutlineTeam, AiOutlineCalendar, AiOutlineFolderOpen, AiOutlineWhatsApp, AiOutlineMore, AiOutlineCloudServer, AiOutlineAccountBook  } from "react-icons/ai";
 import { BsChatText, BsPeople, BsGearWideConnected, BsBoxArrowInUpRight } from "react-icons/bs";
 import { FaPlusCircle, FaRegEdit, FaTrash, FaRegUser, FaSort, FaSortDown, FaSortUp } from "react-icons/fa";
 import { MoreOutlined, InfoCircleOutlined, CloudSyncOutlined, CloudDownloadOutlined, DownOutlined } from '@ant-design/icons';
 import { FiEdit2 } from "react-icons/fi";
 import { IoDuplicateSharp, IoBusinessOutline } from "react-icons/io5";
+import { HiOutlineCurrencyRupee } from "react-icons/hi2";
 
 export const ICAiOutlineSetting = () => { return <AiOutlineSetting color="#673275" /> };
 export const ICAiOutlineCalendar = () => { return <AiOutlineCalendar color="#673275" /> };
@@ -32,3 +33,6 @@ export const ICFaSortUp = () => { return <FaSortUp color="#673275" /> };
 export const ICFBsBoxArrowInUpRight = () => { return <BsBoxArrowInUpRight color="#673275" /> };
 export const ICAiOutlineCloudServer = () => { return <AiOutlineCloudServer color="#673275" /> };
 export const ICIoBusinessOutline = () => { return <IoBusinessOutline color="#673275" /> };
+export const ICAiOutlineAccountBook = () => { return <AiOutlineAccountBook color="#673275" /> };
+export const ICAiOutlineFolderOpen = () => { return <AiOutlineFolderOpen color="#673275" /> };
+export const ICHiOutlineCurrencyRupee = () => { return <HiOutlineCurrencyRupee color="#673275" /> };
