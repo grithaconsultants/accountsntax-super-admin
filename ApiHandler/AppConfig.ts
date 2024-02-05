@@ -7,17 +7,20 @@ const endPoints: any = {
 	signedUrl: `${BASE_URL}/aws-presigned`,
 
 	login: `${BASE_URL}/auth/super/login`,
-	verifyOtp: `${BASE_URL}/auth/otp-verify`,
-	resendOTPApi: `${BASE_URL}/ auth/send-auth-otp`,
 
-	forgotPassword: `${BASE_URL}/auth/forgot-password`,
-	resetPassword: `${BASE_URL}/auth/reset-password`,
+	getAdmins: `${BASE_URL}/super-admin/admin-list`,
+	getClients: `${BASE_URL}/super-admin/clients-list`,
+	getUsers: `${BASE_URL}/super-admin/users`,
+	getCompanies: `${BASE_URL}/super-admin/companies-list`,
+	getLicenses: `${BASE_URL}/super-admin/licenses`,
 
-	getAdmins :`${BASE_URL}/super-admin/admin-list`,
-	getClients :`${BASE_URL}/super-admin/clients-list`,
-	getCompanies :`${BASE_URL}/super-admin/companies-list`,
 	getCompanyById: `${BASE_URL}/super-admin/company-detail`,
 	getClientById: `${BASE_URL}/super-admin/client-detail`,
+
+	adServer: `${BASE_URL}/super-admin/add-server`,
+	userPasswordChange: `${BASE_URL}/users/change-password`,
+
+	updateLicenses: `${BASE_URL}/super-admin/update-license`,
 }
 
 export default endPoints;

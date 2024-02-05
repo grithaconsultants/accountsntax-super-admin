@@ -3,7 +3,6 @@ import {
   FETCH_CLIENTS_SUCCESS,
   FETCH_CLIENTS_FAILURE,
   CLIENT_DETAILS_UPDATE,
-  CLIENT_ID_UPDATE
 } from '@/redux/constant';
 
 

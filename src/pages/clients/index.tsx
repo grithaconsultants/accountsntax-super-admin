@@ -94,6 +94,8 @@ const Clients = () => {
 
   console.log(TAG, " clientsList from reducer ", clientsList);
   console.log(TAG, " metaData from reducer ", metaData);
+
+
   return (
     <HomeLayout>
       <section id="contentSection">

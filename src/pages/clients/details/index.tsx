@@ -226,10 +226,10 @@ const ClientDetails = () => {
             <div className="bu-section" >
               <div className="bu-body p-5" >
                 <div className="col-12 p-0" >
-                  { dataToDis.length > 0 ? 
+                  {dataToDis.length > 0 ?
                     <Informationcard renderData={dataToDis} />
                     :
-                    <Loader/>
+                    <Loader />
                   }
                 </div>
 

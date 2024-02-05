@@ -2,7 +2,7 @@ import endPoints from '@/ApiHandler/AppConfig';
 import NetworkOps from '@/ApiHandler/NetworkOps';
 import { catchErrorHandling, isEmpty } from '../helper';
 
-const loginRegister = async (payload: any , isToken: boolean = true) => {
+const loginRegister = async (payload: any, isToken: boolean = true) => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await NetworkOps.makePostRequest(endPoints.login, payload, isToken);
@@ -15,13 +15,27 @@ const loginRegister = async (payload: any , isToken: boolean = true) => {
       return resolve(catchErrorHandling(error));
     }
   });
-} 
+}
 
-
-const getCompanies = async (istoken: any) => {
+const addServer = async (payload: any, istoken: any = false) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await NetworkOps.makeGetRequest(endPoints.getCompanies, istoken);
+      const response = await NetworkOps.makePostRequest(endPoints.addServer, payload, istoken);
+      if (response?.status == 200 && response?.data?.status == true) {
+        return resolve({ response: response, status: true });
+      } else {
+        return resolve({ response: response, status: false });
+      }
+    } catch (error: any) {
+      return resolve(catchErrorHandling(error));
+    }
+  });
+}
+
+const getCompanies = async (apiUrl: any, istoken: any = false) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await NetworkOps.makeGetRequest(apiUrl, istoken);
       if (response?.status == 200 && response?.data?.status == true) {
         return resolve({ response: response, status: true });
       } else {
@@ -48,7 +62,23 @@ const getCompaniesWithPagination = async (page: number, limit: number, istoken: 
   });
 }
 
-const deleteCompany = async (companyID: string, istoken: any) => {
+
+const getCompanyDetailsById = async (companyId: any, istoken: any = false) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await NetworkOps.makeGetRequest(`${endPoints.getCompanyById}/${companyId}`, istoken);
+      if (response?.status == 200 && response?.data?.success == true) {
+        return resolve({ response: response, status: true });
+      } else {
+        return resolve({ response: response, status: false });
+      }
+    } catch (error) {
+      return resolve(catchErrorHandling(error));
+    }
+  });
+}
+
+const deleteCompany = async (companyID: string, istoken: any = false) => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await NetworkOps.makeDeleteRequest(`${endPoints.deleteCompanyById}/${companyID}`, istoken);
@@ -66,7 +96,9 @@ const deleteCompany = async (companyID: string, istoken: any) => {
 
 export const CommonService = {
   loginRegister,
+  addServer,
   getCompanies,
   deleteCompany,
-  getCompaniesWithPagination
+  getCompaniesWithPagination,
+  getCompanyDetailsById
 }

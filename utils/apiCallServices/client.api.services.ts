@@ -33,10 +33,25 @@ const getClientDetailsById = async (clientId: any, istoken: any = true) => {
   });
 }
 
-const deleteCompany = async (companyID: string, istoken: any) => {
+const deleteClientById = async (clientId: string, istoken: any) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await NetworkOps.makeDeleteRequest(`${endPoints.deleteCompanyById}/${companyID}`, istoken);
+      const response = await NetworkOps.makeDeleteRequest(`${endPoints.deleteClientById}/${clientId}`, istoken);
+      if (response?.status == 200 && response?.data?.success == true) {
+        return resolve({ response: response, status: true });
+      } else {
+        return resolve({ response: response, status: false });
+      }
+    } catch (error) {
+      return resolve(catchErrorHandling(error));
+    }
+  });
+}
+
+const updateLicenseById = async (clientId: string, istoken: any) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await NetworkOps.makePutRequest(`${endPoints.updateLicenses}/${clientId}`, istoken);
       if (response?.status == 200 && response?.data?.success == true) {
         return resolve({ response: response, status: true });
       } else {
@@ -51,6 +66,7 @@ const deleteCompany = async (companyID: string, istoken: any) => {
 
 export const ClientsService = {
   getAllClients,
-  deleteCompany,
-  getClientDetailsById
+  deleteClientById,
+  getClientDetailsById,
+  updateLicenseById
 }

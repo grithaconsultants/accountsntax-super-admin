@@ -36,7 +36,6 @@ const Users = () => {
   useEffect(() => {
     
     if (!isEmpty(clientDetails) && clientDetails?.users && clientDetails?.users.length > 0) {
-      console.log(TAG, "IN uSE EFFECT" , );
       setDataList(clientDetails?.users);
       setMeta({
         "total": clientDetails?.users.length,
