@@ -69,7 +69,7 @@ export const fetchClientDetails = async (dispatch: any, payload: any) => {
 };
 
 
-export const updateClientDetails = async (dispatch: any, payload: any, apiData : any) => {
+export const updateClientDetails = async (dispatch: any, payload: any, apiData: any) => {
 
   const { clientID, clientsList, metaData, clientDetails }: any = payload;
   dispatch(fetchClietnsRequest(payload));

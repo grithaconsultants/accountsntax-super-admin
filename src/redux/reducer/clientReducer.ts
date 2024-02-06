@@ -45,15 +45,6 @@ const clientReducer = (state = initialState, action: any) => {
         isLoading: false,
         error: action.payload.error
       };
-    case CLIENT_DETAILS_UPDATE:
-      return {
-        clientID: action.payload.clientID,
-        clientsList: action.payload.clientsList,
-        clientDetails: action.payload.clientDetails,
-        metaData: action.payload.metaData,
-        isLoading: false,
-        error: null
-      };
     default:
       return state;
   }
