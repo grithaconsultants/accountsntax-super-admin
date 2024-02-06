@@ -75,7 +75,7 @@ const Header = (props: any) => {
         <div className={LS.hright} >
 
 
-          <div className={LS.boxes} >
+          {/* <div className={LS.boxes} >
             <div className={LS.boxSelf} >
               <Image src={insta} alt="insta icon" width={24} height={24} />
             </div>
@@ -85,7 +85,7 @@ const Header = (props: any) => {
             <div className={LS.boxSelf} >
               <Image src={search} alt="search icon" width={24} height={24} />
             </div>
-          </div>
+          </div> */}
 
           <div className={LS.drop} >
             <SimpleDropdown title={adminData?.firstName} />

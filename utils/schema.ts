@@ -2,7 +2,6 @@
 import * as Yup from "yup";
 import {
   emailDataType,
-  invalidEmail ,
   fieldMinLength,
   fieldlMaxLength,
   fieldRequired,
@@ -17,6 +16,39 @@ import {
 } from "./message";
 
 const URLSchema = /^((https?|ftp):\/\/)?(www.)?(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i
+
+
+export const emailOnlySchema: any = Yup.object().shape({
+  email: Yup
+    .string()
+    .trim()
+    .email(emailDataType)
+    .max(250, fieldlMaxLength.replace("%key%", "Email").replace("%length%", "250"))
+    .required(fieldRequired.replace("%key%", "Email")),
+});
+
+export const mobileOnlySchema: any = Yup.object().shape({
+  mobile: Yup
+    .number()
+    .typeError(numberAllow)
+    .integer(integerAllow)
+    .min(1000000000, contactLength)
+    .max(9999999999, contactLength)
+    .required(fieldRequired.replace("%key%", "Contact number")),
+});
+
+export const changePassword: any = Yup.object().shape({
+  oldPassword: Yup
+    .string()
+    .trim()
+    .required(fieldRequired.replace("%key%", "Password")),
+  newPassword: Yup
+    .string()
+    .trim()
+    .min(8, fieldMinLength.replace("%key%", "New Password").replace("%length%", "8"))
+    .max(12, fieldlMaxLength.replace("%key%", "New Password").replace("%length%", "12"))
+    .required(fieldRequired.replace("%key%", "New Password")),
+});
 
 export const signupSchema: any = Yup.object().shape({
   firstName: Yup.string()
@@ -114,16 +146,6 @@ export const mobileSchema: any = Yup.object().shape({
     .required(fieldRequired.replace("%key%", "Contact number"))
 });
 
-
-export const emailSchema: any = Yup.object().shape({
-  email: Yup
-    .string()
-    .typeError(emailDataType)
-    .email(invalidEmail)
-    .min(1)
-    .max(9999999999)
-    .required(fieldRequired.replace("%key%", "Email Id"))
-});
 
 export const addressOnly: any = Yup.object().shape({
   addresOne: Yup.string()

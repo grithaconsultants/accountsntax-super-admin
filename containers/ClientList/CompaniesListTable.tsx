@@ -20,6 +20,10 @@ const CompaniesListTable = (props: any) => {
               <th>Name</th>
               <th>Email</th>
               <th>Mobile</th>
+              <th>PAN No.</th>
+              <th>Name as Per PAN</th>
+              <th>Father Name</th>
+              <th>D.O.B.</th>
             </tr>
           </thead>
           <tbody>
@@ -40,11 +44,37 @@ const CompaniesListTable = (props: any) => {
                     {item?.email ? item?.email : "-"}
                   </CustomTooltip>
                 </td>
+
                 <td className="tb-text tb-mw-150 px-1">
                   <CustomTooltip placement="topLeft" title={item?.mobile ? item?.mobile : "-"}>
                     {item?.mobile ? item?.mobile : "-"}
                   </CustomTooltip>
                 </td>
+
+                <td className="tb-text tb-mw-150 px-1">
+                  <CustomTooltip placement="topLeft" title={item?.panDetail?.nameAsPerPan ? item?.panDetail?.nameAsPerPan : "-"}>
+                    {item?.panDetail?.nameAsPerPan ? item?.panDetail?.nameAsPerPan : "-"}
+                  </CustomTooltip>
+                </td>
+
+                <td className="tb-text tb-mw-150 px-1">
+                  <CustomTooltip placement="topLeft" title={item?.panDetail?.panNo ? item?.panDetail?.panNo : "-"}>
+                    {item?.panDetail?.panNo ? item?.panDetail?.panNo : "-"}
+                  </CustomTooltip>
+                </td>
+
+                <td className="tb-text tb-mw-150 px-1">
+                  <CustomTooltip placement="topLeft" title={item?.panDetail?.fatherName ? item?.panDetail?.fatherName : "-"}>
+                    {item?.panDetail?.fatherName ? item?.panDetail?.fatherName : "-"}
+                  </CustomTooltip>
+                </td>
+
+                <td className="tb-text tb-mw-150 px-1">
+                  <CustomTooltip placement="topLeft" title={item?.panDetail?.dob ? item?.panDetail?.dob : "-"}>
+                    {item?.panDetail?.dob ? item?.panDetail?.dob : "-"}
+                  </CustomTooltip>
+                </td>
+
               </tr>
             ))}
           </tbody>

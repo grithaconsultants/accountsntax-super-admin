@@ -19,7 +19,9 @@ const UsersListTable = (props: any) => {
             <tr>
               <th className="ps-4">Sr. No.</th>
               <th className="text-center">ID</th>
-              <th className="text-center">User</th>
+              <th>FirstName</th>
+              <th>LastName</th>
+              <th>Email</th>
               <th>GuacaMole UserName</th>
               <th>Instance Type</th>
               <th>Tally On Cloud</th>
@@ -36,16 +38,29 @@ const UsersListTable = (props: any) => {
                 </td>
 
                 <td className="tb-text tb-mw-150 px-1">
-                  <CustomTooltip placement="topLeft" title={item?.id ? item?.id : "-"}>
-                    {item?.id ? item?.id : "-"}
+                  <CustomTooltip placement="topLeft" title={item?._id ? item?._id : "-"}>
+                    {item?._id ? item?._id : "-"}
                   </CustomTooltip>
                 </td>
 
                 <td className="tb-text tb-mw-150 px-1">
-                  <CustomTooltip placement="topLeft" title={item?.user ? item?.user : "-"}>
-                    {item?.user ? item?.user : "-"}
+                  <CustomTooltip placement="topLeft" title={item?.firstName ? item?.firstName : "-"}>
+                    {item?.firstName ? item?.firstName : "-"}
                   </CustomTooltip>
                 </td>
+
+                <td className="tb-text tb-mw-150 px-1">
+                  <CustomTooltip placement="topLeft" title={item?.lastName ? item?.lastName : "-"}>
+                    {item?.lastName ? item?.lastName : "-"}
+                  </CustomTooltip>
+                </td>
+
+                <td className="tb-text tb-mw-150 px-1">
+                  <CustomTooltip placement="topLeft" title={item?.email ? item?.email : "-"}>
+                    {item?.email ? item?.email : "-"}
+                  </CustomTooltip>
+                </td>
+
                 <td className="tb-text tb-mw-150 px-1 text-center">
                   <CustomTooltip placement="topLeft" title={item?.guacamoleUsername ? item?.guacamoleUsername : "-"}>
                     {item?.guacamoleUsername ? item?.guacamoleUsername : "-"}

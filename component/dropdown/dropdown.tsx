@@ -16,11 +16,15 @@ const SimpleDropdown = (props: any) => {
     router.push('/login');
   }
 
+  const redirectToProfile = () => {
+    router.push('/user-profile');
+  }
+
   const items: MenuProps['items'] = [
     {
       key: '1',
       label: (
-        <span >Profile </span>
+        <span onClick={redirectToProfile} >Profile </span>
       )
     },
     {

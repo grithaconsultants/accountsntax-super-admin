@@ -55,7 +55,7 @@ export const fetchClientDetails = async (dispatch: any, payload: any) => {
     return;
   };
 
-  const resData = response?.data?.data && response?.data?.data.length > 0 ? response?.data?.data[0] : null;
+  const resData = response?.data?.data ? response?.data?.data : null;
   if (!isEmpty(resData)) {
     const clientsData: any = {
       clientID: clientID,
