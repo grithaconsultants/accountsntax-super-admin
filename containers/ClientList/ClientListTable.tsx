@@ -1,24 +1,16 @@
 import React, { useState } from "react";
-import axios from 'axios';
 import { useRouter } from "next/router";
-import { WhatsAppOutlined } from '@ant-design/icons';
-import { AiOutlineMail, AiOutlineWhatsApp } from "react-icons/ai";
+import { useDispatch, useSelector } from 'react-redux';
 
 import CustomTooltip from "@/component/tooltip/tooltip";
+import ToastComponent from "@/component/Toast/Toast";
 import SortUi from '@/component/sortui/sortui';
 import IconBox from "@/component/iconbox/iconbox";
 
-import endPoints from "@/ApiHandler/AppConfig";
-import NetworkOps3 from "@/ApiHandler/NetworkOps3";
+import { fetchClientDetails } from "@/redux/actions/clientAction";
 
-import { useDispatch, useSelector } from 'react-redux';
-import { CLIENT_DETAILS_UPDATE } from "@/redux/constant";
-
-import { whatsapp } from "@/utils/image";
 import { ICFBsBoxArrowInUpRight } from '@/utils/icons';
-import { handleSenEMail, isEmpty, removeDateRest, removeplus91, SrPageNumber } from "@/utils/helper";
-import { ClientsService } from "@/utils/apiCallServices/client.api.services";
-import ToastComponent from "@/component/Toast/Toast";
+import { isEmpty, removeDateRest, removeplus91, SrPageNumber } from "@/utils/helper";
 
 const TAG = "ClientListTable: ";
 
@@ -28,10 +20,9 @@ const ClientListTable = (props: any) => {
 
   const router = useRouter();
   const dispatch = useDispatch();
+  
+  const { clientID, clientDetails, clientsList, metaData, error }: any = useSelector((state: any) => state.clientsData);
 
-  const { clientID, clientDetails, clientsList, metaData, }: any = useSelector((state: any) => state.clientsData);
-
-  const [message, setMessage] = useState<string>("Welcome to Account-n-tax");
   const [loading, setLoading] = useState<boolean>(false);
 
   function filterTable(column: string, type: string) {
@@ -46,27 +37,23 @@ const ClientListTable = (props: any) => {
 
 
   async function redirectToClientDetails(clientId: any) {
+    const payload = {
+      clientID: clientId,
+      clientsList: clientsList,
+      clientDetails: clientDetails,
+      metaData: metaData
+    };
+
     setLoading(true);
-    const { response, status }: any = await ClientsService.getClientDetailsById(clientId);
+    fetchClientDetails(dispatch, payload);
     setLoading(false);
 
-    if (!status) {
-      ToastComponent(response.data.msg);
-      return;
-    }
-
-    const resData = response?.data?.data ? response?.data?.data : null;
-    if (!isEmpty(resData)) {
-      const payLoad = {
-        clientID: clientId,
-        clientsList: clientsList,
-        clientDetails: resData,
-        metaData: metaData
-      }
-      dispatch({ type: CLIENT_DETAILS_UPDATE, payload: payLoad });
+    if (!isEmpty(clientDetails)) {
       router.push('/clients/details');
+    } else if (error == null) {
+      ToastComponent("Client Data Not Found");
     } else {
-      ToastComponent("Client Details Not Found");
+      ToastComponent(error);
     }
   }
 
@@ -173,22 +160,6 @@ const ClientListTable = (props: any) => {
                     />
                   </CustomTooltip>
                 </td>
-
-                {/* <td className="tb-text tb-mw-150 px-1 text-center">
-                  <CustomTooltip placement="topLeft" title={"Whatsapp"}>
-                    <a onClick={() => NetworkOps3.sendMessage(item?.mobile)}>
-                      <WhatsAppOutlined style={{ fontSize: '24px', color: '#25D366' }} />
-                    </a>
-                  </CustomTooltip>
-                </td> */}
-
-                {/* <td className="tb-text tb-mw-150 px-1">
-                  <CustomTooltip placement="topLeft" title={"Email"}>
-                    <a onClick={() => handleSenEMail()}>
-                      <AiOutlineMail />
-                    </a>
-                  </CustomTooltip>
-                </td> */}
               </tr>
             ))}
           </tbody>

@@ -11,7 +11,7 @@ const initialState = {
   clientDetails: null,
   clientsList: [],
   metaData: null,
-  loading: false,
+  isLoading: false,
   error: null,
 };
 
@@ -20,30 +20,30 @@ const clientReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case FETCH_CLIENTS_REQUEST:
       return {
-        clientID: "",
-        clientsList: [],
-        clientDetails: null,
-        metaData: null,
-        loading: true,
+        clientID: action.payload.clientID,
+        clientsList: action.payload.clientsList,
+        clientDetails: action.payload.clientDetails,
+        metaData: action.payload.metaData,
+        isLoading: true,
         error: null
       };
     case FETCH_CLIENTS_SUCCESS:
       return {
-        clientID: "",
+        clientID: action.payload.clientID,
         clientsList: action.payload.clientsList,
-        clientDetails: null,
+        clientDetails: action.payload.clientDetails,
         metaData: action.payload.metaData,
-        loading: false,
+        isLoading: false,
         error: null
       };
     case FETCH_CLIENTS_FAILURE:
       return {
-        clientID: "",
-        clientsList: [],
-        clientDetails: null,
-        metaData: null,
-        loading: false,
-        error: action.payload
+        clientID: action.payload.clientID,
+        clientsList: action.payload.clientsList,
+        clientDetails: action.payload.clientDetails,
+        metaData: action.payload.metaData,
+        isLoading: false,
+        error: action.payload.error
       };
     case CLIENT_DETAILS_UPDATE:
       return {
@@ -51,7 +51,7 @@ const clientReducer = (state = initialState, action: any) => {
         clientsList: action.payload.clientsList,
         clientDetails: action.payload.clientDetails,
         metaData: action.payload.metaData,
-        loading: false,
+        isLoading: false,
         error: null
       };
     default:

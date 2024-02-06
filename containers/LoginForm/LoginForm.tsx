@@ -14,7 +14,6 @@ import { SET_ADMIN_DATA } from '@/redux/constant';
 import { loginSchema } from '@/utils/schema';
 import { CommonService } from '@/utils/apiCallServices/common.api.services';
 
-
 const TAG = "Login Page: ";
 
 const LoginForm = (props: any) => {
@@ -33,7 +32,7 @@ const LoginForm = (props: any) => {
   async function callAsync(formValues: any) {
     setLoading(true);
 
-    const { response, status }: any = await CommonService.loginRegister(formValues, false);
+    const { response, status }: any = await CommonService.loginRegister(formValues);
 
     if (!status) {
       setLoading(false);
@@ -49,7 +48,7 @@ const LoginForm = (props: any) => {
       token: response?.data?.data?.tokenData?.token ?? null
     };
 
-    localStorage.setItem('userToken', String(response?.data?.data?.tokenData?.token));
+    localStorage.setItem('userToken', JSON.stringify(response?.data?.data?.tokenData?.token));
 
     // Object.assign(sessionData, { cookie: response?.data?.data?.cookie });
     // Object.assign(sessionData, { loginData: response?.data?.data?.userInfo });

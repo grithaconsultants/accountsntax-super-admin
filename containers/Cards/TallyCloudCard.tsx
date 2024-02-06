@@ -14,15 +14,25 @@ const TallyCloudCard = (props: any) => {
 
   return (
     <div className='bg-lo br-5 oh bx-11 p-3' >
+
       <div className='d-flex justify-content-between' >
         <div className='icon-wrapper d-flex justify-content-center fs-26 TX-V' >
           <ICAiOutlineCloudServer />
         </div>
-        <div className='title fs-20 tx-o ff-m' >{tallyOnCloud ? <TagCustom color="green" title="Active" /> : <TagCustom color="volcano" title="Inactive" />}</div>
+        <div className='title fs-20 tx-o ff-m' >{totalTOCuser}</div>
       </div>
-      <div className='fs-18 tx-v ff-m mt-5 text-decoration-underline' >
-        <Link href="" onClick={openTocModal}> TallyCLoud </Link>
+
+      <div className='d-flex justify-content-between' >
+        <div className='fs-18 tx-v ff-m mt-5 text-decoration-underline' >
+          <Link href="" onClick={openTocModal}> TallyCLoud </Link>
+        </div>
+
+        <div className='d-flex align-items-end justify-content-end fs-20 ff-m tx-o'>
+          {tallyOnCloud ? <TagCustom classNames='mie' color="green" title="Active" /> : <TagCustom classNames='mie' color="volcano" title="Inactive" />}
+        </div>
+
       </div>
+
     </div>
   )
 }

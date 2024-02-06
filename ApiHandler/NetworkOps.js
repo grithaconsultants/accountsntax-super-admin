@@ -19,9 +19,7 @@ axios.interceptors.request.use(async (config) => {
 	try {
 
 		const { isTokenRequired = false } = config || {};
-		// console.log(TAG, 'isTokenRequired', isTokenRequired);
-
-		if (isTokenRequired) {
+		if (isTokenRequired) {			
 			const token = getToken();
 			newConfig = {
 				...newConfig,

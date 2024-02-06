@@ -14,7 +14,7 @@ const CompaniesCard = (props: any) => {
 				<div className='title fs-20 tx-o ms-3 ff-m' >{noOfCompanies}</div>
 			</div>
 			<div className='fs-18 tx-v ff-m mt-5 text-decoration-underline' >
-				<Link href="" > Companies </Link>
+				<Link href="/clients/details/companies" > Companies </Link>
 			</div>
 		</div>
 	)

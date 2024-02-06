@@ -401,6 +401,19 @@ export const dateDiffInDays = (value: string) => {
   }
 }
 
+export const calcRemainingDays = (startDate: string, period : number) => {
+  let remainingDays : number = 0
+  if (!isEmpty(startDate)) {
+    const momentTime: any = startDate.split("T00:00:00.000Z");
+    const toDateFormat: any = moment(momentTime[0]).tz("Asia/Calcutta");
+    const todate = moment().tz("Asia/Calcutta");
+    console.log("this is no of days ", todate, todate.diff(toDateFormat, 'days'))
+    remainingDays = period - Number(todate.diff(toDateFormat, 'days'));
+  }
+  return remainingDays;
+}
+
+
 export const yyyymmTommmYY = (value: string) => {
   if (isEmpty(value)) {
     return "_";

@@ -21,8 +21,8 @@ const Login = () => {
             <div className="a-t-h" >
               <Image src={logo776x120} alt="gst icon" width={232} height={36} />
             </div>
-
-            <LoginFrom />
+ 
+            <LoginFrom /> 
 
           </div>
         </div>

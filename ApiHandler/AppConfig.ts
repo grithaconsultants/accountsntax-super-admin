@@ -13,14 +13,14 @@ const endPoints: any = {
 	getUsers: `${BASE_URL}/super-admin/users`,
 	getCompanies: `${BASE_URL}/super-admin/companies-list`,
 	getLicenses: `${BASE_URL}/super-admin/licenses`,
-
 	getCompanyById: `${BASE_URL}/super-admin/company-detail`,
 	getClientById: `${BASE_URL}/super-admin/client-detail`,
 
 	adServer: `${BASE_URL}/super-admin/add-server`,
 	userPasswordChange: `${BASE_URL}/users/change-password`,
 
-	updateLicenses: `${BASE_URL}/super-admin/update-license`,
+	updateClientById: `${BASE_URL}/super-admin/update-client`,
+	updateLicensesById: `${BASE_URL}/super-admin/update-license`,
 }
 
 export default endPoints;

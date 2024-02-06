@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from 'react-redux';
-import dayjs from 'dayjs';
 
-import ToastComponent from "@/component/Toast/Toast";
+import HomeLayout from "@/containers/Layout/Layout";
+import Loader from "@/component/loader/loader";
+import TagCustom from "@/component/tags/tags";
 import ButtonSimple from "@/component/buttonsimple/buttonsimple";
 import Informationcard from "@/component/informationcard/InformationsCard";
 
-import HomeLayout from "@/containers/Layout/Layout";
 import UserCard from "@/containers/Cards/UserCard";
 import TallyCloudCard from "@/containers/Cards/TallyCloudCard";
 import CompaniesCard from "@/containers/Cards/CompaniesCard";
@@ -16,10 +16,7 @@ import TOCModal from "@/containers/Modal/TOCModal";
 import SubscriptionModal from "@/containers/Modal/SubscriptionModal";
 import UpdateClientModal from "@/containers/Modal/UpdateClientModal";
 
-import { CLIENT_DETAILS_UPDATE } from "@/redux/constant";
-import { ClientsService } from "@/utils/apiCallServices/client.api.services";
-import { formateMobileNo, isEmpty, removeDateRest, ret_ifEmpty } from "@/utils/helper";
-import Loader from "@/component/loader/loader";
+import { calcRemainingDays, formateMobileNo, isEmpty, removeDateRest, ret_ifEmpty } from "@/utils/helper";
 
 const TAG = "Client Details Page: ";
 
@@ -43,43 +40,35 @@ const ClientDetails = () => {
   const [totalCompanies, setTotalCompanies] = useState<number>(0);
   const [dataToDis, setDataToDis] = useState<any>([]);
   const [clientData, setClientData] = useState<any>(null);
-  const [subscriptionData, setSubscriptionData] = useState<any>({
-    startDate: dayjs(dayjs(), 'DD-MM-YYYY').format('DD-MM-YYYY'),
-    remainingDays: 10
-  });
+  const [totalRemainingDays, setTotalRemainingDays] = useState<number>(0);
+  const [licenseId, setLicenseId] = useState<any>(null);
 
 
   useEffect(() => {
     if (clientDetails !== null) {
+      
       setClientData(clientDetails);
       setTallyOnCloud(clientDetails?.accessTallyCloud ?? false);
       setNoOfUsers(clientDetails?.users ? clientDetails?.users.length : 0);
       setNoOfAssignedCompanies(clientDetails?.companies ? clientDetails?.companies.length : 0);
+
       if (clientDetails?.permissions && clientDetails?.permissions?.length > 0) {
-        const filterPermissionUser = clientDetails?.permissions.filter((permission: any) => permission.feature == "total_user");
-        const filterPermissionTOC = clientDetails?.permissions.filter((permission: any) => permission.feature == "toc_user");
-        const filterPermissionTotalComp = clientDetails?.permissions.filter((permission: any) => permission.feature == "total_company");
-        if (!isEmpty(filterPermissionUser)) {
-          setTotalUsers(filterPermissionUser[0]?.value);
+        const filterTOCPermission = clientDetails?.permissions.filter((permission: any) => permission.feature == "toc_user");
+        const filterCompPermission = clientDetails?.permissions.filter((permission: any) => permission.feature == "total_company");
+
+        if (!isEmpty(filterTOCPermission)) {
+          setTotalTOCusers(filterTOCPermission[0]?.value);
         }
 
-        if (!isEmpty(filterPermissionTOC)) {
-          setTotalTOCusers(filterPermissionTOC[0]?.value);
+        if (!isEmpty(filterCompPermission)) {
+          setTotalCompanies(filterCompPermission[0]?.value);
         }
-
-        if (!isEmpty(filterPermissionTotalComp)) {
-          setTotalCompanies(filterPermissionTotalComp[0]?.value);
-        }
-
       }
 
-      if (clientDetails?.subscription) {
-        const newSubscriptionData = {
-          startDate: clientDetails?.subscription?.startDate ? clientDetails?.subscription?.startDate : dayjs(dayjs(), 'DD-MM-YYYY').format('DD-MM-YYYY'),
-          endDate: clientDetails?.subscription?.endDate ? clientDetails?.subscription?.endDate : dayjs().add(7, 'day').format('DD-MM-YYYY'),
-          remainingDays: clientDetails?.subscription?.remainingDays ? clientDetails?.subscription?.remainingDays : 10
-        }
-        setSubscriptionData(newSubscriptionData);
+      if (!isEmpty(clientDetails?.licenses)) {
+        const subscriptionData = clientDetails?.licenses;
+        setLicenseId(subscriptionData?._id);
+        setTotalRemainingDays(subscriptionData?.active ? calcRemainingDays(subscriptionData?.startDate, Number(subscriptionData?.period)) : 0);
       }
 
     }
@@ -148,10 +137,12 @@ const ClientDetails = () => {
           title: 'VNC Session Number',
           value: ret_ifEmpty(clientData?.vnc_session_number)
         },
+
         {
           title: `Status`,
-          value: clientData?.status == true ? "Active" : "InActive"
+          value: (clientData?.status == true ? <TagCustom color="green" title="Active" /> : <TagCustom color="volcano" title="Inactive" />)
         },
+
         {
           title: 'Created At',
           value: ret_ifEmpty(removeDateRest(clientData?.createdAt))
@@ -177,6 +168,7 @@ const ClientDetails = () => {
 
   console.log(TAG, " clientID ", clientID);
   console.log(TAG, " clientDetails ", clientDetails);
+  console.log(TAG, " dataToDis ", dataToDis);
 
   return (
     <HomeLayout>
@@ -215,7 +207,7 @@ const ClientDetails = () => {
               <div className='col-xl-3 col-lg-3 col-md-6 col-12 ' >
                 <SubscriptionCard
                   setSubscriptionModal={setSubscriptionModal}
-                  totalRemainingDays={subscriptionData?.remainingDays}
+                  totalRemainingDays={totalRemainingDays}
                 />
               </div>
 
@@ -260,8 +252,7 @@ const ClientDetails = () => {
                 setTallyOnCloud={setTallyOnCloud}
                 totalTOCuser={totalTOCuser}
                 setTotalTOCusers={setTotalTOCusers}
-                totalDays={totalDays}
-                setTotalDays={setTotalDays}
+                licenseId={licenseId}
               />
               : ""
           }
@@ -282,7 +273,6 @@ const ClientDetails = () => {
               <SubscriptionModal
                 openModal={subscriptionMpdal}
                 setOpenModal={setSubscriptionModal}
-                subscriptionData={subscriptionData}
               />
               : ""
           }

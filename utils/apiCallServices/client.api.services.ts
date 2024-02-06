@@ -3,10 +3,10 @@ import NetworkOps from '@/ApiHandler/NetworkOps';
 import { catchErrorHandling, isEmpty } from '../helper';
 
 
-const getAllClients = async (apiUrl: any, istoken: any) => {
+const getAllClients = async (apiUrl: any) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await NetworkOps.makeGetRequest(apiUrl, istoken);
+      const response = await NetworkOps.makeGetRequest(apiUrl, true);
       if (response?.status == 200 && response?.data?.success == true) {
         return resolve({ response: response, status: true });
       } else {
@@ -18,10 +18,10 @@ const getAllClients = async (apiUrl: any, istoken: any) => {
   });
 }
 
-const getClientDetailsById = async (clientId: any, istoken: any = true) => {
+const getClientDetailsById = async (clientId: any) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await NetworkOps.makeGetRequest(`${endPoints.getClientById}/${clientId}`, istoken);
+      const response = await NetworkOps.makeGetRequest(`${endPoints.getClientById}/${clientId}`, true);
       if (response?.status == 200 && response?.data?.success == true) {
         return resolve({ response: response, status: true });
       } else {
@@ -33,10 +33,10 @@ const getClientDetailsById = async (clientId: any, istoken: any = true) => {
   });
 }
 
-const deleteClientById = async (clientId: string, istoken: any) => {
+const updateClientById = async (clientId: string, payload : any) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await NetworkOps.makeDeleteRequest(`${endPoints.deleteClientById}/${clientId}`, istoken);
+      const response = await NetworkOps.makePutRequest(`${endPoints.updateClientById}/${clientId}`, payload, true);
       if (response?.status == 200 && response?.data?.success == true) {
         return resolve({ response: response, status: true });
       } else {
@@ -48,10 +48,25 @@ const deleteClientById = async (clientId: string, istoken: any) => {
   });
 }
 
-const updateLicenseById = async (clientId: string, istoken: any) => {
+const deleteClientById = async (clientId: string) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await NetworkOps.makePutRequest(`${endPoints.updateLicenses}/${clientId}`, istoken);
+      const response = await NetworkOps.makeDeleteRequest(`${endPoints.deleteClientById}/${clientId}`, true);
+      if (response?.status == 200 && response?.data?.success == true) {
+        return resolve({ response: response, status: true });
+      } else {
+        return resolve({ response: response, status: false });
+      }
+    } catch (error) {
+      return resolve(catchErrorHandling(error));
+    }
+  });
+}
+
+const updateLicenseById = async (licenseId: string, payload : any) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await NetworkOps.makePutRequest(`${endPoints.updateLicensesById}/${licenseId}`, payload, true);
       if (response?.status == 200 && response?.data?.success == true) {
         return resolve({ response: response, status: true });
       } else {
@@ -67,6 +82,7 @@ const updateLicenseById = async (clientId: string, istoken: any) => {
 export const ClientsService = {
   getAllClients,
   deleteClientById,
+  updateClientById,
   getClientDetailsById,
   updateLicenseById
 }

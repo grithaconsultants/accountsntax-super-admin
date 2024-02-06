@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import { useSelector } from 'react-redux';
 
 import Loader from "@/component/loader/loader";
 import EmptyComp from "@/component/emptycomp/emptycomp";
 import PaginationComponent from "@/component/pagination/pagination";
 
-import UsersListTable from "@/containers/ClientList/UsersListTable";
+import CompaniesListTable from "@/containers/ClientList/CompaniesListTable";
 import HomeLayout from "@/containers/Layout/Layout";
 
 import { isEmpty } from "@/utils/helper";
 
-const TAG = "Users Page : ";
+const TAG = "Companies Page : ";
 
-const Users = () => {
+const Companies = () => {
 
-  const router = useRouter();
   const { clientDetails }: any = useSelector((state: any) => state.clientsData);
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -28,10 +26,10 @@ const Users = () => {
 
   useEffect(() => {
 
-    if (!isEmpty(clientDetails) && clientDetails?.users && clientDetails?.users.length > 0) {
-      setDataList(clientDetails?.users);
+    if (!isEmpty(clientDetails) && clientDetails?.companies && clientDetails?.companies.length > 0) {
+      setDataList(clientDetails?.companies);
       setMeta({
-        "total": clientDetails?.users.length,
+        "total": clientDetails?.companies.length,
         "limit": 10,
         "page": 1,
         "pages": 100
@@ -46,9 +44,8 @@ const Users = () => {
   };
 
 
-
   console.log(TAG, " clientDetails ", clientDetails);
-  console.log(TAG, " Users List ", dataList);
+  console.log(TAG, " Companies List ", dataList);
   console.log(TAG, " meta ", meta);
 
   return (
@@ -57,7 +54,7 @@ const Users = () => {
         <div className="layout-contWrapper">
           <div className="breadcrumb-wrapper">
             <div className="br-left">
-              <span className="br-light-tlt">Users </span>
+              <span className="br-light-tlt">Companies </span>
             </div>
             <div className="br-right"></div>
           </div>
@@ -98,7 +95,7 @@ const Users = () => {
                     <>
                       {dataList.length > 0 ? (
                         <>
-                          <UsersListTable
+                          <CompaniesListTable
                             rowsDataList={dataList}
                             defaultCurrent={defaultCurrent}
                             defaultPageSize={defaultPageSize}
@@ -135,4 +132,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Companies;

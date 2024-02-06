@@ -88,11 +88,19 @@ const Clients = () => {
       apiUrl = `${endPoints.getClients}?search=${search}&page=${page}&limit=${limit}&sortKey=${sortKeyP}&sortType=${sortTypeP}`;
     }
 
-    fetchAllClients(dispatch, apiUrl);
+    const payload = {
+      clientID: clientID,
+      clientsList: clientsList,
+      clientDetails: clientDetails,
+      metaData: metaData
+    }
+
+    fetchAllClients(dispatch, payload, apiUrl);
     setLoading(false);
   }
 
-  console.log(TAG, " clientsList from reducer ", clientsList);
+  console.log(TAG, " clientsList ", clientsList);
+  console.log(TAG, " dataList ", dataList);
   console.log(TAG, " metaData from reducer ", metaData);
 
 
@@ -141,33 +149,35 @@ const Clients = () => {
                     <Loader />
                   ) : (
                     <>
-                      {dataList.length > 0 ? (
-                        <>
-                          <ClientListTable
-                            rowsDataList={dataList}
-                            defaultCurrent={defaultCurrent}
-                            defaultPageSize={defaultPageSize}
-                            sortKey={sortKey}
-                            setSortKey={setSortKey}
-                            sortType={sortType}
-                            setSortType={setSortType}
-                          />
-
-                          <div className="pagination-component mt-3">
-                            <PaginationComponent
-                              total={meta.total}
-                              defaultPageSize={defaultPageSize}
+                      {
+                        dataList.length > 0 ? (
+                          <>
+                            <ClientListTable
+                              rowsDataList={dataList}
                               defaultCurrent={defaultCurrent}
-                              onChangeCall={callPaginationAction}
-                              onShowSizeChange={callPaginationAction}
+                              defaultPageSize={defaultPageSize}
+                              sortKey={sortKey}
+                              setSortKey={setSortKey}
+                              sortType={sortType}
+                              setSortType={setSortType}
                             />
-                          </div>
-                        </>
-                      ) : (
-                        <h1>
-                          <EmptyComp />
-                        </h1>
-                      )}
+
+                            <div className="pagination-component mt-3">
+                              <PaginationComponent
+                                total={meta.total}
+                                defaultPageSize={defaultPageSize}
+                                defaultCurrent={defaultCurrent}
+                                onChangeCall={callPaginationAction}
+                                onShowSizeChange={callPaginationAction}
+                              />
+                            </div>
+                          </>
+                        ) : (
+                          <h1>
+                            <EmptyComp />
+                          </h1>
+                        )
+                      }
                     </>
                   )}
                 </div>

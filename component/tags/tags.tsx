@@ -2,9 +2,9 @@ import React from 'react';
 import { Tag } from 'antd';
 
 const TagCustom = (props: any) => {
-  const { color, title } = props;
+  const { color, title, classNames } = props;
   return (
-    <Tag color={color}>{title}</Tag>
+    <Tag className={classNames !== '' ? classNames : ''} color={color}>{title}</Tag>
   )
 }
 

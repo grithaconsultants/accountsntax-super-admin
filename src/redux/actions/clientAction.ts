@@ -1,67 +1,94 @@
 import ToastComponent from '@/component/Toast/Toast';
 import { ClientsService } from '@/utils/apiCallServices/client.api.services';
 import { FETCH_CLIENTS_REQUEST, FETCH_CLIENTS_SUCCESS, FETCH_CLIENTS_FAILURE, CLIENT_DETAILS_UPDATE } from '@/redux/constant';
+import { isEmpty } from '@/utils/helper';
 
 const TAG = "Company Reducer Action : ";
 
-export const fetchClietnsRequest = () => ({
+export const fetchClietnsRequest = (payload: any) => ({
   type: FETCH_CLIENTS_REQUEST,
+  payload: payload
 });
 
-export const fetchClietnsSuccess = (clientsData: any) => ({
+export const fetchClietnsSuccess = (payload: any) => ({
   type: FETCH_CLIENTS_SUCCESS,
-  payload: {
-    clientsList: clientsData?.clientsList,
-    clientDetails: null,
-    metaData: clientsData?.metaData,
-  },
+  payload: payload
 });
 
-export const fetchClietnsFailure = (error: any) => ({
+export const fetchClietnsFailure = (payload: any) => ({
   type: FETCH_CLIENTS_FAILURE,
-  payload: error,
+  payload: payload,
 });
 
+export const fetchAllClients = async (dispatch: any, payload: any, apiUrl: any) => {
 
-export const fetchAllClients = async (dispatch: any, apiUrl: any) => {
+  const { clientID, clientsList, metaData, clientDetails }: any = payload;
 
-  dispatch(fetchClietnsRequest());
+  dispatch(fetchClietnsRequest(payload));
 
-  let apidata: any;
-
-  const { response, status }: any = await ClientsService.getAllClients(apiUrl, true);
+  const { response, status }: any = await ClientsService.getAllClients(apiUrl);
 
   if (!status) {
-    dispatch(fetchClietnsFailure(response));
+    dispatch(fetchClietnsFailure({ ...payload, error: response }));
     return;
   };
 
   const clientsData: any = {
-    clientsList: response?.data?.data?.clients ?? [],
-    metaData: response?.data?.data?.meta ?? null,
+    clientID: clientID,
+    clientsList: response?.data?.data?.clients ?? clientsList,
+    clientDetails: clientDetails,
+    metaData: response?.data?.data?.meta ?? metaData,
   };
 
   dispatch(fetchClietnsSuccess(clientsData));
-
 };
+
 
 export const fetchClientDetails = async (dispatch: any, payload: any) => {
 
-  const {clientId, clientsList, metaData} : any = payload;
+  const { clientID, clientsList, metaData, clientDetails }: any = payload;
+  dispatch(fetchClietnsRequest(payload));
 
-  const { response, status }: any = await ClientsService.getClientDetailsById(clientId, true);
-
+  const { response, status }: any = await ClientsService.getClientDetailsById(clientID);
   if (!status) {
-    dispatch(fetchClietnsFailure(response));
+    dispatch(fetchClietnsFailure({ ...payload, error: response }));
     return;
   };
 
-  const clientsData: any = {
-    clientsList: clientsList ?? [],
-    metaData: metaData ?? null,
-    clientDetails: response?.data ?? null
+  const resData = response?.data?.data && response?.data?.data.length > 0 ? response?.data?.data[0] : null;
+  if (!isEmpty(resData)) {
+    const clientsData: any = {
+      clientID: clientID,
+      clientsList: clientsList,
+      metaData: metaData,
+      clientDetails: resData ?? clientDetails
+    };
+
+    dispatch(fetchClietnsSuccess(clientsData));
+  }
+};
+
+
+export const updateClientDetails = async (dispatch: any, payload: any, apiData : any) => {
+
+  const { clientID, clientsList, metaData, clientDetails }: any = payload;
+  dispatch(fetchClietnsRequest(payload));
+
+  const { response, status }: any = await ClientsService.updateClientById(clientID, apiData);
+  if (!status) {
+    dispatch(fetchClietnsFailure({ ...payload, error: response }));
+    return;
   };
 
-  dispatch({type: CLIENT_DETAILS_UPDATE, payload: clientsData});
+  const resData = response?.data?.data ? response?.data?.data : null;
+  if (!isEmpty(resData)) {
+    const clientsData: any = {
+      clientID: clientID,
+      clientsList: clientsList,
+      metaData: metaData,
+      clientDetails: resData ?? clientDetails
+    };
 
+    dispatch(fetchClietnsSuccess(clientsData));
+  }
 };
