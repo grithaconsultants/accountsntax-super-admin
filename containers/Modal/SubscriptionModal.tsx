@@ -27,9 +27,12 @@ const SubscriptionModal = (props: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [dataToDis, setDataToDis] = useState<any>([]);
   const [totalDays, setTotalDays] = useState<number>(0);
-  const [isUpdateSubscription, setIsupdateSubscription] = useState<boolean>(false);
-  const [totalUsers, setTotalUsers] = useState<boolean>(true);
+  const [isUpdateSubscription, setIsUpdateSubscription] = useState<boolean>(false);
+  const [isUpdatePeriod, setIsUpdatePeriod] = useState<boolean>(false);
+  const [isUpdateUsers, setIsUpdateUsers] = useState<boolean>(false);
+  const [totalUsers, setTotalUsers] = useState<number>(0);
   const [licenseId, setLicenseId] = useState<any>(null);
+
 
   useEffect(() => {
     if (clientDetails !== null) {
@@ -100,21 +103,59 @@ const SubscriptionModal = (props: any) => {
     setOpenModal(false);
   }
 
+  const handleChangeTotalDays = (value: number) => {
+    if (clientDetails !== null && clientDetails?.licenses && !isEmpty(clientDetails?.licenses.period)) {
+
+      if (value !== Number(clientDetails?.licenses.period)) {
+        setIsUpdatePeriod(true);
+      } else {
+        setIsUpdatePeriod(false);
+      }
+    }
+    setTotalDays(value);
+  }
+
+  const handleChangeTotalUsers = (value: number) => {
+    if (clientDetails !== null && clientDetails?.permissions.length > 0) {
+      const filterUserPermission = clientDetails?.permissions.filter((permission: any) => permission.feature == "total_user");
+
+      if (!isEmpty(filterUserPermission)) {
+        if (value !== Number(filterUserPermission[0]?.value)) {
+          setIsUpdateUsers(true);
+        } else {
+          setIsUpdateUsers(false);
+        }
+      }
+    }
+    setTotalUsers(value);
+  }
 
   async function upateSubscription(type: any) {
     if (type == 'submit') {
-      if (licenseId !== null) {
+      if (licenseId !== null && (isUpdatePeriod || isUpdateUsers)) {
         const payload = {
           clientID: clientID,
           clientsList: clientsList,
           clientDetails: clientDetails,
           metaData: metaData
         };
+        let apiData;
 
-        const apiData = {
-          period: totalDays,
-          users: totalUsers
-        };
+        if (isUpdatePeriod == true && isUpdateUsers == false) {
+          apiData = {
+            period: totalDays
+          };
+        } else if (isUpdatePeriod == false && isUpdateUsers == true) {
+          apiData = {
+            users: totalUsers
+          };
+        } else {
+          apiData = {
+            period: totalDays,
+            users: totalUsers
+          };
+        }
+
 
         setLoading(true);
         const { response, status }: any = await ClientsService.updateLicenseById(licenseId, apiData);
@@ -132,9 +173,9 @@ const SubscriptionModal = (props: any) => {
       }
 
       fallback();
-      
+
     } else {
-      setIsupdateSubscription(!isUpdateSubscription);
+      setIsUpdateSubscription(!isUpdateSubscription);
     }
   }
 
@@ -168,59 +209,59 @@ const SubscriptionModal = (props: any) => {
 
         {
           isUpdateSubscription == true ?
-          <>
-            <div className='d-flex justify-content-center align-items-center fs-18 ff-m tx-v mt-3 p-2'>
-              <div className='d-flex justify-content-end w-60'>
-                <span>Update Total Number of Days</span>
+            <>
+              <div className='d-flex justify-content-center align-items-center fs-18 ff-m tx-v mt-3 p-2'>
+                <div className='d-flex justify-content-end w-60'>
+                  <span>Update Total Number of Days</span>
+                </div>
+                <div className='d-flex justify-content-start w-40'>
+                  <CustomInputNumber
+                    defaultValue={totalDays}
+                    label=""
+                    onChangeEvent={(val: any) => { handleChangeTotalDays(val); }}
+                  />
+                </div>
               </div>
-              <div className='d-flex justify-content-start w-40'>
-                <CustomInputNumber
-                  defaultValue={totalDays}
-                  label=""
-                  onChangeEvent={(val: any) => { setTotalDays(val); }}
-                />
-              </div>
-            </div>
 
-            <div className='d-flex justify-content-center align-items-center fs-18 ff-m tx-v mb-3 p-2'>
-              <div className='d-flex justify-content-end w-60'>
-                <span>Update Total Number of Users</span>
+              <div className='d-flex justify-content-center align-items-center fs-18 ff-m tx-v mb-3 p-2'>
+                <div className='d-flex justify-content-end w-60'>
+                  <span>Update Total Number of Users</span>
+                </div>
+                <div className='d-flex justify-content-start w-40'>
+                  <CustomInputNumber
+                    defaultValue={totalUsers}
+                    label=""
+                    onChangeEvent={(val: any) => { handleChangeTotalUsers(val); }}
+                  />
+                </div>
               </div>
-              <div className='d-flex justify-content-start w-40'>
-                <CustomInputNumber
-                  defaultValue={totalUsers}
-                  label=""
-                  onChangeEvent={(val: any) => { setTotalUsers(val); }}
-                />
-              </div>
-            </div>
 
+              <div className="col-12 p-0 d-flex justify-content-center mt-4" >
+                <div className="" >
+                  {loading == false ?
+                    <ButtonSimple
+                      title="Submit"
+                      type="voilet"
+                      disabled={false}
+                      onClickEvent={() => { upateSubscription('submit'); }}
+                    />
+                    :
+                    <Loader />
+                  }
+                </div>
+              </div>
+            </>
+            :
             <div className="col-12 p-0 d-flex justify-content-center mt-4" >
               <div className="" >
-                {loading == false ?
-                  <ButtonSimple
-                    title="Submit"
-                    type="voilet"
-                    disabled={false}
-                    onClickEvent={() => { upateSubscription('submit'); }}
-                  />
-                  :
-                  <Loader />
-                }
+                <ButtonSimple
+                  title="Update Subscription"
+                  type="voilet"
+                  disabled={false}
+                  onClickEvent={() => { upateSubscription('update'); }}
+                />
               </div>
             </div>
-          </>
-          :
-          <div className="col-12 p-0 d-flex justify-content-center mt-4" >
-            <div className="" >
-              <ButtonSimple
-                title="Update Subscription"
-                type="voilet"
-                disabled={false}
-                onClickEvent={() => { upateSubscription('update'); }}
-              />
-            </div>
-          </div>
         }
 
       </div>

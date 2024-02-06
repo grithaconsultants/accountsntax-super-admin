@@ -48,16 +48,20 @@ const ClientDetails = () => {
     if (clientDetails !== null) {
       
       setClientData(clientDetails);
-      setTallyOnCloud(clientDetails?.accessTallyCloud ?? false);
       setNoOfUsers(clientDetails?.users ? clientDetails?.users.length : 0);
       setNoOfAssignedCompanies(clientDetails?.companies ? clientDetails?.companies.length : 0);
 
       if (clientDetails?.permissions && clientDetails?.permissions?.length > 0) {
-        const filterTOCPermission = clientDetails?.permissions.filter((permission: any) => permission.feature == "toc_user");
+        const filterTOCUserPermission = clientDetails?.permissions.filter((permission: any) => permission.feature == "toc_user");
+        const filterTOCPermission = clientDetails?.permissions.filter((permission: any) => permission.feature == "tally_cloud");
         const filterCompPermission = clientDetails?.permissions.filter((permission: any) => permission.feature == "total_company");
 
         if (!isEmpty(filterTOCPermission)) {
-          setTotalTOCusers(filterTOCPermission[0]?.value);
+          setTallyOnCloud(filterTOCPermission[0]?.active);
+        }
+
+        if (!isEmpty(filterTOCUserPermission)) {
+          setTotalTOCusers(filterTOCUserPermission[0]?.value);
         }
 
         if (!isEmpty(filterCompPermission)) {
