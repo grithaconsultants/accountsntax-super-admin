@@ -14,7 +14,7 @@ import { fetchClientDetails } from '@/redux/actions/clientAction';
 
 import { back } from "@/utils/image";
 import { ClientsService } from '@/utils/apiCallServices/client.api.services';
-import { calcRemainingDays, dateDiffInDays, isEmpty, removeDateRest, ret_ifEmpty } from '@/utils/helper';
+import { calcRemainingDays, dateDiffInDays, getReqPermission, isEmpty, removeDateRest, ret_ifEmpty } from '@/utils/helper';
 
 const TAG = 'Subscription Modal :';
 
@@ -38,10 +38,9 @@ const SubscriptionModal = (props: any) => {
     if (clientDetails !== null) {
 
       if (clientDetails?.permissions && clientDetails?.permissions?.length > 0) {
-
-        const filterUserPermission = clientDetails?.permissions.filter((permission: any) => permission.feature == "total_user");
-        if (!isEmpty(filterUserPermission)) {
-          setTotalUsers(filterUserPermission[0]?.value);
+        const filterUserPermission = getReqPermission(clientDetails, "total_user");
+        if (filterUserPermission !== null) {
+          setTotalUsers(filterUserPermission?.value);
         }
       }
 
@@ -117,10 +116,10 @@ const SubscriptionModal = (props: any) => {
 
   const handleChangeTotalUsers = (value: number) => {
     if (clientDetails !== null && clientDetails?.permissions.length > 0) {
-      const filterUserPermission = clientDetails?.permissions.filter((permission: any) => permission.feature == "total_user");
+      const filterUserPermission = getReqPermission(clientDetails, "total_user");
 
-      if (!isEmpty(filterUserPermission)) {
-        if (value !== Number(filterUserPermission[0]?.value)) {
+      if (filterUserPermission !== null) {
+        if (value !== Number(filterUserPermission?.value)) {
           setIsUpdateUsers(true);
         } else {
           setIsUpdateUsers(false);
@@ -160,6 +159,9 @@ const SubscriptionModal = (props: any) => {
         setLoading(true);
         const { response, status }: any = await ClientsService.updateLicenseById(licenseId, apiData);
         setLoading(false);
+
+        setIsUpdateUsers(false);
+        setIsUpdatePeriod(false);
 
         if (!status) {
           ToastComponent(response?.data?.msg);

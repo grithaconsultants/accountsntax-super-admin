@@ -16,7 +16,7 @@ export const handleWhatsAppIconClick = (clientNumber: string) => {
   ToastComponent("message sent successfully");
 };
 
-export const handleSendEmail = (toemail :string) => {
+export const handleSendEmail = (toemail: string) => {
   const to = toemail;
   const subject = 'Test Email';
   const text = 'This is a test email sent from Next.js!';
@@ -401,8 +401,8 @@ export const dateDiffInDays = (value: string) => {
   }
 }
 
-export const calcRemainingDays = (startDate: string, period : number) => {
-  let remainingDays : number = 0
+export const calcRemainingDays = (startDate: string, period: number) => {
+  let remainingDays: number = 0
   if (!isEmpty(startDate)) {
     const momentTime: any = startDate.split("T00:00:00.000Z");
     const toDateFormat: any = moment(momentTime[0]).tz("Asia/Calcutta");
@@ -618,7 +618,7 @@ export const generateStockGroup = (stockGroups: any) => {
       label: underscorIfEmpty(item?.name)
     });
   });
-  empArr.splice(0, 0, { label: 'Primary', value: 'primary' });     
+  empArr.splice(0, 0, { label: 'Primary', value: 'primary' });
   return empArr;
 }
 
@@ -862,28 +862,28 @@ export const getAWSFileUrl = async (url: any) => {
 
 export const uploadFile = async (files: any, url: any) => {
 
-    if (files && files.length) {
+  if (files && files.length) {
 
-      // console.log("Helper ", "  calling with ", files, filename, ext, url);
+    // console.log("Helper ", "  calling with ", files, filename, ext, url);
 
+    try {
+      const response = await getS3SignedUrl({ path: url, type: "put" });
+      // debugLog("Helper ", " response of get signed url ", response);
       try {
-        const response = await getS3SignedUrl({ path: url, type: "put" });
-        // debugLog("Helper ", " response of get signed url ", response);
-        try {
-          const holdRes = await uploadFileToS3({ url: response, file: files[0] });
-          // debugLog("Helper ", " upload api response ", holdRes);
-          return url;
-
-        } catch (error) {
-          console.log("Helper ", " error we got while uploading file to s3 ", error);
-        }
+        const holdRes = await uploadFileToS3({ url: response, file: files[0] });
+        // debugLog("Helper ", " upload api response ", holdRes);
+        return url;
 
       } catch (error) {
-        console.log("Helper ", " error in getting signed url ", error);
+        console.log("Helper ", " error we got while uploading file to s3 ", error);
       }
-    }
 
+    } catch (error) {
+      console.log("Helper ", " error in getting signed url ", error);
+    }
   }
+
+}
 
 export const miltiPer = (num: any, amount: any) => {
   return num * amount / 100;
@@ -948,7 +948,7 @@ export const logoutProcess = (router: any) => {
   router.push('/login');
 }
 
-export const catchErrorHandling = (error : any) => {
+export const catchErrorHandling = (error: any) => {
   if (isEmpty(error?.data?.msg) == true) {
     return { response: { data: { msg: "Unknown Error!" } }, status: false };
   } else {
@@ -966,7 +966,7 @@ export const inFormatOfLabelAndVal = (calledWith: any) => {
 }
 
 export const underscorIfEmpty = (value: any) => {
-  if( isEmpty(value) == true ){
+  if (isEmpty(value) == true) {
     return "_";
   } else {
     return value;
@@ -974,7 +974,7 @@ export const underscorIfEmpty = (value: any) => {
 }
 
 export const emptyArrIfEmpty = (value: any) => {
-  if( isEmpty(value) == true ){
+  if (isEmpty(value) == true) {
     return [];
   } else {
     return value;
@@ -982,7 +982,7 @@ export const emptyArrIfEmpty = (value: any) => {
 }
 
 export const nullIfEmpty = (value: any) => {
-  if( isEmpty(value) == true ){
+  if (isEmpty(value) == true) {
     return null;
   } else {
     return value;
@@ -1006,12 +1006,12 @@ export const sizeCalculator = (sizeToProcess: any) => {
 
 
 
-export const  numberToWords = (number : any) => {
+export const numberToWords = (number: any) => {
   const units = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
   const teens = ['', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
   const tens = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
 
-  const convertLessThanOneThousand =(num : any) : string => {
+  const convertLessThanOneThousand = (num: any): string => {
     if (num === 0) {
       return '';
     } else if (num < 10) {
@@ -1040,7 +1040,7 @@ export const  numberToWords = (number : any) => {
 
     if (lakh) {
       result += convertLessThanOneThousand(lakh) + ' lakhs ';
-    }	
+    }
 
     if (thousand) {
       result += convertLessThanOneThousand(thousand) + ' thousand ';
@@ -1052,4 +1052,12 @@ export const  numberToWords = (number : any) => {
 
     return result.trim();
   }
+}
+
+
+export const getReqPermission = (clientDetails: any, permissionType: string) => {
+  let permission: any;
+  const filcterPermission = clientDetails?.permissions.filter((permission: any) => permission.feature == permissionType);
+  permission = !isEmpty(filcterPermission) ? filcterPermission[0] : null;
+  return permission;
 }
