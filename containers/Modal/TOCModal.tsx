@@ -13,7 +13,7 @@ import { fetchClientDetails } from '@/redux/actions/clientAction';
 
 import { back } from "@/utils/image";
 import { ClientsService } from '@/utils/apiCallServices/client.api.services';
-import { getReqPermission, isEmpty } from '@/utils/helper';
+import { getReqPermission } from '@/utils/helper';
 
 
 const TAG = 'TOC Modal :';
@@ -25,47 +25,43 @@ const TOCModal = (props: any) => {
   const { clientsList, metaData, clientID, clientDetails }: any = useSelector((state: any) => state.clientsData);
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [isUpdateTOC, setIsUpdateTOC] = useState<boolean>(false);
-  const [isUpdateTOCUsers, setIsUpdateTOCUsers] = useState<boolean>(false);
 
   function fallback() {
     setOpenModal(false);
   }
 
-  const handleChangeTOCUser = (value: number) => {
-    if (clientDetails !== null && clientDetails?.permissions.length > 0) {
-      const filterTOCUserPermission = getReqPermission(clientDetails, "toc_user");
-
-      if (filterTOCUserPermission !== null) {
-        if (value !== Number(filterTOCUserPermission?.value)) {
-          setIsUpdateTOCUsers(true);
-        } else {
-          setIsUpdateTOCUsers(false);
-        }
-      }
-    }
-    setTotalTOCusers(value);
-  }
-
-  const handleChangeTOC = (value: number) => {
-    if (clientDetails !== null && clientDetails?.permissions.length > 0) {
-      const filterTOCPermission = getReqPermission(clientDetails, "tally_cloud");
-
-      if (filterTOCPermission !== null) {
-        if (value !== filterTOCPermission?.active) {
-          setIsUpdateTOC(true);
-        } else {
-          setIsUpdateTOC(false);
-        }
-      }
-    }
-    setTallyOnCloud(value);
-  }
-
-
   async function submitAction() {
 
-    if (licenseId !== null && (isUpdateTOC || isUpdateTOCUsers)) {
+    let updateType: string = 'none';
+    let updateTOC: boolean = false;
+    let updateTOCUser: boolean = false;
+    let apiData;
+
+    if (clientDetails !== null && clientDetails?.permissions.length > 0) {
+
+      const filterTOCUserPermission = getReqPermission(clientDetails, "toc_user");
+      const filterTOCPermission = getReqPermission(clientDetails, "tally_cloud");
+
+      if ((filterTOCPermission !== null) && (tallyOnCloud !== filterTOCPermission?.active)) {
+        updateTOC = true;
+      }
+
+      if ((filterTOCUserPermission !== null) && totalTOCuser !== Number(filterTOCUserPermission?.value)) {
+        updateTOCUser = true;
+      }
+
+      if (updateTOC == true && updateTOCUser == false) {
+        updateType = "tally_cloud";
+      } else if (updateTOC == false && updateTOCUser == true) {
+        updateType = "toc_user";
+      } else if (updateTOC == true && updateTOCUser == true) {
+        updateType = "both";
+      }
+
+    }
+
+    if (licenseId !== null && updateType !== 'none') {
+
       const payload = {
         clientID: clientID,
         clientsList: clientsList,
@@ -73,29 +69,34 @@ const TOCModal = (props: any) => {
         metaData: metaData
       };
 
-      let apiData;
-
-      if (isUpdateTOC == true && isUpdateTOCUsers == false) {
-        apiData = {
-          tallyCloud: tallyOnCloud,
-        };
-      } else if (isUpdateTOC == false && isUpdateTOCUsers == true) {
-        apiData = {
-          toc_users: totalTOCuser
-        };
-      } else {
-        apiData = {
-          tallyCloud: tallyOnCloud,
-          toc_users: totalTOCuser
-        };
+      switch (updateType) {
+        case 'tally_cloud':
+          apiData = {
+            active: true,
+            tallyCloud: tallyOnCloud,
+          };
+          break;
+        case 'toc_user':
+          apiData = {
+            active: true,
+            toc_users: totalTOCuser
+          };
+          break;
+        case 'both':
+          apiData = {
+            active: true,
+            tallyCloud: tallyOnCloud,
+            toc_users: totalTOCuser
+          };
+          break;
+        default:
+          break;
       }
 
       setLoading(true);
       const { response, status }: any = await ClientsService.updateLicenseById(licenseId, apiData);
       setLoading(false);
 
-      setIsUpdateTOC(false);
-      setIsUpdateTOCUsers(false);
 
       if (!status) {
         ToastComponent(response?.data?.msg);
@@ -135,7 +136,7 @@ const TOCModal = (props: any) => {
                   <SwitchComponent
                     defaultChecked={tallyOnCloud}
                     label=""
-                    onChangeEvent={(val: any) => { handleChangeTOC(val); }}
+                    onChangeEvent={(val: any) => { setTallyOnCloud(val); }}
                   />
                 </div>
               </div>
@@ -148,7 +149,7 @@ const TOCModal = (props: any) => {
                   <CustomInputNumber
                     defaultValue={totalTOCuser}
                     label=""
-                    onChangeEvent={(val: any) => { handleChangeTOCUser(val); }}
+                    onChangeEvent={(val: any) => { setTotalTOCusers(val); }}
                   />
                 </div>
               </div>

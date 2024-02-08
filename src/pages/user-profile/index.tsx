@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import HomeLayout from '@/containers/Layout/Layout';
 import ToastComponent from '@/component/Toast/Toast';
-import InformationCard from '@/component/informationcard/InformationCard';
+import InformationCard from '@/component/informationcard/InformationsCard';
 import ButtonSimple from '@/component/buttonsimple/buttonsimple';
 import Loader from '@/component/loader/loader';
 import CustomTooltip from '@/component/tooltip/tooltip';

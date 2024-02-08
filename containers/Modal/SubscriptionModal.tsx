@@ -14,24 +14,22 @@ import { fetchClientDetails } from '@/redux/actions/clientAction';
 
 import { back } from "@/utils/image";
 import { ClientsService } from '@/utils/apiCallServices/client.api.services';
-import { calcRemainingDays, dateDiffInDays, getReqPermission, isEmpty, removeDateRest, ret_ifEmpty } from '@/utils/helper';
+import { calcRemainingDays, getReqPermission, isEmpty, removeDateRest, ret_ifEmpty } from '@/utils/helper';
 
 const TAG = 'Subscription Modal :';
 
 const SubscriptionModal = (props: any) => {
-  const { openModal, setOpenModal } = props;
+  const { openModal, setOpenModal, licenseId } = props;
 
   const dispatch = useDispatch();
   const { clientsList, metaData, clientID, clientDetails }: any = useSelector((state: any) => state.clientsData);
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false); 
   const [dataToDis, setDataToDis] = useState<any>([]);
   const [totalDays, setTotalDays] = useState<number>(0);
   const [isUpdateSubscription, setIsUpdateSubscription] = useState<boolean>(false);
-  const [isUpdatePeriod, setIsUpdatePeriod] = useState<boolean>(false);
-  const [isUpdateUsers, setIsUpdateUsers] = useState<boolean>(false);
   const [totalUsers, setTotalUsers] = useState<number>(0);
-  const [licenseId, setLicenseId] = useState<any>(null);
+
 
 
   useEffect(() => {
@@ -40,16 +38,14 @@ const SubscriptionModal = (props: any) => {
       if (clientDetails?.permissions && clientDetails?.permissions?.length > 0) {
         const filterUserPermission = getReqPermission(clientDetails, "total_user");
         if (filterUserPermission !== null) {
-          setTotalUsers(filterUserPermission?.value);
+          setTotalUsers(Number(filterUserPermission?.value));
         }
       }
-
       const subscriptionData = clientDetails?.licenses ? clientDetails?.licenses : null;
 
       if (subscriptionData !== null) {
 
         setTotalDays(subscriptionData.period ? Number(subscriptionData?.period) : 0);
-        setLicenseId(subscriptionData?.license ? subscriptionData?._id : null);
 
         const dataToDis = [
           {
@@ -102,66 +98,73 @@ const SubscriptionModal = (props: any) => {
     setOpenModal(false);
   }
 
-  const handleChangeTotalDays = (value: number) => {
-    if (clientDetails !== null && clientDetails?.licenses && !isEmpty(clientDetails?.licenses.period)) {
-
-      if (value !== Number(clientDetails?.licenses.period)) {
-        setIsUpdatePeriod(true);
-      } else {
-        setIsUpdatePeriod(false);
-      }
-    }
-    setTotalDays(value);
-  }
-
-  const handleChangeTotalUsers = (value: number) => {
-    if (clientDetails !== null && clientDetails?.permissions.length > 0) {
-      const filterUserPermission = getReqPermission(clientDetails, "total_user");
-
-      if (filterUserPermission !== null) {
-        if (value !== Number(filterUserPermission?.value)) {
-          setIsUpdateUsers(true);
-        } else {
-          setIsUpdateUsers(false);
-        }
-      }
-    }
-    setTotalUsers(value);
-  }
-
   async function upateSubscription(type: any) {
     if (type == 'submit') {
-      if (licenseId !== null && (isUpdatePeriod || isUpdateUsers)) {
+
+      let updateType: string = 'none';
+      let updatePeriod: boolean = false;
+      let updateTotalUsers: boolean = false;
+      let apiData;
+
+      if (clientDetails !== null) {
+
+        if (clientDetails?.licenses?.period && totalDays !== Number(clientDetails?.licenses.period)) {
+          updatePeriod = true;
+        }
+
+        if (clientDetails?.permissions.length > 0) {
+          const filterTotalUserPermission = getReqPermission(clientDetails, "total_user");
+          if ((filterTotalUserPermission !== null) && totalUsers !== Number(filterTotalUserPermission?.value)) {
+            updateTotalUsers = true;
+          }
+        }
+
+        if (updatePeriod == true && updateTotalUsers == false) {
+          updateType = "period";
+        } else if (updatePeriod == false && updateTotalUsers == true) {
+          updateType = "total_user";
+        } else if (updatePeriod == true && updateTotalUsers == true) {
+          updateType = "both";
+        }
+
+      }
+
+      if (licenseId !== null && updateType !== 'none') {
         const payload = {
           clientID: clientID,
           clientsList: clientsList,
           clientDetails: clientDetails,
           metaData: metaData
         };
-        let apiData;
 
-        if (isUpdatePeriod == true && isUpdateUsers == false) {
-          apiData = {
-            period: totalDays
-          };
-        } else if (isUpdatePeriod == false && isUpdateUsers == true) {
-          apiData = {
-            users: totalUsers
-          };
-        } else {
-          apiData = {
-            period: totalDays,
-            users: totalUsers
-          };
+        switch (updateType) {
+          case 'period':
+            apiData = {
+              active: true,
+              period: totalDays,
+            };
+            break;
+          case 'total_user':
+            apiData = {
+              active: true,
+              users: totalUsers
+            };
+            break;
+          case 'both':
+            apiData = {
+              active: true,
+              period: totalDays,
+              users: totalUsers
+            };
+            break;
+          default:
+            break;
         }
 
 
         setLoading(true);
         const { response, status }: any = await ClientsService.updateLicenseById(licenseId, apiData);
         setLoading(false);
-
-        setIsUpdateUsers(false);
-        setIsUpdatePeriod(false);
 
         if (!status) {
           ToastComponent(response?.data?.msg);
@@ -181,10 +184,10 @@ const SubscriptionModal = (props: any) => {
     }
   }
 
-  console.log(TAG, " licenseId ", licenseId);
-  console.log(TAG, " totalUsers ", totalUsers);
-  console.log(TAG, " totalDays ", totalDays);
-  console.log(TAG, " dataToDis ", dataToDis);
+  // console.log(TAG, " licenseId ", licenseId);
+  // console.log(TAG, " totalUsers ", totalUsers);
+  // console.log(TAG, " totalDays ", totalDays);
+  // console.log(TAG, " dataToDis ", dataToDis);
 
   return (
     <Modal
@@ -220,7 +223,7 @@ const SubscriptionModal = (props: any) => {
                   <CustomInputNumber
                     defaultValue={totalDays}
                     label=""
-                    onChangeEvent={(val: any) => { handleChangeTotalDays(val); }}
+                    onChangeEvent={(val: any) => { setTotalDays(val); }}
                   />
                 </div>
               </div>
@@ -233,7 +236,7 @@ const SubscriptionModal = (props: any) => {
                   <CustomInputNumber
                     defaultValue={totalUsers}
                     label=""
-                    onChangeEvent={(val: any) => { handleChangeTotalUsers(val); }}
+                    onChangeEvent={(val: any) => { setTotalUsers(val); }}
                   />
                 </div>
               </div>

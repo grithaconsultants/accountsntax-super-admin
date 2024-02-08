@@ -16,7 +16,7 @@ import TOCModal from "@/containers/Modal/TOCModal";
 import SubscriptionModal from "@/containers/Modal/SubscriptionModal";
 import UpdateClientModal from "@/containers/Modal/UpdateClientModal";
 
-import { calcRemainingDays, formateMobileNo, isEmpty, removeDateRest, ret_ifEmpty } from "@/utils/helper";
+import { calcRemainingDays, formateMobileNo, getReqPermission, isEmpty, removeDateRest, ret_ifEmpty } from "@/utils/helper";
 
 const TAG = "Client Details Page: ";
 
@@ -46,26 +46,27 @@ const ClientDetails = () => {
 
   useEffect(() => {
     if (clientDetails !== null) {
-      
+
       setClientData(clientDetails);
       setNoOfUsers(clientDetails?.users ? clientDetails?.users.length : 0);
       setNoOfAssignedCompanies(clientDetails?.companies ? clientDetails?.companies.length : 0);
 
       if (clientDetails?.permissions && clientDetails?.permissions?.length > 0) {
-        const filterTOCUserPermission = clientDetails?.permissions.filter((permission: any) => permission.feature == "toc_user");
-        const filterTOCPermission = clientDetails?.permissions.filter((permission: any) => permission.feature == "tally_cloud");
-        const filterCompPermission = clientDetails?.permissions.filter((permission: any) => permission.feature == "total_company");
 
-        if (!isEmpty(filterTOCPermission)) {
-          setTallyOnCloud(filterTOCPermission[0]?.active);
+        const filterTOCUserPermission: any = getReqPermission(clientDetails, "toc_user");
+        const filterTOCPermission: any = getReqPermission(clientDetails, "tally_cloud");
+        const filterCompPermission: any = getReqPermission(clientDetails, "total_company");
+
+        if (filterTOCPermission !== null) {
+          setTallyOnCloud(filterTOCPermission?.active);
         }
 
-        if (!isEmpty(filterTOCUserPermission)) {
-          setTotalTOCusers(filterTOCUserPermission[0]?.value);
+        if (filterTOCUserPermission !== null) {
+          setTotalTOCusers(Number(filterTOCUserPermission?.value));
         }
 
-        if (!isEmpty(filterCompPermission)) {
-          setTotalCompanies(filterCompPermission[0]?.value);
+        if (filterCompPermission !== null) {
+          setTotalCompanies(Number(filterCompPermission?.value));
         }
       }
 
@@ -277,6 +278,7 @@ const ClientDetails = () => {
               <SubscriptionModal
                 openModal={subscriptionMpdal}
                 setOpenModal={setSubscriptionModal}
+                licenseId={licenseId}
               />
               : ""
           }
