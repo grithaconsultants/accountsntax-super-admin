@@ -95,7 +95,7 @@ const UserProfileDetails = () => {
                     <ButtonSimple
                       title="Change Password"
                       type="voilet"
-                      disabled={false}
+                      disabled={true}
                       onClickEvent={() => setPasswordEdit(true)}
                     />
                   </div>
