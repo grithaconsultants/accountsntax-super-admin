@@ -153,6 +153,7 @@ const Companies = () => {
                           <CompaniesListTable
                             rowsDataList={dataList}
                             defaultCurrent={defaultCurrent}
+                            defaultPageSize={defaultPageSize}
                           />
 
                           <div className="pagination-component mt-3">
