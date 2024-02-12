@@ -44,51 +44,67 @@ export const fetchAllClients = async (dispatch: any, payload: any, apiUrl: any) 
 };
 
 
-export const fetchClientDetails = async (dispatch: any, payload: any) => {
+export const fetchClientDetails = async (dispatch: any, payload: any, router: any = undefined) => {
 
   const { clientID, clientsList, metaData, clientDetails }: any = payload;
-  dispatch(fetchClietnsRequest(payload));
 
-  const { response, status }: any = await ClientsService.getClientDetailsById(clientID);
-  if (!status) {
-    dispatch(fetchClietnsFailure({ ...payload, error: response }));
-    return;
-  };
+  try {
 
-  const resData = response?.data?.data ? response?.data?.data : null;
-  if (!isEmpty(resData)) {
-    const clientsData: any = {
-      clientID: clientID,
-      clientsList: clientsList,
-      metaData: metaData,
-      clientDetails: resData ?? clientDetails
+    dispatch(fetchClietnsRequest(payload));
+
+    const { response, status }: any = await ClientsService.getClientDetailsById(clientID);
+    if (!status) {
+      dispatch(fetchClietnsFailure({ ...payload, error: response }));
+      return;
     };
 
-    dispatch(fetchClietnsSuccess(clientsData));
+    const resData = response?.data?.data ? response?.data?.data : null;
+    if (!isEmpty(resData)) {
+      const clientsData: any = {
+        clientID: clientID,
+        clientsList: clientsList,
+        metaData: metaData,
+        clientDetails: resData ?? clientDetails
+      };
+
+      dispatch(fetchClietnsSuccess(clientsData));
+      
+      if (router !== undefined) {
+        router.push('/clients/details');
+      }
+
+    }
+  } catch (error: any) {
+    ToastComponent(error ? error.message : "Something went wrong");
   }
+
 };
 
 
 export const updateClientDetails = async (dispatch: any, payload: any, apiData: any) => {
 
   const { clientID, clientsList, metaData, clientDetails }: any = payload;
-  dispatch(fetchClietnsRequest(payload));
+  try {
+    dispatch(fetchClietnsRequest(payload));
 
-  const { response, status }: any = await ClientsService.updateClientById(clientID, apiData);
-  if (!status) {
-    dispatch(fetchClietnsFailure({ ...payload, error: response }));
-    return;
-  };
-
-  const resData = response?.data?.data ? response?.data?.data : null;
-  if (!isEmpty(resData)) {
-    const clientsData: any = {
-      clientID: clientID,
-      clientsList: clientsList,
-      metaData: metaData,
-      clientDetails: resData ?? clientDetails
+    const { response, status }: any = await ClientsService.updateClientById(clientID, apiData);
+    if (!status) {
+      dispatch(fetchClietnsFailure({ ...payload, error: response }));
+      return;
     };
 
-    dispatch(fetchClietnsSuccess(clientsData));
+    const resData = response?.data?.data ? response?.data?.data : null;
+    if (!isEmpty(resData)) {
+      const clientsData: any = {
+        clientID: clientID,
+        clientsList: clientsList,
+        metaData: metaData,
+        clientDetails: resData ?? clientDetails
+      };
+
+      dispatch(fetchClietnsSuccess(clientsData));
+    }
+  } catch (error: any) {
+    ToastComponent(error ? error.message : "Something went wrong");
   }
 };

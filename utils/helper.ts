@@ -242,7 +242,6 @@ export const setMonthName = (value: string): string => {
   if (monthCode[0] === '0') {
     monthCode = monthCode[1];
   }
-  console.log("this si month detail", year, monthCode, date);
   monthName = `${month[parseInt(monthCode) - 1]}-${year.slice(2)}`;
   return monthName;
 }
@@ -396,7 +395,6 @@ export const dateDiffInDays = (value: string) => {
     const momentTime: any = value.split("T00:00:00.000Z");
     const toDateFormat: any = moment(momentTime[0]).tz("Asia/Calcutta");
     const todate = moment().tz("Asia/Calcutta");
-    console.log("this is no of days ", todate, todate.diff(toDateFormat, 'days'))
     return todate.diff(toDateFormat, 'days')
   }
 }
@@ -407,7 +405,6 @@ export const calcRemainingDays = (startDate: string, period: number) => {
     const momentTime: any = startDate.split("T00:00:00.000Z");
     const toDateFormat: any = moment(momentTime[0]).tz("Asia/Calcutta");
     const todate = moment().tz("Asia/Calcutta");
-    console.log("this is no of days ", todate, todate.diff(toDateFormat, 'days'))
     remainingDays = period - Number(todate.diff(toDateFormat, 'days'));
   }
   return remainingDays;

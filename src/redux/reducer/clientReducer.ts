@@ -2,12 +2,11 @@ import {
   FETCH_CLIENTS_REQUEST,
   FETCH_CLIENTS_SUCCESS,
   FETCH_CLIENTS_FAILURE,
-  CLIENT_DETAILS_UPDATE,
 } from '@/redux/constant';
 
 
 const initialState = {
-  clientID: "",
+  clientID: null,
   clientDetails: null,
   clientsList: [],
   metaData: null,

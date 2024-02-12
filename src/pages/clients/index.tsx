@@ -13,9 +13,11 @@ import HomeLayout from "@/containers/Layout/Layout";
 
 import endPoints from "@/ApiHandler/AppConfig";
 
+import { fetchAllClients } from "@/redux/actions/clientAction";
+
 import { filterIcon } from "@/utils/image";
 import { isEmpty } from "@/utils/helper";
-import { fetchAllClients } from "@/redux/actions/clientAction";
+
 
 const TAG = "Clients Page: ";
 
@@ -47,13 +49,11 @@ const Clients = () => {
     }
   }, [clientsList, metaData]);
 
-
   const callPaginationAction = (page: number, limit: number) => {
     ApicallForData(page, limit, sortKey, sortType, searchString);
     setDefaultCurrent(page);
     setDefaultPageSize(limit);
   };
-
 
   function onFilterClick() {
     const docElement: any = document.getElementById("searchClientsList");
@@ -89,19 +89,21 @@ const Clients = () => {
     }
 
     const payload = {
-      clientID: clientID,
+      clientID: null,
       clientsList: clientsList,
-      clientDetails: clientDetails,
+      clientDetails: null,
       metaData: metaData
     }
 
     fetchAllClients(dispatch, payload, apiUrl);
     setLoading(false);
+
   }
 
   console.log(TAG, " clientsList ", clientsList);
+  console.log(TAG, " clientDetails ", clientDetails);
   console.log(TAG, " dataList ", dataList);
-  console.log(TAG, " metaData from reducer ", metaData);
+  console.log(TAG, " metaData ", metaData);
 
 
   return (

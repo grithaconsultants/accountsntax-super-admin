@@ -28,6 +28,9 @@ const ClientDetails = () => {
   const { clientsList, metaData, clientID, clientDetails }: any = useSelector((state: any) => state.clientsData);
 
   const [loading, setLoading] = useState<boolean>(true);
+  const [licenseId, setLicenseId] = useState<any>(null);
+  const [dataToDis, setDataToDis] = useState<any>([]);
+  const [clientData, setClientData] = useState<any>(null);
   const [tocModal, setTocModal] = useState<boolean>(false);
   const [upDateClientModal, setUpDateClientModal] = useState<boolean>(false);
   const [subscriptionMpdal, setSubscriptionModal] = useState<boolean>(false);
@@ -36,13 +39,9 @@ const ClientDetails = () => {
   const [noOfusers, setNoOfUsers] = useState<number>(0);
   const [totalTOCuser, setTotalTOCusers] = useState<number>(0);
   const [totalDays, setTotalDays] = useState<number>(0);
-  const [noOfAssignedCompanies, setNoOfAssignedCompanies] = useState<number>(0);
   const [totalCompanies, setTotalCompanies] = useState<number>(0);
-  const [dataToDis, setDataToDis] = useState<any>([]);
-  const [clientData, setClientData] = useState<any>(null);
+  const [noOfAssignedCompanies, setNoOfAssignedCompanies] = useState<number>(0);
   const [totalRemainingDays, setTotalRemainingDays] = useState<number>(0);
-  const [licenseId, setLicenseId] = useState<any>(null);
-
 
   useEffect(() => {
     if (clientDetails !== null) {

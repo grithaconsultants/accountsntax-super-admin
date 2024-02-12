@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,7 +10,8 @@ import IconBox from "@/component/iconbox/iconbox";
 import { fetchClientDetails } from "@/redux/actions/clientAction";
 
 import { ICFBsBoxArrowInUpRight } from '@/utils/icons';
-import { isEmpty, removeDateRest, removeplus91, SrPageNumber } from "@/utils/helper";
+import { removeDateRest, removeplus91, SrPageNumber } from "@/utils/helper";
+
 
 const TAG = "ClientListTable: ";
 
@@ -20,8 +21,8 @@ const ClientListTable = (props: any) => {
 
   const router = useRouter();
   const dispatch = useDispatch();
-  
-  const { clientID, clientDetails, clientsList, metaData, error }: any = useSelector((state: any) => state.clientsData);
+
+  const { clientID, clientDetails, clientsList, metaData }: any = useSelector((state: any) => state.clientsData);
 
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -37,25 +38,27 @@ const ClientListTable = (props: any) => {
 
 
   async function redirectToClientDetails(clientId: any) {
-    const payload = {
-      clientID: clientId,
-      clientsList: clientsList,
-      clientDetails: clientDetails,
-      metaData: metaData
-    };
 
-    setLoading(true);
-    fetchClientDetails(dispatch, payload);
-    setLoading(false);
+    try {
+      const payload = {
+        clientID: clientId,
+        clientsList: clientsList,
+        clientDetails: clientDetails,
+        metaData: metaData
+      };
 
-    if (!isEmpty(clientDetails)) {
-      router.push('/clients/details');
-    } else if (error == null) {
-      ToastComponent("Client Data Not Found");
-    } else {
-      ToastComponent(error);
+      setLoading(true);
+      fetchClientDetails(dispatch, payload, router);
+      setLoading(false);
+
+    } catch (error: any) {
+      ToastComponent(error ? error.message : "Something went wrong");
     }
+
   }
+
+
+  
 
   return (
     <>
