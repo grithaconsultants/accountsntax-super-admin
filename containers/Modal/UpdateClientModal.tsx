@@ -12,6 +12,7 @@ import { fetchClientDetails } from '@/redux/actions/clientAction';
 
 import { back } from "@/utils/image";
 import { ClientsService } from '@/utils/apiCallServices/client.api.services';
+import { isEmpty } from '@/utils/helper';
 
 const TAG = 'Update Client Details Modal :';
 
@@ -34,28 +35,33 @@ const UpdateClientModal = (props: any) => {
   }
 
   async function submitAction() {
-    const payload = {
-      clientID: clientID,
-      clientsList: clientsList,
-      clientDetails: clientDetails,
-      metaData: metaData
-    };
+    try {
+      const payload = {
+        clientID: clientID,
+        clientsList: clientsList,
+        clientDetails: clientDetails,
+        metaData: metaData
+      };
 
-    const apiData = {
-      status: clientStatus
-    };
+      const apiData = {
+        status: clientStatus
+      };
 
-    setLoading(true);
-    const { response, status }: any = await ClientsService.updateClientById(clientID, apiData);
-    setLoading(false);
+      setLoading(true);
+      const { response, status }: any = await ClientsService.updateClientById(clientID, apiData);
+      setLoading(false);
 
-    if (!status) {
-      ToastComponent(response?.data?.msg);
-      return;
-    };
+      if (!status) {
+        ToastComponent(response?.data?.msg);
+        return;
+      };
 
-    if (response?.data?.data && response?.data?.data.length > 0) {
-      fetchClientDetails(dispatch, payload);
+      if (!isEmpty(response?.data?.data )) {
+        fetchClientDetails(dispatch, payload);
+      }
+
+    } catch (error: any) {
+      ToastComponent(error.message ? error.message : "Something went wrong");
     }
 
     fallback();
@@ -75,7 +81,7 @@ const UpdateClientModal = (props: any) => {
       width={700}
     >
       <div className="modal-wrapper" >
-        
+
         <div className="m-tlt" >
           <div className="m-tlt-sec tx-v" >Edit Status</div>
           <div className="m-btn-sec" > <IconButton imgSrc={back} onClickCall={() => { fallback(); }} /> </div>
