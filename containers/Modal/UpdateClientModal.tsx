@@ -18,7 +18,7 @@ const TAG = 'Update Client Details Modal :';
 
 const UpdateClientModal = (props: any) => {
 
-  const { openModal, setOpenModal, clientData, setClientData } = props;
+  const { openModal, setOpenModal } = props;
 
   const dispatch = useDispatch();
   const { clientsList, metaData, clientID, clientDetails }: any = useSelector((state: any) => state.clientsData);
@@ -27,7 +27,7 @@ const UpdateClientModal = (props: any) => {
   const [clientStatus, setClientStatus] = useState<boolean>(false);
 
   useEffect(() => {
-    setClientStatus(clientData?.status);
+    setClientStatus(clientDetails?.status);
   }, [clientDetails]);
 
   function fallback() {
@@ -80,7 +80,6 @@ const UpdateClientModal = (props: any) => {
 
   function updateStatusActiopn(val: any) {
     setClientStatus(val);
-    // setClientData((pre: any) => ({ ...pre, status: val }));
   }
 
 
@@ -108,7 +107,7 @@ const UpdateClientModal = (props: any) => {
                 </div>
                 <div className='d-flex justify-content-start w-40'>
                   <SwitchComponent
-                    defaultChecked={clientData?.status ?? false}
+                    defaultChecked={clientStatus}
                     label=""
                     onChangeEvent={(val: any) => { updateStatusActiopn(val); }}
                   />

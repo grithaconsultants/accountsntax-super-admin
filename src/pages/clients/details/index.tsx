@@ -266,8 +266,6 @@ const ClientDetails = () => {
               <UpdateClientModal
                 openModal={upDateClientModal}
                 setOpenModal={setUpDateClientModal}
-                clientData={clientData}
-                setClientData={setClientData}
               />
               : ""
           }
