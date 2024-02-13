@@ -8,7 +8,6 @@ const SwitchComponent = (props: any): any => {
   const onChange = (checked: boolean) => {
     // console.log(`switch to ${checked}`);
     onChangeEvent(checked);
-    console.log("this is flag value " , flagValue);
   };
 
   return (
