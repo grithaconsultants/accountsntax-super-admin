@@ -24,18 +24,20 @@ const UpdateClientModal = (props: any) => {
   const { clientsList, metaData, clientID, clientDetails }: any = useSelector((state: any) => state.clientsData);
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [clientStatus, setClientStatus] = useState<any>();
+  const [clientStatus, setClientStatus] = useState<boolean>(false);
 
   useEffect(() => {
     setClientStatus(clientData?.status);
-  }, [clientData]);
+  }, [clientDetails]);
 
   function fallback() {
     setOpenModal(false);
   }
 
   async function submitAction() {
+
     try {
+      let isUpdateStatus: boolean = false;
       const payload = {
         clientID: clientID,
         clientsList: clientsList,
@@ -43,21 +45,29 @@ const UpdateClientModal = (props: any) => {
         metaData: metaData
       };
 
-      const apiData = {
-        status: clientStatus
-      };
+      if (clientStatus !== clientDetails?.status) {
+        isUpdateStatus = true;
+      }
 
-      setLoading(true);
-      const { response, status }: any = await ClientsService.updateClientById(clientID, apiData);
-      setLoading(false);
+      if (isUpdateStatus && clientID !== null) {
 
-      if (!status) {
-        ToastComponent(response?.data?.msg);
-        return;
-      };
+        const apiData = {
+          status: clientStatus
+        };
 
-      if (!isEmpty(response?.data?.data )) {
-        fetchClientDetails(dispatch, payload);
+        setLoading(true);
+        const { response, status }: any = await ClientsService.updateClientById(clientID, apiData);
+        setLoading(false);
+
+        if (!status) {
+          ToastComponent(response?.data?.msg);
+          return;
+        };
+
+        if (!isEmpty(response?.data?.data)) {
+          fetchClientDetails(dispatch, payload);
+        }
+
       }
 
     } catch (error: any) {
@@ -69,7 +79,8 @@ const UpdateClientModal = (props: any) => {
   };
 
   function updateStatusActiopn(val: any) {
-    setClientData((pre: any) => ({ ...pre, status: val }));
+    setClientStatus(val);
+    // setClientData((pre: any) => ({ ...pre, status: val }));
   }
 
 
