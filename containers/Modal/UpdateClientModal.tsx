@@ -82,6 +82,9 @@ const UpdateClientModal = (props: any) => {
     setClientStatus(val);
   }
 
+  console.log(TAG, " clientDetails clientDetails clientDetails ", clientDetails);
+  console.log(TAG, " clientStatus ", clientStatus);
+
 
 
   return (
@@ -107,7 +110,7 @@ const UpdateClientModal = (props: any) => {
                 </div>
                 <div className='d-flex justify-content-start w-40'>
                   <SwitchComponent
-                    defaultChecked={clientStatus}
+                    defaultChecked={clientDetails?.status ?? false}
                     label=""
                     onChangeEvent={(val: any) => { updateStatusActiopn(val); }}
                   />
