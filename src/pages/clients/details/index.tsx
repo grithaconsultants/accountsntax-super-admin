@@ -72,7 +72,9 @@ const ClientDetails = () => {
       if (!isEmpty(clientDetails?.licenses)) {
         const subscriptionData = clientDetails?.licenses;
         setLicenseId(subscriptionData?._id);
-        setTotalRemainingDays(subscriptionData?.active ? calcRemainingDays(subscriptionData?.startDate, Number(subscriptionData?.period)) : 0);
+        if (subscriptionData?.active === true && subscriptionData?.startDate && subscriptionData?.period) {
+          setTotalRemainingDays(calcRemainingDays(subscriptionData?.startDate, Number(subscriptionData?.period)));
+        }
       }
 
     }

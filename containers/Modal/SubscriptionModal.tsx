@@ -83,7 +83,7 @@ const SubscriptionModal = (props: any) => {
           {
             title: 'Remaining Days',
             value: (
-              subscriptionData?.active && calcRemainingDays(subscriptionData?.startDate, Number(subscriptionData?.period)) !== 0 ?
+              subscriptionData?.active && subscriptionData?.startDate && subscriptionData?.period && calcRemainingDays(subscriptionData?.startDate, Number(subscriptionData?.period)) !== 0 ?
                 calcRemainingDays(subscriptionData?.startDate, Number(subscriptionData?.period))
                 :
                 "Subscription has been Expired"

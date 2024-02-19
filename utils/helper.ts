@@ -401,16 +401,21 @@ export const dateDiffInDays = (value: string) => {
 
 export const calcRemainingDays = (startDate: string, period: number) => {
   if (!isEmpty(startDate)) {
-    const momentTime: any = startDate.split("T00:00:00.000Z");
-    const toDateFormat: any = moment(momentTime[0]).tz("Asia/Calcutta");
+    let formateDate;
+    if (startDate.includes('T')) {
+      const momentTime: any = startDate.split("T00:00:00.000Z");
+      formateDate = momentTime[0];
+    } else {
+      formateDate = startDate;
+    }
+    const toDateFormat: any = moment(formateDate).tz("Asia/Calcutta");
     const todate = moment().tz("Asia/Calcutta");
     const remainingDays = period - Number(todate.diff(toDateFormat, 'days'));
     if (remainingDays > 0) {
       return remainingDays;
-    } else {
-      return 0;
     }
   }
+  return 0;
 }
 
 
