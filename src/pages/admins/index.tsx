@@ -13,9 +13,11 @@ import ButtonSimple from '@/component/buttonsimple/buttonsimple';
 
 import { mike, add, uploadIcon, receivable, filterIcon, back } from '@/utils/image';
 
+const TAG = " Admin List page : ";
+
 const Admins = () => {
 
-  return (
+	return (
 		<HomeLayout>
 
 			<section id="contentSection">
@@ -27,20 +29,7 @@ const Admins = () => {
 
 							<div className="bu-body px-3" >
 								<div className='' >
-                <div className="fs-20 tx-v ff-m d-flex align-items-center justify-content-center" > Admin List </div>
-									{/* <div className='d-flex justify-content-between align-items-end' >
-										<div className="" >
-											<div className="fs-20 tx-v ff-m " > Invoicing Data </div>
-											<div className="fs-12 tx-b ff-r " > Last tally Updated: 29 Dec 2022 </div>
-										</div>
-										<div className='d-flex align-items-end' >
-											<div className="input-con" > <DateRange /></div>
-											<div className="ms-3" >
-												<IconTitleButton imgSrc={filterIcon} title="Filter" />
-											</div>
-										</div>
-									</div> */}
-
+									<div className="fs-20 tx-v ff-m d-flex align-items-center justify-content-center" > Admin List </div>
 									<div className="table-wrapper mt-5 " >
 										<table className="" >
 											<thead>

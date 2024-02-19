@@ -7,8 +7,8 @@ const SubscriptionCard = (props: any) => {
 	const { totalRemainingDays, setSubscriptionModal } = props;
 
 	function openSubscriptionModal() {
-    setSubscriptionModal(true);
-  }
+		setSubscriptionModal(true);
+	}
 
 	return (
 		<div className='bg-lo br-5 oh bx-11 p-3' >

@@ -13,7 +13,6 @@ import ButtonSimple from '@/component/buttonsimple/buttonsimple';
 import ProgressBar from '@/component/progress/progress';
 
 import Country from '@/containers/Country/Country';
-// import State from '@/containers/State/State';
 import City from '@/containers/City/City';
 import HomeLayout from '@/containers/Layout/Layout';
 

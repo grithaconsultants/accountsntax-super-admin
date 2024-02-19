@@ -1,41 +1,30 @@
-import React, { useState, Suspense, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import type { TabsProps } from "antd";
-import { Tabs } from "antd";
 import { useRouter } from "next/router";
-import { DownOutlined } from "@ant-design/icons";
-import { FaRegEdit } from "react-icons/fa";
-import dynamic from "next/dynamic";
 
-import CompanyBasicInfo from "@/containers/CompanyBasicInfo/CompanyBasicInfo";
-import VaultSection from "@/containers/Vault/VaultSection";
-import PartnerSection from "@/containers/Partner/PartnerSection";
+
 import ToastComponent from "@/component/Toast/Toast";
-import IconInformationCard from "@/component/IconInformationCard/IconInformationCard";
 import Loader from "@/component/loader/loader";
 import ImageViewer from "@/component/imageviewer/imageviewer";
-import IconBox from "@/component/iconbox/iconbox";
+import IconInformationCard from "@/component/IconInformationCard/IconInformationCard";
+
+import HomeLayout from "@/containers/Layout/Layout";
+import CompanyBasicInfo from "@/containers/CompanyBasicInfo/CompanyBasicInfo";
 
 import endPoints from "@/ApiHandler/AppConfig";
 import NetworkOps from "@/ApiHandler/NetworkOps";
 
-import HomeLayout from "@/containers/Layout/Layout";
-import { back, clientJPG } from "@/utils/image";
-
-import { getSelectedClient } from "@/utils/helper";
+import { ICDownOutlined } from "@/utils/icons";
 
 const TAG = "ProfileDetails: ";
 const ProfileDetails = () => {
   const router = useRouter();
+
   const [client, setClient] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [cDataLeft, setcDataLeft] = useState<any>(null);
   const [reFetchAction, setReFetchAction] = useState<boolean>(true);
 
-  const [editCompany, setEditClient] = useState<any>(false);
-  const EditCompanyDetails = dynamic(
-    () => import("@/containers/CompanyProfile/EditCompanyDetails"),
-    { suspense: true }
-  );
 
   const items: TabsProps["items"] = [
     {
@@ -51,24 +40,7 @@ const ProfileDetails = () => {
         <Loader />
       ),
     },
-    // {
-    //   key: '2',
-    //   label: `Partners`,
-    //   children: company ? <PartnerSection data={company} setReFetchAction={setReFetchAction} reFetchAction={reFetchAction} /> : <Loader />,
-    // },
-    // {
-    //   key: '3',
-    //   label: `Vaults`,
-    //   children: company ? <VaultSection data={company} setReFetchAction={setReFetchAction} /> : <Loader />,
-    // }
   ];
-
-  useEffect(() => {
-    if (reFetchAction == true) {
-      callDataKeeper();
-      setReFetchAction(false);
-    }
-  }, [reFetchAction]);
 
   useEffect(() => {
     if (client !== null) {
@@ -76,38 +48,29 @@ const ProfileDetails = () => {
         {
           title: "Client First Name",
           value: client?.firstName,
-          IMGBLOCK: <DownOutlined rev="" />,
+          IMGBLOCK: <ICDownOutlined />,
         },
 
         {
           title: "Client Last Name",
           value: client?.lastName,
-          IMGBLOCK: <DownOutlined rev="" />,
+          IMGBLOCK: <ICDownOutlined />,
         },
         {
           title: "Email",
           value: client?.email ? client?.email : "_",
-          IMGBLOCK: <DownOutlined rev="" />,
+          IMGBLOCK: <ICDownOutlined />,
         },
         {
           title: "Contact Number",
           value: client?.mobile ? client?.mobile : "_",
-          IMGBLOCK: <DownOutlined rev="" />,
+          IMGBLOCK: <ICDownOutlined />,
         },
       ]);
     }
   }, [client]);
 
-  async function callDataKeeper() {
-    console.log("Data keeper function is callinng");
-    const getSelectedC: any = await getSelectedClient();
-    console.log("get company data from localstorage", getSelectedC);
-    getClientDetails(getSelectedC._id);
-    console.log(
-      "API calling for get full company detail by ID",
-      getSelectedC._id
-    );
-  }
+
 
   async function getClientDetails(clientId: any): Promise<void> {
     setClient(null);
@@ -150,7 +113,7 @@ const ProfileDetails = () => {
                   <div className="detail-card bg-white ">
                     <div className="py-5 bb-o">
                       <div className="pic-area">
-                        {client ? (
+                        {/* {client ? (
                           <ImageViewer
                             width={170}
                             height="auto"
@@ -161,7 +124,7 @@ const ProfileDetails = () => {
                           />
                         ) : (
                           <Loader />
-                        )}
+                        )} */}
                       </div>
                       <p className="text-center fs-20 mt-2 tx-d ">
                         {client?.firstName + " " + client?.lastName}
@@ -173,14 +136,6 @@ const ProfileDetails = () => {
                         {cDataLeft !== null ? (
                           <div className="">
                             <IconInformationCard renderData={cDataLeft} />
-                            {/* <div className="d-flex justify-content-center" >
-                              <IconBox
-                                type="text"
-                                icon={<FaRegEdit color="#673275" />}
-                                loading={false}
-                                // onClickEvent={() => { setEditCompany(true) }}
-                              />
-                            </div> */}
                           </div>
                         ) : (
                           <Loader />
@@ -194,7 +149,6 @@ const ProfileDetails = () => {
                   <div className=" bg-white br-5 oh p-3">
                     <div className="header">
                       Client Basic Details
-                      {/* <Tabs defaultActiveKey="1" items={items} /> */}
                     </div>
 
                     <div className="content"></div>
@@ -205,19 +159,6 @@ const ProfileDetails = () => {
           </div>
         </div>
       </section>
-
-      {/* {editCompany === true ?
-        <div>
-          <Suspense fallback={`Loading...`}>
-            <EditCompanyDetails
-              modalBool={editCompany}
-              setModal={setEditCompany}
-              setReFetchAction={setReFetchAction}
-              company={company}
-            />
-          </Suspense>
-        </div>
-        : ""} */}
     </HomeLayout>
   );
 };

@@ -1,11 +1,12 @@
 import React from "react";
 import Link from 'next/link';
 
-import { tally } from '@/utils/image';
 import TagCustom from "@/component/tags/tags";
+
 import { ICAiOutlineCloudServer } from "@/utils/icons";
 
 const TallyCloudCard = (props: any) => {
+
   const { seTOCModal, tallyOnCloud, totalTOCuser, noOfDays } = props;
 
   function openTocModal() {
@@ -28,7 +29,10 @@ const TallyCloudCard = (props: any) => {
         </div>
 
         <div className='d-flex align-items-end justify-content-end fs-20 ff-m tx-o'>
-          {tallyOnCloud ? <TagCustom classNames='mie' color="green" title="Active" /> : <TagCustom classNames='mie' color="volcano" title="Inactive" />}
+          {tallyOnCloud ?
+            <TagCustom classNames='mie' color="green" title="Active" />
+            :
+            <TagCustom classNames='mie' color="volcano" title="Inactive" />}
         </div>
 
       </div>

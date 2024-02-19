@@ -3,17 +3,11 @@ import dynamic from 'next/dynamic';
 import { useDispatch, useSelector } from 'react-redux';
 
 import HomeLayout from '@/containers/Layout/Layout';
-import ToastComponent from '@/component/Toast/Toast';
 import InformationCard from '@/component/informationcard/InformationsCard';
 import ButtonSimple from '@/component/buttonsimple/buttonsimple';
 import Loader from '@/component/loader/loader';
-import CustomTooltip from '@/component/tooltip/tooltip';
-import ImageViewer from '@/component/imageviewer/imageviewer';
 
-import endPoints from '@/ApiHandler/AppConfig';
-import NetworkOps from '@/ApiHandler/NetworkOps';
-
-import { ret_ifEmpty, removeDateRest, formateMobileNo, removeplus91, getToken } from '@/utils/helper';
+import { ret_ifEmpty, removeDateRest } from '@/utils/helper';
 
 const TAG = "UserProfile : ";
 
@@ -23,12 +17,8 @@ const UserProfileDetails = () => {
 
   const { adminData }: any = useSelector((state: any) => state.adminData);
 
-  const UpdateUserEmail = dynamic(() => import('@/containers/AdminProfile/UpdateAdminEmail'), { suspense: true });
   const ChangePassword = dynamic(() => import('@/containers/AdminProfile/ChangePassword'), { suspense: true });
-  const VerifyEmail = dynamic(() => import('@/containers/AdminProfile/VerifyEmail'), { suspense: true });
 
-  const [verifyModal, setVerifyModal] = useState<any>(false);
-  const [editEmail, setEditEmail] = useState<any>(false);
   const [passwordEdit, setPasswordEdit] = useState<any>(false);
 
   const [profileData, setProfileData] = useState<any>(null);
@@ -60,9 +50,6 @@ const UserProfileDetails = () => {
   }, [adminData]);
 
 
-  function editEmailPop() {
-    setEditEmail(true);
-  }
 
 
   console.log(' adminData adminData ', adminData);
@@ -107,7 +94,7 @@ const UserProfileDetails = () => {
           </div>
 
         </div>
-      </section>    
+      </section>
 
       {passwordEdit == true ?
         <Suspense fallback={`Loading...`}>

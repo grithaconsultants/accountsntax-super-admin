@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 
 import LoginFrom from '@/containers/LoginForm/LoginForm';
 
@@ -21,8 +20,8 @@ const Login = () => {
             <div className="a-t-h" >
               <Image src={logo776x120} alt="gst icon" width={232} height={36} />
             </div>
- 
-            <LoginFrom /> 
+
+            <LoginFrom />
 
           </div>
         </div>

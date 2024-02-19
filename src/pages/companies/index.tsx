@@ -8,8 +8,8 @@ import ToastComponent from "@/component/Toast/Toast";
 import EmptyComp from "@/component/emptycomp/emptycomp";
 import PaginationComponent from "@/component/pagination/pagination";
 
-import CompaniesListTable from "@/containers/CompaniesList/CompaniesListTable";
 import HomeLayout from '@/containers/Layout/Layout';
+import CompaniesListTable from "@/containers/CompaniesList/CompaniesListTable";
 
 import endPoints from "@/ApiHandler/AppConfig";
 import NetworkOps from "@/ApiHandler/NetworkOps";
@@ -98,10 +98,8 @@ const Companies = () => {
 
   return (
     <HomeLayout>
-
       <section id="contentSection">
         <div className="layout-contWrapper" >
-
           <div className="breadcrumb-wrapper" >
             <div className="br-left" >
               <span className="br-light-tlt" >Companies List</span>
@@ -112,12 +110,10 @@ const Companies = () => {
           </div>
 
           <div className="layout-cardArea" >
-
             <div className="cardBody px-0 mt-0 pb-4">
-              {/* <CompaniesList /> */}
-
               <div className="w-100 bg-lo p-3 oh br-5 bx-11">
-                <div className="d-flex justify-content-between pb-5 align-items-end">
+
+                <div className="d-flex justify-content-between pb-5 align-items-end">                  
                   <div className=""></div>
 
                   <div className="d-flex">
@@ -140,6 +136,7 @@ const Companies = () => {
                         onClickCall={onFilterClick}
                       />
                     </div>
+
                   </div>
                 </div>
 
@@ -174,15 +171,13 @@ const Companies = () => {
                     </>
                   )}
                 </div>
+
               </div>
-
             </div>
+          </div> 
 
-          </div>
-          
         </div>
       </section>
-
     </HomeLayout>
   );
 }

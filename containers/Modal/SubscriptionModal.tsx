@@ -24,7 +24,7 @@ const SubscriptionModal = (props: any) => {
   const dispatch = useDispatch();
   const { clientsList, metaData, clientID, clientDetails }: any = useSelector((state: any) => state.clientsData);
 
-  const [loading, setLoading] = useState<boolean>(false); 
+  const [loading, setLoading] = useState<boolean>(false);
   const [dataToDis, setDataToDis] = useState<any>([]);
   const [totalDays, setTotalDays] = useState<number>(0);
   const [isUpdateSubscription, setIsUpdateSubscription] = useState<boolean>(false);
@@ -82,7 +82,12 @@ const SubscriptionModal = (props: any) => {
           },
           {
             title: 'Remaining Days',
-            value: (subscriptionData?.active ? calcRemainingDays(subscriptionData?.startDate, Number(subscriptionData?.period)) : "Subscription has been Expired")
+            value: (
+              subscriptionData?.active && calcRemainingDays(subscriptionData?.startDate, Number(subscriptionData?.period)) !== 0 ?
+                calcRemainingDays(subscriptionData?.startDate, Number(subscriptionData?.period))
+                :
+                "Subscription has been Expired"
+            )
           },
 
         ]

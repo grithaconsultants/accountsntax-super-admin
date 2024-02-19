@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 import CustomTooltip from "@/component/tooltip/tooltip";
 import IconBox from "@/component/iconbox/iconbox";
@@ -9,10 +8,16 @@ import { removeplus91, SrPageNumber } from "@/utils/helper";
 import { ICFiEye } from "@/utils/icons";
 
 const TAG = "CompaniesListTable: ";
+
 const CompaniesListTable = (props: any) => {
+  
   const router = useRouter();
 
   const { rowsDataList, defaultCurrent, defaultPageSize } = props;
+
+  const redirectToProfile = (companyId: any) => {
+    router.push(`/company-profile?companyId=${companyId}`);
+  }
 
   return (
     <>
@@ -67,15 +72,13 @@ const CompaniesListTable = (props: any) => {
 
               <td className="tb-text tb-mw-150 px-1">
                 <CustomTooltip placement="topLeft" title={"View"}>
-                  <Link href={`/company-profiles/${item?._id}`}>
                     <IconBox
                       type="text"
                       icon={<ICFiEye />}
                       color="#EA7A3A"
                       loading={false}
-                      // onClickEvent={() => {}}
+                      onClickEvent={() => { redirectToProfile(item?._id) }}
                     />
-                  </Link>
                 </CustomTooltip>
               </td>
             </tr>

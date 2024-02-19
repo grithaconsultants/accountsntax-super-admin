@@ -30,7 +30,6 @@ const Clients = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
   const [dataList, setDataList] = useState<any>([]);
-  const [filteredData, setFilteredData] = useState<any>([]);
   const [meta, setMeta] = useState<any>(null);
   const [defaultPageSize, setDefaultPageSize] = useState<number>(10);
   const [defaultCurrent, setDefaultCurrent] = useState<number>(1);

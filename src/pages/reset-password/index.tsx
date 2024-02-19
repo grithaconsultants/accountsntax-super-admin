@@ -33,7 +33,6 @@ const ResetPassword = () => {
 
   useEffect(() => {
     const tobeitem: any = localStorage.getItem('otpmobile');
-    // console.log('got this', tobeitem);
     if (isEmpty(tobeitem)) {
       verifyCalled();
     } else {
@@ -53,9 +52,6 @@ const ResetPassword = () => {
 
   function callSync(val: any) {
 
-    // setLoading(true);
-    // console.log('otp submitted ', userData);
-
     const verifyObj = {
       _id: userData?._id,
       role: "super",
@@ -74,7 +70,6 @@ const ResetPassword = () => {
     setLoading(true);
     NetworkOps.makePostRequest(endPoints.resetPassword, json, false)
       .then(async (response: any) => {
-        // console.log(TAG, ' api response ', response);
         setLoading(false);
         if (response?.status == 200 && response?.data?.success == true) {
           ToastComponent(response?.data?.msg);
@@ -185,9 +180,7 @@ const ResetPassword = () => {
 
           </div>
         </div>
-
       </div>
-
     </section>
   );
 }

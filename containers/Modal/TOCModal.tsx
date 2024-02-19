@@ -15,10 +15,10 @@ import { back } from "@/utils/image";
 import { ClientsService } from '@/utils/apiCallServices/client.api.services';
 import { getReqPermission } from '@/utils/helper';
 
-
 const TAG = 'TOC Modal :';
 
 const TOCModal = (props: any) => {
+  
   const { openModal, setOpenModal, tallyOnCloud, setTallyOnCloud, totalTOCuser, setTotalTOCusers, licenseId } = props;
 
   const dispatch = useDispatch();
